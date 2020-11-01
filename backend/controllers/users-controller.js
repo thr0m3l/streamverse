@@ -25,15 +25,6 @@ async function connect_db(){
 connect_db(); //connects to oracle database
 //
 
-const DUMMY_USERS = [
-    {
-        id : 'u1',
-        name: 'Tanzim Hossain Romel',
-        email: 'test@test.com',
-        password: 'testers'
-    }
-]
-
 const getUsers = async (req, res, next) => {
     
     try {
@@ -54,20 +45,31 @@ const signup = async (req, res, next) => {
     //     throw new HttpError('Invalid Input', 422);
     // }
     
-    res.json({message: "inside the sign up route"});
     
-    const {USER_ID, NAME, EMAIL, DOB, COUNTRY_ID, CREDIT_CARD, PASSWORD} = req.body;
+    try {
+        const {USER_ID, NAME, EMAIL, DOB, COUNTRY_ID, CREDIT_CARD, PASSWORD} = req.body;
 
-    const users = await connection.execute(
-        `SELECT * FROM USER_NETFLIX`,
-    ).rows;
+        const hasUser = await connection.execute(
+            `SELECT * 
+            FROM USER_NETFLIX
+            WHERE EMAIL = :email OR USER_ID = :user_id`, {
+            email : EMAIL,
+            user_id : USER_ID
+        }
+        );
 
-    //Finds whether the user already exists
-    // const hasUser = users.find( u=> u.EMAIL === EMAIL && u.USER_ID === USER_ID);
+        if (hasUser.rows.length !== 0) {
+            const error = new HttpError(
+                'User exists already, please login instead.',
+                422
+            );
+            return next (error);
+        }
+    } catch (err) {
+        console.log(err);
+    }
     
-    // if (hasUser) {
-    //     throw new HttpError('User exists', 422); //invalid user input
-    // }
+    
 
     const createdUser = {
         USER_ID, NAME, EMAIL, DOB, COUNTRY_ID, CREDIT_CARD, PASSWORD
@@ -77,9 +79,9 @@ const signup = async (req, res, next) => {
 
     connection.execute(
         `INSERT INTO USER_NETFLIX (USER_ID, NAME, PASSWORD, EMAIL, DOB, COUNTRY_ID, CREDIT_CARD)
-        VALUE (:uid, :name, :pw, :email, :dob, :cid, :cred)`, {
-            uid : USER_ID,
-            name : NAME,
+        VALUES (:user_id, :uname, :pw, :email, :dob, :cid, :cred)`, {
+            user_id : USER_ID,
+            uname : NAME,
             pw : PASSWORD,
             email : EMAIL,
             dob : DOB, 
@@ -91,15 +93,26 @@ const signup = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-    const {email, password} = req.body;
+    const {EMAIL, PASSWORD} = req.body;
 
-    const identifiedUser = DUMMY_USERS.find( u => u.email === email);
+    const identifiedUser = await connection.execute(
+        `SELECT EMAIL, PASSWORD
+        FROM USER_NETFLIX
+        WHERE EMAIL = :email AND PASSWORD = :pw`, {
+            email : EMAIL,
+            pw : PASSWORD
+        }
+    );
 
-    if (!identifiedUser || identifiedUser.password !== password){
-        throw new HttpError('Wrong credentials', 401) //401 auth failed
+    if (identifiedUser && identifiedUser.rows.length === 0) {
+        const error = new HttpError(
+            'Login failed',
+            422
+        );
+        return next (error);
     }
 
-    res.json({message: 'logged in!'});
+    res.status(200).json({message: 'logged in!'});
 }
 
 exports.getUsers = getUsers;
