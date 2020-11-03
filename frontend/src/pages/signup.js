@@ -8,12 +8,9 @@ import { CountryDropdown, CountryRegionData} from 'react-country-region-selector
 
 export default function Signup(){
     const history = useHistory();
-
-    //user id might be removed later or , without removing here, just removing the form.input element also should suffice and then an empty user_id will be sent to backend 
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [dob,setDOB] = useState('');
-    //in case of country_id,same as user_id 
     const [country_id,setCountryId] = useState('');
     const [creditcard,setCreditCard] = useState('');
     const [password,setPassword] = useState('');
@@ -52,6 +49,8 @@ export default function Signup(){
                 history.push(ROUTES.BROWSE); //Successful signup, moves to netflix browse page
             } else if (response.status === 422){
                 setError('Invalid user info');
+            } else if (response.status === 423){
+                setError('User already exists');
             }
 
         }catch(err){

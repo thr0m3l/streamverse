@@ -20,7 +20,8 @@ const signup = async (req, res, next) => {
     if(!errors.isEmpty()){
         console.log(errors);
         res.status(422);
-        throw new HttpError('Invalid Input', 422);
+        const error = new HttpError('Invalid Input', 422);
+        return next(error);
     }
     
     
@@ -38,11 +39,17 @@ const signup = async (req, res, next) => {
         if (hasUser.rows.length !== 0) {
             const error = new HttpError(
                 'User exists already, please login instead.',
-                422
+                423
             );
             return next (error);
         }
 
+
+    } catch (err) {
+        console.log(err);
+    }
+
+    try {
         //Hashes the password
         PASSWORD = await bcrypt.hash(PASSWORD, 12);
 
@@ -74,8 +81,9 @@ const signup = async (req, res, next) => {
              );
         
         res.status(201).json({EMAIL, token});
-
-    } catch (err) {
+    } catch(err){
+        const error = new HttpError(err, 424);
+        next(error);
         console.log(err);
     }
 
