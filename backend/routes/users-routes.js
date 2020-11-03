@@ -8,9 +8,6 @@ const router = express.Router();
 router.get('/', usersController.getUsers);
 
 router.post('/signup', [
-    check('USER_ID')
-      .not()
-      .isEmpty(),
     check('NAME').isLength({ min: 3 },
         check('EMAIL').normalizeEmail().isEmail())
   ], usersController.signup);

@@ -1,0 +1,210 @@
+CREATE TABLE user_netflix(
+	name VARCHAR2(30) NOT NULL,
+	email VARCHAR2(30) NOT NULL,
+	dob DATE NOT NULL,
+	country CHAR(30) NOT NULL,
+	credit_card VARCHAR2(30) NOT NULL,
+	password VARCHAR2(100) NOT NULL,
+	phone VARCHAR2(50), 
+	joined DATE DEFAULT SYSDATE,
+	CONSTRAINT user_pk PRIMARY KEY (email)
+);
+
+CREATE TABLE profile(
+	profile_id VARCHAR2(30),
+	email VARCHAR2(30) NOT NULL, 
+	dob DATE NOT NULL,
+	CONSTRAINT profile_pk PRIMARY KEY (email, profile_id), 
+	CONSTRAINT user_fk FOREIGN KEY (email) REFERENCES user_netflix (email) ON DELETE CASCADE
+);
+
+CREATE TABLE subscription(
+	sub_id INTEGER,
+	sub_type VARCHAR2(3) NOT NULL,
+	email VARCHAR2(30), 
+	start_date DATE DEFAULT SYSDATE,
+	end_date DATE NOT NULL,
+	bill NUMBER DEFAULT 0.0,
+	CONSTRAINT sub_pk PRIMARY KEY (sub_id, email),
+	CONSTRAINT sub_fk FOREIGN KEY (email) REFERENCES user_netflix (email) ON DELETE CASCADE
+);
+
+CREATE TABLE movie(
+	movie_id INTEGER,
+	title VARCHAR2(30) NOT NULL,
+	country CHAR(30),
+	rating NUMBER(4, 2) DEFAULT 0.0,
+	total_views INTEGER DEFAULT 0.0,
+	description VARCHAR2(1000),
+	image_url VARCHAR2(200),
+	video_url VARCHAR2(200),
+	length NUMBER(5, 2) DEFAULT 0.0,
+	language VARCHAR2(10),
+	price NUMBER (4, 2) DEFAULT 0.0,
+	maturity_rating VARCHAR2(30),
+	CONSTRAINT movie_pk PRIMARY KEY (movie_id)
+);
+
+CREATE TABLE show(
+	show_id INTEGER,
+	title VARCHAR2(30) NOT NULL,
+	start_date DATE,
+	end_date DATE,
+	country CHAR(30),
+	rating NUMBER(4, 2) DEFAULT 0.0,
+	total_views INTEGER DEFAULT 0.0,
+	description VARCHAR2(1000),
+	image_url VARCHAR2(200),
+	video_url VARCHAR2(200),
+	length NUMBER(5, 2) DEFAULT 0.0,
+	language VARCHAR2(10),
+	seasons INTEGER DEFAULT 0,
+	episodes INTEGER DEFAULT 0,
+	price NUMBER DEFAULT 0.0,
+	maturity_rating VARCHAR2(30),
+	CONSTRAINT show_pk PRIMARY KEY (show_id)
+);
+
+CREATE TABLE celeb(
+	celeb_id INTEGER,
+	name VARCHAR2(30),
+	contents INTEGER DEFAULT 0,
+	CONSTRAINT celeb_pk PRIMARY KEY (celeb_id)
+);
+
+CREATE TABLE genre(
+	genre_id INTEGER,
+	name VARCHAR2(30),
+	contents INTEGER DEFAULT 0,
+	CONSTRAINT genre_pk PRIMARY KEY (genre_id)
+);
+
+
+CREATE TABLE episode(
+	season_no INTEGER,
+	episode_no INTEGER,
+	show_id INTEGER,
+	title VARCHAR2(30),
+	description VARCHAR2(200),
+	length NUMBER (5,2),
+	image_url VARCHAR2(200),
+	video_url VARCHAR2(200),
+	CONSTRAINT episode_pk PRIMARY KEY (season_no, episode_no, show_id),
+	CONSTRAINT episode_fk FOREIGN KEY (show_id) REFERENCES show (show_id)
+);
+
+CREATE TABLE movie_watch(
+	movie_id INTEGER,
+	profile_id VARCHAR2(30),
+	email VARCHAR2(30),
+	rating INTEGER,
+	watched_upto DATE,
+	CONSTRAINT movie_watch_pk PRIMARY KEY (movie_id, email, profile_id),
+	CONSTRAINT movie_watch_fk1 FOREIGN KEY (movie_id) REFERENCES MOVIE (movie_id),
+	CONSTRAINT movie_watch_fk2 FOREIGN KEY (profile_id, email) REFERENCES profile (profile_id, email)
+);
+
+CREATE TABLE movie_watchlist(
+	movie_id INTEGER,
+	email VARCHAR2(30),
+	profile_id VARCHAR2(30),
+	CONSTRAINT movie_watchlist_pk PRIMARY KEY (movie_id, profile_id, email),
+	CONSTRAINT movie_watchlist_fk1 FOREIGN KEY (movie_id) REFERENCES MOVIE (movie_id),
+	CONSTRAINT movie_watchlist_fk2 FOREIGN KEY (profile_id, email) REFERENCES profile (profile_id, email)
+);
+
+
+CREATE TABLE movie_genre(
+	movie_id INTEGER,
+	genre_id INTEGER,
+	CONSTRAINT movie_genre_pk PRIMARY KEY (movie_id, genre_id),
+	CONSTRAINT movie_genre_fk1 FOREIGN KEY (movie_id) REFERENCES movie (movie_id),
+	CONSTRAINT movie_genre_fk2 FOREIGN KEY (genre_id) REFERENCES genre (genre_id)
+);
+
+CREATE TABLE movie_similarity(
+	movie_id1 INTEGER,
+	movie_id2 INTEGER,
+	score NUMBER(4,2),
+	CONSTRAINT movie_similarity_pk PRIMARY KEY (movie_id1, movie_id2),
+	CONSTRAINT movie_similarity_fk1 FOREIGN KEY (movie_id1) REFERENCES movie (movie_id),
+	CONSTRAINT movie_similarity_fk2 FOREIGN KEY (movie_id2) REFERENCES movie (movie_id)
+);
+
+CREATE TABLE movie_celeb(
+	movie_id INTEGER,
+	celeb_id INTEGER,
+	role VARCHAR2(15),
+	CONSTRAINT movie_celeb_pk PRIMARY KEY (movie_id, celeb_id),
+	CONSTRAINT movie_celeb_fk1 FOREIGN KEY (movie_id) REFERENCES movie (movie_id),
+	CONSTRAINT movie_celeb_fk2 FOREIGN KEY (celeb_id) REFERENCES celeb (celeb_id)
+);
+
+
+
+CREATE TABLE show_watch(
+profile_id VARCHAR2(30),
+email VARCHAR2(30),
+show_id INTEGER,
+rating INTEGER,
+status VARCHAR2(10),
+watched_upto DATE,
+CONSTRAINT show_watch_pk PRIMARY KEY (profile_id,show_id, email),
+CONSTRAINT show_watch_fk1 FOREIGN KEY (profile_id, email) REFERENCES profile(profile_id, email),
+CONSTRAINT show_watch_fk2 FOREIGN KEY (show_id) REFERENCES show(show_id)
+);
+
+CREATE TABLE show_watchlist
+(
+profile_id VARCHAR2(30),
+show_id INTEGER,
+email VARCHAR2(30),
+CONSTRAINT show_watchlist_pk PRIMARY KEY (show_id,profile_id, email),
+CONSTRAINT show_watchlist_fk1 FOREIGN KEY (profile_id, email) REFERENCES profile(profile_id, email),
+CONSTRAINT show_watchlist_fk2 FOREIGN KEY (show_id) REFERENCES show(show_id)
+);
+
+CREATE TABLE show_similarity
+(
+show_id1 INTEGER,
+show_id2 INTEGER,
+score NUMBER(4,2),
+CONSTRAINT show_similarity_pk PRIMARY KEY (show_id1,show_id2),
+CONSTRAINT show_similarity_fk1 FOREIGN KEY (show_id1) REFERENCES show(show_id),
+CONSTRAINT show_similarity_fk2 FOREIGN KEY (show_id2) REFERENCES show(show_id)
+);
+
+
+CREATE TABLE episode_watch
+(
+profile_id VARCHAR2(30),
+email VARCHAR2(30),
+season_no INTEGER,
+episode_no INTEGER,
+show_id INTEGER,
+duration NUMBER(3,2),
+status VARCHAR2(10),
+watched_upto DATE,
+CONSTRAINT episode_watch_pk PRIMARY KEY (profile_id,season_no,show_id,episode_no, email),
+CONSTRAINT episode_watch_fk1 FOREIGN KEY (profile_id, email) REFERENCES profile(profile_id, email),
+CONSTRAINT episode_watch_fk2 FOREIGN KEY (season_no,episode_no,show_id) REFERENCES episode(season_no,episode_no,show_id)
+);
+
+CREATE TABLE show_genre
+(
+show_id INTEGER,
+genre_id INTEGER,
+CONSTRAINT show_genre_pk PRIMARY KEY (show_id,genre_id),
+CONSTRAINT show_genre_fk1 FOREIGN KEY (show_id) REFERENCES show(show_id),
+CONSTRAINT show_genre_fk2 FOREIGN KEY (genre_id) REFERENCES genre(genre_id)
+);
+
+CREATE TABLE show_celeb
+(
+show_id INTEGER,
+celeb_id INTEGER,
+role VARCHAR2(20),
+CONSTRAINT show_celeb_pk PRIMARY KEY (show_id,celeb_id),
+CONSTRAINT show_celeb_fk1 FOREIGN KEY (show_id) REFERENCES show(show_id),
+CONSTRAINT show_celeb_fk2 FOREIGN KEY (celeb_id) REFERENCES celeb(celeb_id)
+);

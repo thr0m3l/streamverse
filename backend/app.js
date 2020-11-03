@@ -2,8 +2,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const usersRoutes = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
+const database = require('./services/database');
+
 
 const app = express();
+//Establishes database connection
+async function startup() {
+  try {
+    console.log('Initializing database module');
+  
+    await database.initialize();
+  } catch (err) {
+    console.error(err);
+    process.exit(1); // Non-zero failure code
+  }
+}
+
+startup();
 
 app.use(bodyParser.json());
 

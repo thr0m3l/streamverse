@@ -2,45 +2,13 @@ const {validationResult} = require('express-validator');
 const HttpError = require('../models/http-error');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-
-//Establishes connection with database
-
-let connection = null;
-
-const oracledb = require('oracledb');
-
-async function connect_db(){
-    
-    oracledb.autoCommit=true;
-
-    oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-    
-    
-    try {
-        connection = await oracledb.getConnection( {
-            user          : "netflix",
-            password      : "123",
-            connectString : "localhost/orcl"
-          });
-
-        return connection;
-    } catch (err) {
-        console.log(err);
-    }
-
-    
-};
-
-connect_db();
-
+const database = require('./../services/database');
 
 const getUsers = async (req, res, next) => {
     
     try {
-        const result = await connection.execute(
-            `SELECT * FROM USER_NETFLIX`,
-        );
+        const result = await database.simpleExecute(`SELECT * FROM USER_NETFLIX`);
+        
         res.status(200).json({users: result.rows});
     } catch (err){
         console.log(err);
@@ -57,15 +25,14 @@ const signup = async (req, res, next) => {
     
     
     try {
-        let {USER_ID, NAME, EMAIL, DOB, COUNTRY_ID, CREDIT_CARD, PASSWORD, PHONE} = req.body;
+        let {NAME, EMAIL, DOB, COUNTRY, CREDIT_CARD, PASSWORD, PHONE} = req.body;
 
-        const hasUser = await connection.execute(
+        const hasUser = await database.simpleExecute(
             `SELECT * 
             FROM USER_NETFLIX
-            WHERE EMAIL = :email OR USER_ID = :user_id`, {
-            email : EMAIL,
-            user_id : USER_ID
-        }
+            WHERE EMAIL = :email`, {
+            email : EMAIL
+            }
         );
 
         if (hasUser.rows.length !== 0) {
@@ -79,17 +46,16 @@ const signup = async (req, res, next) => {
         //Hashes the password
         PASSWORD = await bcrypt.hash(PASSWORD, 12);
 
-
         //Inserts the newUser to database
-        connection.execute(
-            `INSERT INTO USER_NETFLIX (USER_ID, NAME, PASSWORD, EMAIL, DOB, COUNTRY_ID, CREDIT_CARD, PHONE)
-            VALUES (:user_id, :uname, :pw, :email, :dob, :cid, :cred, :phone)`, {
-                user_id : USER_ID,
+        
+        await database.simpleExecute(
+            `INSERT INTO USER_NETFLIX (NAME, PASSWORD, EMAIL, DOB, COUNTRY, CREDIT_CARD, PHONE)
+            VALUES (:uname, :pw, :email, :dob, :cid, :cred, :phone)`, {
                 uname : NAME,
                 pw : PASSWORD,
                 email : EMAIL,
                 dob : DOB, 
-                cid: COUNTRY_ID, 
+                cid: COUNTRY, 
                 cred: CREDIT_CARD,
                 phone : PHONE
             }
@@ -107,7 +73,7 @@ const signup = async (req, res, next) => {
              {expiresIn : '1h'}
              );
         
-        res.status(201).json({USER_ID, EMAIL, token});
+        res.status(201).json({EMAIL, token});
 
     } catch (err) {
         console.log(err);
@@ -119,7 +85,7 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
     let {EMAIL, PASSWORD} = req.body;
 
-    const identifiedUser = await connection.execute(
+    const identifiedUser = await database.simpleExecute(
         `SELECT PASSWORD
         FROM USER_NETFLIX
         WHERE EMAIL = :email`, {
@@ -155,8 +121,6 @@ const login = async (req, res, next) => {
     } 
     
 }
-
-
 
 exports.getUsers = getUsers;
 exports.signup = signup;

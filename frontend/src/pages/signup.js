@@ -4,12 +4,12 @@ import {FooterContainer} from '../containers/footer';
 import {Form} from '../components';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
+import { CountryDropdown, CountryRegionData} from 'react-country-region-selector';
 
 export default function Signup(){
     const history = useHistory();
 
-    //user id might be reomved later or , without removing here, just removing the form.input element also should sufflice and then an empty user_id will be sent to backend
-    const [user_id,setUserId] = useState(''); 
+    //user id might be removed later or , without removing here, just removing the form.input element also should suffice and then an empty user_id will be sent to backend 
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [dob,setDOB] = useState('');
@@ -34,11 +34,10 @@ export default function Signup(){
 
             },
             body: JSON.stringify({
-                    USER_ID : user_id,
                     NAME : name,
                     EMAIL : email,
                     DOB : dob ,
-                    COUNTRY_ID : country_id,
+                    COUNTRY : country_id,
                     CREDIT_CARD : creditcard,
                     PASSWORD : password,
                     PHONE : phone
@@ -64,7 +63,6 @@ export default function Signup(){
             setPhone('');
             setCreditCard('');
             setDOB('');
-            setUserId('');
             setCountryId('');
             setError(err.message);
         }
@@ -86,14 +84,13 @@ export default function Signup(){
 
                     <Form.Input type="password" autoComplete="off" placeholder="Password" value={password} onChange={({target})=> setPassword(target.value) } />
                     
-                    <Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (MM / DD / YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
+                    <Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (DD-MON-YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
                     
                     <Form.Input  placeholder="Credit Card No." value={creditcard} onChange={({target})=> setCreditCard(target.value) } />
                     
                     <Form.Input  placeholder="Phone Number." value={phone} onChange={({target})=> setPhone(target.value) } />
-
-                    <Form.Input   placeholder="User Id" value={user_id} onChange={({target})=> setUserId(target.value) } />
-                    <Form.Input   placeholder="Country Id" value={country_id} onChange={({target})=> setCountryId(target.value) } />
+                    
+                    <Form.Input   placeholder="Country" value={country_id} onChange={({target})=> setCountryId(target.value) } />
                 
                     <Form.Submit disabled={isInvalid} type="submit" data-testid="sign-up">
                         Sign Up
