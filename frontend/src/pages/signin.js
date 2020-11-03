@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {HeaderContainer} from '../containers/header';
 import {FooterContainer} from '../containers/footer';
 import {Form} from '../components';
+import * as ROUTES from '../constants/routes';
+import {useHistory} from 'react-router-dom';
 
 export default function SignIn() {
-    
+    const history = useHistory();
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -15,18 +17,39 @@ export default function SignIn() {
         event.preventDefault();
         
         //send data to backend
-        
-        fetch('http://localhost:5000/api/users/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type' : 'application/json',
+        try{
+            const response = await fetch('http://localhost:5000/api/users/login', {
+            method: 'POST',
+            headers: {
+                  'Content-Type' : 'application/json',
 
-          },
-          body: JSON.stringify({
-              EMAIL: emailAddress,
-              PASSWORD : password
-          })
-      });
+            },
+            body: JSON.stringify({
+                  EMAIL: emailAddress,
+                PASSWORD : password
+            })
+            });
+
+            const responseData = await response.json();
+            
+            console.log(responseData);
+
+            if (response.status === 201){
+                history.push(ROUTES.BROWSE); //Successful login, moves to netflix browse page
+            } else if (response.status === 422){
+                setError('User does not exist. Please sign up instead');
+            } else if (response.status === 423){
+                setError('Incorrect Password');
+            }
+
+        } catch(err) {
+            console.log(err)
+            console.log('Sending data to the backend failed');
+            setEmailAddress('');
+            setPassword('');
+            setError(err.message);
+        }
+        
 
         
     };
