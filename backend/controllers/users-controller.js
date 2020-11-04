@@ -24,9 +24,10 @@ const signup = async (req, res, next) => {
         return next(error);
     }
     
+    let {NAME, EMAIL, DOB, COUNTRY, CREDIT_CARD, PASSWORD, PHONE} = req.body;
     
     try {
-        let {NAME, EMAIL, DOB, COUNTRY, CREDIT_CARD, PASSWORD, PHONE} = req.body;
+        
 
         const hasUser = await database.simpleExecute(
             `SELECT * 

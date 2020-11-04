@@ -47,6 +47,8 @@ export default function Signup(){
 
             if (response.status === 201){
                 history.push(ROUTES.BROWSE); //Successful signup, moves to netflix browse page
+
+                //TODO: add GET request to get user's profiles + auth token
             } else if (response.status === 422){
                 setError('Invalid user info');
             } else if (response.status === 423){
