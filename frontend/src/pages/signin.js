@@ -35,7 +35,7 @@ export default function SignIn() {
             console.log(responseData);
 
             if (response.status === 201){
-                history.push(ROUTES.BROWSE); //Successful login, moves to netflix browse page
+                history.push( ROUTES.BROWSE ); //Successful login, moves to netflix browse page
             } else if (response.status === 422){
                 setError('User does not exist. Please sign up instead');
             } else if (response.status === 423){
