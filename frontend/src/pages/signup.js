@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {HeaderContainer} from '../containers/header';
 import {FooterContainer} from '../containers/footer';
 import {Form} from '../components';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
 import { CountryDropdown, CountryRegionData} from 'react-country-region-selector';
+import {AuthContext} from './../context/auth-context';
 
 export default function Signup(){
     const history = useHistory();
@@ -16,7 +17,8 @@ export default function Signup(){
     const [password,setPassword] = useState('');
     const [phone,setPhone] = useState('');
     const [error,setError] = useState('');
-
+    const auth = useContext(AuthContext);
+    
     const isInvalid = name ==='' || email ==='' || dob==="" || password===''|| creditcard==='' || phone==='';
 
     const handleSignup = async event =>{
@@ -46,6 +48,7 @@ export default function Signup(){
             console.log(responseData);
 
             if (response.status === 201){
+                auth.login(email, responseData.body.token);
                 history.push(ROUTES.BROWSE); //Successful signup, moves to netflix browse page
 
                 //TODO: add GET request to get user's profiles + auth token

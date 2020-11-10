@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {HeaderContainer} from '../containers/header';
 import {FooterContainer} from '../containers/footer';
 import {Form} from '../components';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
+import {AuthContext} from './../context/auth-context';
 
 export default function SignIn() {
     const history = useHistory();
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-  
+    const auth = useContext(AuthContext); //auth context
+
     const isInvalid = password === '' || emailAddress === '';
   
     const handleSignin = async event => {
@@ -35,6 +37,7 @@ export default function SignIn() {
             console.log(responseData);
 
             if (response.status === 201){
+                auth.login(emailAddress, responseData.token); //updates the auth context
                 history.push( ROUTES.BROWSE ); //Successful login, moves to netflix browse page
             } else if (response.status === 422){
                 setError('User does not exist. Please sign up instead');

@@ -1,30 +1,65 @@
-import React from 'react';
-import {BrowserRouter as Router , Switch } from 'react-router-dom';
+import React, {useState, useCallback} from 'react';
+import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import { Home,Signin,Signup,Browse,Profiles } from './pages';
-import {IsUserRedirect,ProtectedRoute} from './helpers/routes';
-import {useAuthListener} from './hooks';
+import {AuthContext} from './context/auth-context';
+
 
 function App() {
-  //const {user} = useAuthListener(); --> it will be called later
-  const {user}= '';
-  return (
-    <Router>
+
+  const [token, setToken] = useState(false);
+  const [email, setEmail] = useState(false);
+
+  const login = useCallback((email, token) => {
+      setToken(token);
+      setEmail(email);
+  }, []);
+
+  const logout = useCallback(() => {
+    setToken(null);
+    setEmail(null);
+  }, []);
+
+  let routes;
+
+  if (!token){
+    routes = (
+      <React.Fragment>
+      <Route exact path={ROUTES.HOME}>
+        <Home/>
+      </Route>
+      <Route exact path={ROUTES.SIGN_UP}>
+        <Signup/>
+      </Route>
+      <Route exact path={ROUTES.SIGN_IN}>
+        <Signin/>
+      </Route>
+      <Redirect to = {ROUTES.SIGN_IN}/>
+      </React.Fragment>
+      
+    );
+  } else {
+    routes = (
       <Switch>
-        <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE} path={ROUTES.SIGN_IN}>
-          <Signin/>
-        </IsUserRedirect>
-        <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE} path={ROUTES.SIGN_UP}>
-          <Signup/>
-        </IsUserRedirect>
-        <ProtectedRoute user={user} path={ROUTES.BROWSE}>
-          <Browse/>
-        </ProtectedRoute>
-        <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE} path={ROUTES.HOME}>
-          <Home/>
-        </IsUserRedirect>
+      <Route exact path={ROUTES.BROWSE}>
+        <Browse/>
+      </Route>
+      <Redirect to = {ROUTES.BROWSE}/>
       </Switch>
+    );
+  }
+
+
+  return (
+    <AuthContext.Provider value = {{
+      token: token, 
+      login:login, 
+      logout:logout,
+      isLoggedIn : !!token}}>
+    <Router>
+      {routes}
     </Router>
+    </AuthContext.Provider>
   );
 }
 

@@ -1,9 +1,11 @@
-import {useState,useEffect,useContext} from 'react';
-//imported firbase
+import {useState, useEffect, useContext} from 'react';
 
 export default function useAuthListener(){
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem('authUser'))
+    );
     //firebase work
+    
     
     
 
