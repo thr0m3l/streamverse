@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
-import { Home,Signin,Signup,Browse,Profiles } from './pages';
+import { Home,Signin,Signup,Browse,Profiles,CreateProfile } from './pages';
 import {AuthContext} from './context/auth-context';
 
 
@@ -34,17 +34,23 @@ function App() {
       <Route exact path={ROUTES.SIGN_IN}>
         <Signin/>
       </Route>
-      <Redirect to = {ROUTES.SIGN_IN}/>
+      <Redirect to = {ROUTES.HOME}/>
       </React.Fragment>
       
     );
   } else {
     routes = (
       <Switch>
-      <Route exact path={ROUTES.BROWSE}>
-        <Browse/>
+      <Route exact path={ROUTES.PROFILES}>
+        <Profiles email={email}/>
       </Route>
-      <Redirect to = {ROUTES.BROWSE}/>
+      <Route exact path={ROUTES.CREATE_PROFILE}>
+        <CreateProfile/>
+      </Route>
+      <Route exact path={ROUTES.HOME}>
+        <Home/>
+      </Route>
+      <Redirect to = {ROUTES.PROFILES}/>
       </Switch>
     );
   }
