@@ -22,9 +22,14 @@ const requests = {
 }
 
 async function fetchData (){
-    const request = await instance.get(requests.fetchTrending.data);
+    try {
+        const request = await instance.get(requests.fetchTrending.data);
+        console.log(request);
+    } catch(err){
+        console.log(err);
+    }
     
-    console.log(request);
+    
 }
 
 fetchData();

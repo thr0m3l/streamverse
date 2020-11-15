@@ -30,11 +30,10 @@ const addProfile = async (req, res, next) => {
     try {
         database.simpleExecute(
             `INSERT INTO PROFILE (NAME, EMAIL, DOB, PROFILE_ID)
-            VALUES (:pname, :email, :dob, :pid )`, {
+            VALUES (:pname, :email, :dob, PROFILE_ID_SEQ.NEXTVAL )`, {
                 pname: NAME,
                 email: EMAIL,
-                dob : DOB,
-                pid : 'PROFILE_ID_SEQ.NEXTVAL'
+                dob : DOB
             }
         )
     } catch(err){
