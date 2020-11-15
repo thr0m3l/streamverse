@@ -28,9 +28,12 @@ export default class UserProfiles extends Component{
 
     render(){
 
-        const names = this.state.profiles.map((name)=>{
+        const names = this.state.profiles.map((name,index)=>{
             return (
-                <a href={ROUTES.BROWSE}><Profiles.Name >{name.NAME}</Profiles.Name></a>
+                <Profiles>
+                    <a href={ROUTES.BROWSE}><Profiles.Name >{name.NAME}</Profiles.Name></a>
+                    <Profiles.Picture src={index+1}/>
+                </Profiles>
             )
         });
         
