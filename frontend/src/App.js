@@ -34,6 +34,9 @@ function App() {
       <Route exact path={ROUTES.SIGN_IN}>
         <Signin/>
       </Route>
+      <Route exact path={ROUTES.BROWSE}>
+        <Browse/>
+      </Route>
       <Redirect to = {ROUTES.HOME}/>
       </React.Fragment>
       
@@ -52,9 +55,9 @@ function App() {
         <Home/>
       </Route>
       <Route exact path={ROUTES.BROWSE}>
-        <Browse email={email}/>
+        <Browse/>
       </Route>
-      <Redirect to = {ROUTES.PROFILES}/>
+      <Redirect to = {ROUTES.HOME}/>
       </Switch>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Header,Profiles} from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
-import {SelectProfileContainer } from '../containers/profiles';
+import {Form} from '../components';
 
 
 export default class UserProfiles extends Component{
@@ -30,10 +30,12 @@ export default class UserProfiles extends Component{
 
         const names = this.state.profiles.map((name,index)=>{
             return (
-                <Profiles>
-                    <a href={ROUTES.BROWSE}><Profiles.Name >{name.NAME}</Profiles.Name></a>
-                    <Profiles.Picture src={index+1}/>
-                </Profiles>
+                    <Profiles>
+                        <Form.Link to ="/browse">
+                            <Profiles.Name >{name.NAME}</Profiles.Name>
+                            <Profiles.Picture src={index+1}/>
+                        </Form.Link>
+                    </Profiles>
             )
         });
         
