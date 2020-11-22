@@ -37,6 +37,7 @@ function App() {
       <Redirect to = {ROUTES.HOME}/>
       </React.Fragment>
       
+      
     );
   } else {
     routes = (
@@ -49,6 +50,9 @@ function App() {
       </Route>
       <Route exact path={ROUTES.HOME}>
         <Home/>
+      </Route>
+      <Route exact path={ROUTES.BROWSE}>
+        <Browse email={email}/>
       </Route>
       <Redirect to = {ROUTES.PROFILES}/>
       </Switch>

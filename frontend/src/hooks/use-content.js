@@ -3,7 +3,11 @@ import {useEffect,useState,useContext} from 'react';
 
 export default function useContent(target){
     const [content,setContent]= useState([]);
-    //firebase work
+    //api call in useEffect
+
+    useEffect( ()=>{
+        
+    },[] );
 
     return { [target]: content};
 }
