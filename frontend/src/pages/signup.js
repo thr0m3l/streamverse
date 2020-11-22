@@ -49,7 +49,7 @@ export default function Signup(){
 
             if (response.status === 201){
                 auth.login(email, responseData.body.token);
-                history.push(ROUTES.BROWSE); //Successful signup, moves to netflix browse page
+                history.push(ROUTES.PROFILES); //Successful signup, moves to netflix browse page
 
                 //TODO: add GET request to get user's profiles + auth token
             } else if (response.status === 422){
@@ -61,13 +61,13 @@ export default function Signup(){
         }catch(err){
             console.log(err);
             console.log("Sending data to backend failed while signing up");
-            setName('');
-            setEmail('');
-            setPassword('');
-            setPhone('');
-            setCreditCard('');
-            setDOB('');
-            setCountryId('');
+            // setName('');
+            // setEmail('');
+            // setPassword('');
+            // setPhone('');
+            // setCreditCard('');
+            // setDOB('');
+            // setCountryId('');
             setError(err.message);
         }
     }

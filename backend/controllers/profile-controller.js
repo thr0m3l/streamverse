@@ -25,13 +25,13 @@ const getProfile = async (req, res, next) => {
 }
 
 const addProfile = async (req, res, next) => {
-    const {NAME, EMAIL, DOB} = req.body;
+    const {PROFILE_ID, EMAIL, DOB} = req.body;
 
     try {
         database.simpleExecute(
-            `INSERT INTO PROFILE (NAME, EMAIL, DOB, PROFILE_ID)
-            VALUES (:pname, :email, :dob, PROFILE_ID_SEQ.NEXTVAL )`, {
-                pname: NAME,
+            `INSERT INTO PROFILE (PROFILE_ID, EMAIL, DOB)
+            VALUES (:pname, :email, :dob)`, {
+                pname: PROFILE_ID,
                 email: EMAIL,
                 dob : DOB
             }

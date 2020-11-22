@@ -38,7 +38,8 @@ export default function SignIn() {
 
             if (response.status === 201){
                 auth.login(emailAddress, responseData.token); //updates the auth context
-                history.push( ROUTES.PROFILES ); //Successful login, moves to netflix browse page
+                console.log(auth.email);
+                history.push( ROUTES.PROFILES ); //Successful login, moves to netflix profiles page
             } else if (response.status === 422){
                 setError('User does not exist. Please sign up instead');
             } else if (response.status === 423){
