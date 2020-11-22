@@ -3,7 +3,7 @@ import {Form} from '../components';
 import { JumbotronContainer } from '../containers/jumbotron';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
-
+import {AuthContext} from './../context/auth-context';
 
 export default function CreateProfile() {
     const history = useHistory();
@@ -12,7 +12,10 @@ export default function CreateProfile() {
     const [dob,setDOB] = useState('');
     const [error,setError] = useState('');
     
-    const isInvalid = name ==='' || email ==='' || dob==="" ;
+    const isInvalid = name ==='' || dob==="" ;
+
+    const auth = useContext(AuthContext);
+
 
     const handleCreateProfile = async event =>{
         event.preventDefault();
@@ -20,6 +23,12 @@ export default function CreateProfile() {
 
         //send data to the backend
         try{
+            setEmail(auth.email);
+
+            if (auth.email) console.error(auth.email);
+            else console.error('Baaaal');
+
+
             const response = await fetch('http://localhost:5000/api/profiles/add', {
             method: 'POST',
             headers: {
@@ -27,10 +36,10 @@ export default function CreateProfile() {
 
             },
             body: JSON.stringify({
-                    NAME : name,
+                    PROFILE_ID : name,
                     EMAIL : email,
                     DOB : dob 
-                })
+            })
             });
             
             const responseData = await response.json();
@@ -65,8 +74,6 @@ export default function CreateProfile() {
                 <Form.Base onSubmit={handleCreateProfile} method="POST" >
                     
                     <Form.Input placeholder="Name" value={name} onChange={({target})=> setName(target.value) } />
-
-                    <Form.Input placeholder="Email" value={email} onChange={({target})=> setEmail(target.value) } />
 
                     <Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (DD-MON-YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
 

@@ -58,6 +58,7 @@ function App() {
 
   return (
     <AuthContext.Provider value = {{
+      email: email,
       token: token, 
       login:login, 
       logout:logout,
