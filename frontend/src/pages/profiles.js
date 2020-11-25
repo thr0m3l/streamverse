@@ -32,7 +32,7 @@ export default class UserProfiles extends Component{
             return (
                     <Profiles>
                         <Form.Link to ="/browse">
-                            <Profiles.Name >{name.NAME}</Profiles.Name>
+                            <Profiles.Name >{name.PROFILE_ID}</Profiles.Name>
                             <Profiles.Picture src={index+1}/>
                         </Form.Link>
                     </Profiles>

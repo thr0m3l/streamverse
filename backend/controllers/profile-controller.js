@@ -36,6 +36,7 @@ const addProfile = async (req, res, next) => {
                 dob : DOB
             }
         )
+        res.status(201).json({message: 'Successfully created profile'});
     } catch(err){
         console.log(err);
         res.status(400).json({message: 'Failed to add profile to database'});

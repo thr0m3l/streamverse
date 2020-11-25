@@ -9,7 +9,8 @@ function App() {
 
   const [token, setToken] = useState(false);
   const [email, setEmail] = useState(false);
-
+  const [profile, setProfile] = useState(false);
+  
   const login = useCallback((email, token) => {
       setToken(token);
       setEmail(email);

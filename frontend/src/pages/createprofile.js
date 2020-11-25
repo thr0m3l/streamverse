@@ -50,7 +50,7 @@ export default function CreateProfile() {
                 history.push(ROUTES.PROFILES); //Successful creation, moves to profiles page
 
                 //TODO: add GET request to get user's profiles + auth token
-            } else if (response.status === 422){
+            } else if (response.status === 400){
                 setError('Invalid profile info');
             } else if (response.status === 423){
                 setError('Profile already exists');
