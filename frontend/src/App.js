@@ -46,9 +46,9 @@ function App() {
   } else {
     routes = (
       <Switch>
-      <Route exact path={ROUTES.PROFILES}>
+      {/* <Route exact path={ROUTES.PROFILES}>
         <Profiles email={email}/>
-      </Route>
+      </Route> */}
       <Route exact path={ROUTES.CREATE_PROFILE}>
         <CreateProfile/>
       </Route>
@@ -70,6 +70,7 @@ function App() {
       token: token, 
       login:login, 
       logout:logout,
+      profile : profile,
       isLoggedIn : !!token}}>
     <Router>
       {routes}

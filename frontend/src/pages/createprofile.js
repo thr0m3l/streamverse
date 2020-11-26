@@ -47,7 +47,7 @@ export default function CreateProfile() {
             console.log(responseData);
 
             if (response.status === 201){
-                history.push(ROUTES.PROFILES); //Successful creation, moves to profiles page
+                history.push(ROUTES.BROWSE); //Successful creation, moves to profiles page
 
                 //TODO: add GET request to get user's profiles + auth token
             } else if (response.status === 400){

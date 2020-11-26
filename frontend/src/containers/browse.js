@@ -5,6 +5,7 @@ import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import { FooterContainer } from './footer';
 import {AuthContext} from './../context/auth-context';
+import { SelectProfileContainer } from './profiles';
 
 export function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('series');
@@ -22,7 +23,7 @@ export function BrowseContainer({ slides }) {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
-    }, [profile.displayName]);
+    }, [profile.PROFILE_ID]);
 
     useEffect(() => {
       setSlideRows(slides[category]);
@@ -35,7 +36,7 @@ export function BrowseContainer({ slides }) {
 
     }, [searchTerm]);
 
-    return  (
+    return profile.PROFILE_ID ? (
       <>
         
         <Header src="joker1" dontShowOnSmallViewPort>
@@ -94,5 +95,7 @@ export function BrowseContainer({ slides }) {
         <FooterContainer />
       </>
     
+    ) : (
+      <> <SelectProfileContainer email = {auth.email} setProfile = {setProfile}/> </>
     );
 }
