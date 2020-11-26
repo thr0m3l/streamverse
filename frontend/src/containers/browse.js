@@ -8,7 +8,7 @@ import {AuthContext} from './../context/auth-context';
 import { SelectProfileContainer } from './profiles';
 
 export function BrowseContainer({ slides }) {
-    const [category, setCategory] = useState('series');
+    const [category, setCategory] = useState('films');
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -53,10 +53,22 @@ export function BrowseContainer({ slides }) {
             <Header.Group>
               <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
               <Header.Profile>
+                
+                <Header.Picture src = {'2'}/>
+                
                 <Header.Dropdown>
+
                   <Header.Group>
-                    <Header.TextLink></Header.TextLink>
+                    <Header.Picture src = {'2'}/>
+                    <Header.TextLink> {profile.PROFILE_ID} </Header.TextLink>
                   </Header.Group>
+
+                  <Header.Group>
+                    <Header.TextLink onClick = {() => auth.logout()}>
+                       Sign Out
+                    </Header.TextLink>
+                  </Header.Group>
+
                 </Header.Dropdown>
               </Header.Profile>
             </Header.Group>
@@ -69,7 +81,7 @@ export function BrowseContainer({ slides }) {
               City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he projects in a
               futile attempt to feel like he's part of the world around him.
             </Header.Text>
-            <Header.PlayButton>Play</Header.PlayButton>
+            <Header.PlayButton> Play </Header.PlayButton>
           </Header.Feature>
         </Header>
 
@@ -79,15 +91,21 @@ export function BrowseContainer({ slides }) {
                 <Card.Title>{slideItem.title}</Card.Title>
                 <Card.Entities>
               {slideItem.data.map((item) => (
-                <Card.Item key={item.docId} item={item}>
-                  <Card.Image src={`/images/${category}/${item.genre}/${item.slug}/small.jpg`} />
+                <Card.Item key={item.MOVIE_ID} item={item}>
+                  <Card.Image src={`https://image.tmdb.org/t/p/w780${item.IMAGE_URL}`} />
                   <Card.Meta>
-                    <Card.SubTitle>{item.title}</Card.SubTitle>
-                    <Card.Text>{item.description}</Card.Text>
+                    <Card.SubTitle>{item.TITLE}</Card.SubTitle>
+                    <Card.Text>{item.DESCRIPTION}</Card.Text>
                   </Card.Meta>
                 </Card.Item>
               ))}
             </Card.Entities>
+            {/* <Card.Feature category = {category}>
+                <Player>
+                  <Player.Button/>
+                  <Player.Video ec = "/videos/bunny.mp4" />
+                </Player>
+            </Card.Feature> */}
             </Card>
             ))}
         </Card.Group>

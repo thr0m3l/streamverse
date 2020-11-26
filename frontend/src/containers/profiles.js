@@ -7,12 +7,6 @@ import {Form} from '../components';
 export function SelectProfileContainer({ email, setProfile }) {
     const [profiles, setProfiles] = useState([]);
 
-    useEffect ( () => {
-        console.log('Dhur bal');
-    }, []);
-    
-    let names;
-
     async function fetchFromAPI (){
         console.log('Hello!');
         
@@ -21,8 +15,6 @@ export function SelectProfileContainer({ email, setProfile }) {
         const data = await response.json();
         console.log(data.profile);
         console.log(profiles);
-
-        names = 
 
         setProfiles(data.profile);
     }

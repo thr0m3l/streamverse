@@ -108,7 +108,7 @@ async function getShowData(){
 
 }
 
-fetchMovieData(20);
+fetchMovieData(5);
 // fetchGenreData();
 
 
