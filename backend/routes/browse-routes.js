@@ -1,6 +1,5 @@
 const express = require('express');
-const {check} = require('express-validator');
-const profileController = require('../controllers/profile-controller');
+const browseController = require('../controllers/browse-controller');
 const checkAuth = require('../middleware/check-auth');
 
 
@@ -9,12 +8,7 @@ const router = express.Router();
 //TODO: Add authorization
 //router.use(checkAuth);
 
-router.get('/:email', profileController.getProfile);
-
-router.post('/add', profileController.addProfile);
-
-router.patch('/update', profileController.updateProfile);
-
-router.delete('/delete', profileController.deleteProfile);
+router.get('/movies/:genre', browseController.getMovieByGenre);
+// router.get('/shows/:genre', browseController.getMovieByGenre);
 
 module.exports = router;

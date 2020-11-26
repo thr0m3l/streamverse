@@ -35,9 +35,9 @@ function App() {
       <Route exact path={ROUTES.SIGN_IN}>
         <Signin/>
       </Route>
-      <Route exact path={ROUTES.BROWSE}>
+      {/* <Route exact path={ROUTES.BROWSE}>
         <Browse/>
-      </Route>
+      </Route> */}
       <Redirect to = {ROUTES.HOME}/>
       </React.Fragment>
       

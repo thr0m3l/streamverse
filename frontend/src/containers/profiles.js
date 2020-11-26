@@ -10,7 +10,7 @@ export function SelectProfileContainer({user,setProfile}){
             <>
                 <Header bg={false}>
                     <Header.Frame>
-                        <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix"/>
+                        <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix"/>
                         <Header.ButtonLink to={ROUTES.CREATE_PROFILE}>Create Profile</Header.ButtonLink>
                     </Header.Frame>
                 </Header>

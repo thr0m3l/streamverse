@@ -4,24 +4,6 @@ const api_key = 'e7bafd491af23dcc2cc134b14174e118';
 const axios = require('axios');
 // const fetch = require('node-fetch');
 
-const instance = axios.create({
-    baseURL: "https://api.themoviedb.org/3/movie/popular?api_key=e7bafd491af23dcc2cc134b14174e118",
-});
-
-
-// instance.get('');
-
-const requests = {
-    fetchTrending : `/trending/all/week?api_key=${api_key}&language=en-US`,
-    fetchNetflixOriginals: `/discover/tv?api_key=${api_key}&with_networks=213`,
-    fetchTopRated: `movie/top_rated?api_key=${api_key}&language=en-US`,
-    fetchActionMovies: `discover/movie?api_key=${api_key}&with_genres=28`,
-    fetchComedyMovies: `discover/movie?api_key=${api_key}&with_genres=35`,
-    fetchHorrorMovies: `discover/movie?api_key=${api_key}&with_genres=27`,
-    fetchRomanceMovies: `discover/movie?api_key=${api_key}&with_genres=10749`,
-    fetchDocumentaries: `discover/movie?api_key=${api_key}&with_genres=99`,
-}
-
 async function fetchMovieData (totalPages){
     try {
         console.log('Initializing database module');
@@ -101,9 +83,6 @@ async function fetchGenreData(){
         process.exit(1); // Non-zero failure code
     }
 
-    
-
-
     axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=e7bafd491af23dcc2cc134b14174e118&language=en-US').
     then(function (response) {
         for(i = 0 ; i < response.data.genres.length; ++i){
@@ -122,6 +101,10 @@ async function fetchGenreData(){
     }).catch(function(err){
         console.log(err);
     });
+
+}
+
+async function getShowData(){
 
 }
 
