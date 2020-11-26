@@ -96,16 +96,17 @@ export function BrowseContainer({ slides }) {
                   <Card.Meta>
                     <Card.SubTitle>{item.TITLE}</Card.SubTitle>
                     <Card.Text>{item.DESCRIPTION}</Card.Text>
+                    <Card.Text> {item.RATING}</Card.Text>
                   </Card.Meta>
                 </Card.Item>
               ))}
             </Card.Entities>
-            {/* <Card.Feature category = {category}>
+            <Card.Feature category = {category}>
                 <Player>
                   <Player.Button/>
-                  <Player.Video ec = "/videos/bunny.mp4" />
+                  <Player.Video src = "../../public/videos/bunny.mp4" />
                 </Player>
-            </Card.Feature> */}
+            </Card.Feature>
             </Card>
             ))}
         </Card.Group>

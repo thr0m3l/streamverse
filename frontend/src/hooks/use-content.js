@@ -14,7 +14,7 @@ export default function useContent(target){
     }
 
     useEffect( ()=>{
-        fetchMovieFromAPI('Comedy');
+        fetchMovieFromAPI('all');
     },[] );
 
     return { [target]: content};

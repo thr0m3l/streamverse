@@ -79,18 +79,19 @@ Card.Feature = function CardFeature({ children, category, ...restProps }) {
   const { showFeature, itemFeature, setShowFeature } = useContext(FeatureContext);
 
   return showFeature ? (
-    <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1000${itemFeature.IMAGE_URL}`}>
+    <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1280${itemFeature.IMAGE_URL}`}>
       <Content>
-        <FeatureTitle>{itemFeature.title}</FeatureTitle>
-        <FeatureText>{itemFeature.description}</FeatureText>
+        <FeatureTitle>{itemFeature.TITLE}</FeatureTitle>
+        <FeatureText>{itemFeature.DESCRIPTION}</FeatureText>
+        <FeatureText> {'Rating: ' + itemFeature.RATING}</FeatureText>
         <FeatureClose onClick={() => setShowFeature(false)}>
           <img src="/images/icons/close.png" alt="Close" />
         </FeatureClose>
 
         <Group margin="30px 0" flexDirection="row" alignItems="center">
-          <Maturity rating={itemFeature.maturity}>{itemFeature.maturity < 12 ? 'PG' : itemFeature.maturity}</Maturity>
+        <Maturity rating={itemFeature.MATURITY_RATING}>{itemFeature.MATURITY_RATING}</Maturity>
           <FeatureText fontWeight="bold">
-            {itemFeature.genre.charAt(0).toUpperCase() + itemFeature.genre.slice(1)}
+            {itemFeature.NAME}
           </FeatureText>
         </Group>
 
