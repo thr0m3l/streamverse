@@ -11,6 +11,10 @@ const router = express.Router();
 
 router.get('/:email', profileController.getProfile);
 
+router.post('/watchlist/find', profileController.hasWatchListed);
+
+router.post('/watchlist/add', profileController.addToWatchList);
+
 router.post('/add', profileController.addProfile);
 
 router.patch('/update', profileController.updateProfile);

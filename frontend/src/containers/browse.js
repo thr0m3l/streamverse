@@ -32,6 +32,8 @@ export function BrowseContainer({ slides }) {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
+      auth.profile = profile.PROFILE_ID;
+      console.log('Auth.profile_id = ' + auth.profile);
     }, [profile.PROFILE_ID]);
 
     useEffect(() => {

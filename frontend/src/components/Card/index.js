@@ -1,4 +1,5 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
+import {AuthContext} from '../../context/auth-context';
 
 import {
   Container,
@@ -16,6 +17,7 @@ import {
   Entities,
   Item,
   Image,
+  WatchList
 } from './styles/card';
 
 export const FeatureContext = createContext();
@@ -75,8 +77,58 @@ Card.Image = function CardImage({ ...restProps }) {
   return <Image {...restProps} />;
 };
 
+Card.WatchList = function CardWatchList ({children, ...restProps}){
+  return <WatchList {...restProps}> {children} </WatchList>
+}
+
 Card.Feature = function CardFeature({ children, category, ...restProps }) {
   const { showFeature, itemFeature, setShowFeature } = useContext(FeatureContext);
+  const auth = useContext(AuthContext);
+  const [inWatchList, setInWatchList] = useState(false);
+  
+
+  async function fetchWatchInfo(){
+    const response = await fetch('http://localhost:5000/api/profiles/watchlist/find', {
+        method: 'POST',
+        headers: {
+              'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({
+          EMAIL: auth.email,
+          PROFILE_ID : auth.profile,
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
+        })
+    });
+    console.log(response.result);
+
+    if(response.result && response.result.length > 0) setInWatchList(true);
+    else setInWatchList(false);
+  }
+
+  useEffect(() => {
+    fetchWatchInfo();
+  }, [itemFeature])
+
+  
+
+  async function postWatchInfo(){
+    const response = await fetch('http://localhost:5000/api/profiles/watchlist/add', {
+        method: 'POST',
+        headers: {
+              'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({
+          EMAIL: auth.email,
+          PROFILE_ID : auth.profile,
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
+        })
+    });
+    console.log(response);
+    setInWatchList(true);
+  }
+
 
   return showFeature ? (
     <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1280${itemFeature.IMAGE_URL}`}>
@@ -93,6 +145,10 @@ Card.Feature = function CardFeature({ children, category, ...restProps }) {
           <FeatureText fontWeight="bold">
             {itemFeature.NAME}
           </FeatureText>
+          <WatchList onClick = {postWatchInfo}>
+            {!inWatchList && 'Add to Watchlist'}
+            {inWatchList && 'Added to watchlist'}
+          </WatchList>
         </Group>
 
         {children}

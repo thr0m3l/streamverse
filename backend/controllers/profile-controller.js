@@ -80,8 +80,90 @@ const deleteProfile = async (req, res, next) => {
     }
 }
 
+const hasWatchListed = async (req, res, next) => {
+    let {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID} = req.body;
+    if (!MOVIE_ID) MOVIE_ID = '';
+    if (!SHOW_ID) SHOW_ID = '';
+
+    console.log(EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID);
+
+    const query = `
+        (SELECT MOVIE_ID, EMAIL, PROFILE_ID
+        FROM MOVIE_WATCHLIST
+        WHERE EMAIL = :email AND PROFILE_ID = :profile_id 
+        AND MOVIE_ID = :movie_id
+        )
+        UNION
+        (
+            SELECT SHOW_ID, EMAIL, PROFILE_ID
+            FROM SHOW_WATCHLIST
+            WHERE EMAIL = :email AND PROFILE_ID = :profile_id 
+            AND SHOW_ID = :show_id  
+        )
+    `
+    try {
+        const result = await database.simpleExecute(query, {
+            email : EMAIL,
+            profile_id : PROFILE_ID,
+            movie_id : MOVIE_ID,
+            show_id : SHOW_ID
+        });
+
+        res.status(200).json({result: result.rows});
+    } catch(err){
+        console.log(err);
+        res.status(400).json({message: 'Couldnt get watchlist info'});
+    }
+
+}
+
+const addToWatchList = async (req, res, next) => {
+    let {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID} = req.body;
+    let query;
+    
+    if (!MOVIE_ID) {
+        MOVIE_ID = '';
+        query = `INSERT INTO SHOW_WATCHLIST (SHOW_ID, PROFILE_ID, EMAIL)
+                    VALUES (:show_id, :profile_id, :email)`
+        try {
+            const result = await database.simpleExecute(query, {
+                email : EMAIL,
+                profile_id : PROFILE_ID,
+                show_id : SHOW_ID
+            });
+            res.status(200).json({message : 'added'});
+        } catch(err){
+            console.log(err);
+            res.status(400).json(err);
+        }
+
+    } else {
+        SHOW_ID = '';
+        query = `INSERT INTO MOVIE_WATCHLIST (MOVIE_ID, PROFILE_ID, EMAIL)
+                    VALUES (:movie_id, :profile_id, :email)`
+        try {
+            const result = await database.simpleExecute(query, {
+                email : EMAIL,
+                profile_id : PROFILE_ID,
+                movie_id : MOVIE_ID
+            });
+            res.status(200).json({message : 'added'});
+        } catch(err){
+            console.log(err);
+            res.status(400).json(err);
+        }
+    }
+
+    console.log('adding', EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID);
+
+}
+
+
+
 
 exports.getProfile = getProfile;
 exports.addProfile = addProfile;
 exports.updateProfile = updateProfile;
 exports.deleteProfile = deleteProfile;
+exports.hasWatchListed = hasWatchListed;
+exports.addToWatchList = addToWatchList;

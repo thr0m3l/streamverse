@@ -174,6 +174,7 @@ export const Content = styled.div`
   }
 `;
 
+
 export const Maturity = styled.div`
   background-color: ${({ rating }) => (rating >= 15 ? 'red' : 'green')};
   border-radius: 15px;
@@ -185,4 +186,20 @@ export const Maturity = styled.div`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-right: 10px;
   font-size: 12px;
+`;
+
+export const WatchList = styled.button`
+color: red;
+position: relative;
+left: 0px;
+top: 65px;
+cursor: pointer;
+background-color: transparent;
+border: 0;
+margin-left : 10px;
+margin-bottom: 0px;
+img {
+  filter: brightness(0) invert(1);
+  width: 24px;
+}
 `;
