@@ -69,8 +69,8 @@ function App() {
     <AuthContext.Provider value = {{
       email: email,
       token: token, 
-      login:login, 
-      logout:logout,
+      login: login, 
+      logout: logout,
       profile : profile,
       isLoggedIn : !!token}}>
     <Router>

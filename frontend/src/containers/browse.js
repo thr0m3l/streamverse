@@ -9,15 +9,24 @@ import { SelectProfileContainer } from './profiles';
 
 export function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('films');
+    const [prevCategory, setPrevCategory] = useState('');
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [slideRows, setSlideRows] = useState([]);
-
-
-    
+    const [slideRows, setSlideRows] = useState([]);    
     const auth = useContext(AuthContext); //auth context
-    console.log(auth.email);
+
+    async function searchHandler (keyword){
+        const url = `http://localhost:5000/api/browse/search/${keyword}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log('searching');
+        console.log(data);
+        setSlideRows([{
+          title: 'Search Results',
+          data: data.results
+        }]);
+    }
 
     useEffect(() => {
       setTimeout(() => {
@@ -26,28 +35,37 @@ export function BrowseContainer({ slides }) {
     }, [profile.PROFILE_ID]);
 
     useEffect(() => {
+      console.log(slides[category]);
       setSlideRows(slides[category]);
-      console.log("Slides from browse",slideRows);
     }, [slides, category]);
 
     useEffect(() => {
-      //const fuse = new Fuse(slideRows, { keys: ['data.description', 'data.title', 'data.genre'] });
-      //const results = fuse.search(searchTerm).map(({ item }) => item);
+      if (searchTerm.length === 1 && prevCategory === '') {
+        setPrevCategory(category);
+        setCategory('search');
+        setSlideRows();
+      }
+      if (searchTerm.length === 0) setCategory('films');
+
+      if (searchTerm.length >= 4) searchHandler(searchTerm);
 
     }, [searchTerm]);
 
     return profile.PROFILE_ID ? (
       <>
-        
-        <Header src="joker1" dontShowOnSmallViewPort>
+        {loading ? <Loading src = {'2'}/> : <Loading.ReleaseBody />}
+
+         <Header src="joker1" dontShowOnSmallViewPort>
           <Header.Frame>
             <Header.Group>
-              <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
-              <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => setCategory('series')}>
-                Series
+              <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix" />
+              <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => {
+                setCategory('series');
+                setSearchTerm('')}}>
+                Shows
               </Header.TextLink>
               <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
-                Films
+                Movies
               </Header.TextLink>
             </Header.Group>
             <Header.Group>
@@ -74,7 +92,7 @@ export function BrowseContainer({ slides }) {
             </Header.Group>
           </Header.Frame>
 
-          <Header.Feature>
+          {category !== 'search' && <Header.Feature>
             <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
             <Header.Text>
               Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham
@@ -83,10 +101,12 @@ export function BrowseContainer({ slides }) {
             </Header.Text>
             <Header.PlayButton> Play </Header.PlayButton>
           </Header.Feature>
+          }
+
         </Header>
 
         <Card.Group>
-            {slideRows.map((slideItem)=>(
+            {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
                 <Card.Entities>
@@ -96,16 +116,17 @@ export function BrowseContainer({ slides }) {
                   <Card.Meta>
                     <Card.SubTitle>{item.TITLE}</Card.SubTitle>
                     <Card.Text>{item.DESCRIPTION}</Card.Text>
+                    <Card.Text> {item.RATING}</Card.Text>
                   </Card.Meta>
                 </Card.Item>
               ))}
             </Card.Entities>
-            {/* <Card.Feature category = {category}>
+            <Card.Feature category = {category}>
                 <Player>
                   <Player.Button/>
-                  <Player.Video ec = "/videos/bunny.mp4" />
+                  <Player.Video src = "../../public/videos/bunny.mp4" />
                 </Player>
-            </Card.Feature> */}
+            </Card.Feature>
             </Card>
             ))}
         </Card.Group>

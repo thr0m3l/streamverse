@@ -74,9 +74,10 @@ export const Image = styled.img`
   width: 100%;
   max-width: 305px;
   cursor: pointer;
-  height: auto;
+  height: 100%;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 `;
 
 export const Item = styled.div`
@@ -84,6 +85,7 @@ export const Item = styled.div`
   flex-direction: column;
   margin-right: 5px;
   position: relative;
+  overflow-x: auto;
   cursor: pointer;
   transition: transform 0.2s;
   &:hover {

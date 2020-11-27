@@ -19,7 +19,6 @@ export default function CreateProfile() {
 
     const handleCreateProfile = async event =>{
         event.preventDefault();
-        console.log("comes here!");
 
         //send data to the backend
         try{
@@ -33,7 +32,6 @@ export default function CreateProfile() {
             method: 'POST',
             headers: {
                   'Content-Type' : 'application/json',
-
             },
             body: JSON.stringify({
                     PROFILE_ID : name,
