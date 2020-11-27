@@ -4,3 +4,4 @@ export {default as Signin} from './signin';
 export {default as Signup} from './signup';
 export {default as Profiles} from './profiles';
 export {default as CreateProfile} from './createprofile';
+export {default as AddSubscription} from './add_subscription';

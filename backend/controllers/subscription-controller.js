@@ -1,9 +1,20 @@
-const {validationResult} = require('express-validator');
+const {validationResult, Result} = require('express-validator');
 const database = require('./../services/database');
 
 const addSubscription = async (req, res, next) => {
-    const {SUB_ID,SUB_TYPE,EMAIL, END_DATE} = req.body;
+    const {SUB_TYPE,EMAIL, END_DATE} = req.body;
+    var SUB_ID;
 
+    try{
+        const result = await database.simpleExecute(
+            `SELECT   MAX(SUB_ID) M
+            FROM SUBSCRIPTION` 
+        );
+        SUB_ID=result.rows[0].M+1;
+        
+    }catch(err){
+        console.log(err.message);
+    }
     try {
         database.simpleExecute(
             `INSERT INTO SUBSCRIPTION (SUB_ID,SUB_TYPE,EMAIL,END_DATE)
@@ -30,6 +41,7 @@ const getSubscriptions = async (req, res, next) => {
     } catch (err){
         console.log(err);
     }
+    
 }
 
 

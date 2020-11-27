@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
-import { Home,Signin,Signup,Browse,Profiles,CreateProfile } from './pages';
+import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription } from './pages';
 import {AuthContext} from './context/auth-context';
 
 
@@ -40,8 +40,6 @@ function App() {
       </Route> */}
       <Redirect to = {ROUTES.HOME}/>
       </React.Fragment>
-      
-      
     );
   } else {
     routes = (
@@ -57,6 +55,9 @@ function App() {
       </Route>
       <Route exact path={ROUTES.BROWSE}>
         <Browse/>
+      </Route>
+      <Route exact path={ROUTES.ADD_SUBSCRIPTION}>
+        <AddSubscription/>
       </Route>
       <Redirect to = {ROUTES.HOME}/>
       </Switch>
