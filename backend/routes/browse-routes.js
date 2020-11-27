@@ -9,6 +9,7 @@ const router = express.Router();
 //router.use(checkAuth);
 
 router.get('/movies/:genre', browseController.getMovieByGenre);
-// router.get('/shows/:genre', browseController.getMovieByGenre);
+router.get('/shows/:genre', browseController.getShowByGenre);
+router.get('/search/:kw', browseController.search);
 
 module.exports = router;

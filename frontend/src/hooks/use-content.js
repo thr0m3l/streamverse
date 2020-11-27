@@ -13,8 +13,19 @@ export default function useContent(target){
         setContent(data.movies);
     }
 
+    async function fetchShowFromAPI (genre) {
+        const url = `http://localhost:5000/api/browse/shows/${genre}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data); //prints JSON data
+
+        console.log('fetching show from API');
+        setContent(data.shows);
+    }
+
     useEffect( ()=>{
-        fetchMovieFromAPI('all');
+        if (target === 'films') fetchMovieFromAPI('all');
+        else fetchShowFromAPI('all');
     },[] );
 
     return { [target]: content};

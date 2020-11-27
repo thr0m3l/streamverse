@@ -9,15 +9,24 @@ import { SelectProfileContainer } from './profiles';
 
 export function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('films');
+    const [prevCategory, setPrevCategory] = useState('');
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [slideRows, setSlideRows] = useState([]);
-
-
-    
+    const [slideRows, setSlideRows] = useState([]);    
     const auth = useContext(AuthContext); //auth context
-    console.log(auth.email);
+
+    async function searchHandler (keyword){
+        const url = `http://localhost:5000/api/browse/search/${keyword}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log('searching');
+        console.log(data);
+        setSlideRows([{
+          title: 'Search Results',
+          data: data.results
+        }]);
+    }
 
     useEffect(() => {
       setTimeout(() => {
@@ -26,28 +35,35 @@ export function BrowseContainer({ slides }) {
     }, [profile.PROFILE_ID]);
 
     useEffect(() => {
+      console.log(slides[category]);
       setSlideRows(slides[category]);
-      console.log("Slides from browse",slideRows);
     }, [slides, category]);
 
     useEffect(() => {
-      //const fuse = new Fuse(slideRows, { keys: ['data.description', 'data.title', 'data.genre'] });
-      //const results = fuse.search(searchTerm).map(({ item }) => item);
+      if (searchTerm.length === 1 && prevCategory === '') {
+        setPrevCategory(category);
+        setCategory('Search');
+        setSlideRows();
+      }
+      if (searchTerm === '') setCategory('films');
+
+      if (searchTerm.length >= 4) searchHandler(searchTerm);
 
     }, [searchTerm]);
 
     return profile.PROFILE_ID ? (
       <>
-        
-        <Header src="joker1" dontShowOnSmallViewPort>
+        {loading ? <Loading src = {'2'}/> : <Loading.ReleaseBody />}
+
+         <Header src="joker1" dontShowOnSmallViewPort>
           <Header.Frame>
             <Header.Group>
-              <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
+              <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix" />
               <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => setCategory('series')}>
-                Series
+                Shows
               </Header.TextLink>
               <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
-                Films
+                Movies
               </Header.TextLink>
             </Header.Group>
             <Header.Group>
@@ -86,7 +102,7 @@ export function BrowseContainer({ slides }) {
         </Header>
 
         <Card.Group>
-            {slideRows.map((slideItem)=>(
+            {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
                 <Card.Entities>
