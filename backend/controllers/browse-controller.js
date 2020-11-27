@@ -52,7 +52,7 @@ const getShowByGenre = async (req, res, next) => {
     if (genre === 'all'){
         query = `SELECT *
             FROM SHOW S, SHOW_GENRE SG, GENRE G
-            WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID
+            WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 100
             ORDER BY DBMS_RANDOM.RANDOM`
  
         try {

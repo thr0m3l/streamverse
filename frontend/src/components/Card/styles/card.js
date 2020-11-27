@@ -74,7 +74,7 @@ export const Image = styled.img`
   width: 100%;
   max-width: 305px;
   cursor: pointer;
-  height: auto;
+  height: 100%;
   padding: 0;
   margin: 0;
   overflow: hidden;

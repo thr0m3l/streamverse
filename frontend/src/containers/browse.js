@@ -42,10 +42,10 @@ export function BrowseContainer({ slides }) {
     useEffect(() => {
       if (searchTerm.length === 1 && prevCategory === '') {
         setPrevCategory(category);
-        setCategory('Search');
+        setCategory('search');
         setSlideRows();
       }
-      if (searchTerm === '') setCategory('films');
+      if (searchTerm.length === 0) setCategory('films');
 
       if (searchTerm.length >= 4) searchHandler(searchTerm);
 
@@ -59,7 +59,9 @@ export function BrowseContainer({ slides }) {
           <Header.Frame>
             <Header.Group>
               <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix" />
-              <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => setCategory('series')}>
+              <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => {
+                setCategory('series');
+                setSearchTerm('')}}>
                 Shows
               </Header.TextLink>
               <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
@@ -90,7 +92,7 @@ export function BrowseContainer({ slides }) {
             </Header.Group>
           </Header.Frame>
 
-          <Header.Feature>
+          {category !== 'search' && <Header.Feature>
             <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
             <Header.Text>
               Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham
@@ -99,6 +101,8 @@ export function BrowseContainer({ slides }) {
             </Header.Text>
             <Header.PlayButton> Play </Header.PlayButton>
           </Header.Feature>
+          }
+
         </Header>
 
         <Card.Group>
