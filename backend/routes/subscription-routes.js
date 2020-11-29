@@ -11,10 +11,12 @@ const router = express.Router();
 
 router.get('/', subscriptionController.getSubscriptions);
 
+router.get('/subid/:email', subscriptionController.getSubId);
+
 router.post('/add', subscriptionController.addSubscription);
 
-//router.patch('/update', profileController.updateProfile);
+router.patch('/update', subscriptionController.updateSubscription);
 
-//router.delete('/delete', profileController.deleteProfile);
+router.delete('/delete', subscriptionController.deleteSubscription);
 
 module.exports = router;

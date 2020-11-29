@@ -45,6 +45,11 @@ export default function AddSubscription() {
             console.log("after submit data in subscribe",responseData);
 
             if (response.status === 201){
+                const url = `http://localhost:5000/api/subscription/subid/${email}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log(data);
+                //auth.set_sub_id();
                 history.push(ROUTES.BROWSE); //Successful subscription, moves to netflix browse page
 
                 //TODO: add GET request to get user's profiles + auth token
