@@ -6,6 +6,11 @@ import logo from '../logo.svg';
 import { FooterContainer } from './footer';
 import {AuthContext} from './../context/auth-context';
 import { SelectProfileContainer } from './profiles';
+import Baron from 'react-baron/dist/es5';
+import { colors } from 'material-ui/styles';
+import {useHistory} from 'react-router-dom';
+
+
 
 export function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('films');
@@ -13,9 +18,12 @@ export function BrowseContainer({ slides }) {
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [slideRows, setSlideRows] = useState([]);    
+    const [slideRows, setSlideRows] = useState([]);
+    const [profiles, setProfiles] = useState([]);    
     const auth = useContext(AuthContext); //auth context
+    const history = useHistory();
 
+    
     async function searchHandler (keyword){
         const url = `http://localhost:5000/api/browse/search/${keyword}`;
         const response = await fetch(url);
@@ -28,6 +36,31 @@ export function BrowseContainer({ slides }) {
         }]);
     }
 
+    async function getWatchList(){
+      
+      try {
+        const response = await fetch('http://localhost:5000/api/profiles/watchlist/get', {
+          method: 'POST',
+          headers: {
+                'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify({
+            EMAIL: auth.email,
+            PROFILE_ID : auth.profile
+          })
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+
+        if (responseData.arr) setSlideRows(responseData.arr);
+      } catch (err){
+          console.log(err);
+      }
+      
+
+    }
+
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
@@ -37,9 +70,15 @@ export function BrowseContainer({ slides }) {
     }, [profile.PROFILE_ID]);
 
     useEffect(() => {
-      console.log(slides[category]);
+      console.log(slides);
       setSlideRows(slides[category]);
+
+      if (category === 'watchlist'){
+        getWatchList();
+      }
     }, [slides, category]);
+
+    
 
     useEffect(() => {
       if (searchTerm.length === 1 && prevCategory === '') {
@@ -57,7 +96,7 @@ export function BrowseContainer({ slides }) {
       <>
         {loading ? <Loading src = {'2'}/> : <Loading.ReleaseBody />}
 
-         <Header src="joker1" dontShowOnSmallViewPort>
+         <Header  dontShowOnSmallViewPort>
           <Header.Frame>
             <Header.Group>
               <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix" />
@@ -69,6 +108,15 @@ export function BrowseContainer({ slides }) {
               <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
                 Movies
               </Header.TextLink>
+              
+              <Header.TextLink active={category === 'watchlist' ? 'true' : 'false'} onClick={() => setCategory('watchlist')}>
+                WatchList
+              </Header.TextLink>
+
+              <Header.TextLink active={category === 'new' ? 'true' : 'false'} onClick={() => setCategory('new')}>
+                New and Popular
+              </Header.TextLink>
+
             </Header.Group>
             <Header.Group>
               <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -84,17 +132,22 @@ export function BrowseContainer({ slides }) {
                   </Header.Group>
 
                   <Header.Group>
+                    <Header.TextLink onClick = { () => history.push(ROUTES.ADD_SUBSCRIPTION)}> Subscription </Header.TextLink>
+                  </Header.Group>
+                  <Header.Group>
                     <Header.TextLink onClick = {() => auth.logout()}>
                        Sign Out
                     </Header.TextLink>
                   </Header.Group>
+
+
 
                 </Header.Dropdown>
               </Header.Profile>
             </Header.Group>
           </Header.Frame>
 
-          {category !== 'search' && <Header.Feature>
+          {/* {(category === 'films' || category === 'series' )&& <Header.Feature>
             <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
             <Header.Text>
               Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham
@@ -103,7 +156,7 @@ export function BrowseContainer({ slides }) {
             </Header.Text>
             <Header.PlayButton> Play </Header.PlayButton>
           </Header.Feature>
-          }
+          } */}
 
         </Header>
 
@@ -111,6 +164,7 @@ export function BrowseContainer({ slides }) {
             {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
+                {/* <Baron> */}
                 <Card.Entities>
               {slideItem.data.map((item) => (
                 <Card.Item key={item.MOVIE_ID} item={item}>
@@ -123,6 +177,7 @@ export function BrowseContainer({ slides }) {
                 </Card.Item>
               ))}
             </Card.Entities>
+            {/* </Baron> */}
             <Card.Feature category = {category}>
                 <Player>
                   <Player.Button/>

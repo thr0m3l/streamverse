@@ -9,7 +9,7 @@ const getMovieByGenre = async (req, res, next) => {
    if (genre === 'all'){
        query = `SELECT *
        FROM MOVIE M, MOVIE_GENRE MG, GENRE G
-       WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 100
+       WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 1000
        ORDER BY DBMS_RANDOM.RANDOM`
 
        try {
@@ -52,7 +52,7 @@ const getShowByGenre = async (req, res, next) => {
     if (genre === 'all'){
         query = `SELECT *
             FROM SHOW S, SHOW_GENRE SG, GENRE G
-            WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 100
+            WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 1000
             ORDER BY DBMS_RANDOM.RANDOM`
  
         try {

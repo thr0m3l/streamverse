@@ -31,7 +31,7 @@ export const Group = styled.div`
   ${({ margin }) => margin && `margin: ${margin}`};
   > ${Container}:first-of-type {
     @media (min-width: 1100px) {
-      margin-top: -150px;
+      margin-top: 0px;
     }
   }
 `;
@@ -59,6 +59,30 @@ export const Text = styled.p`
 export const Entities = styled.div`
   display: flex;
   flex-direction: row;
+  overflow-x: scroll; //testing
+
+//   ::-webkit-scrollbar {
+//     width: 50px;
+// }
+ 
+// ::-webkit-scrollbar-track {
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+//     border-radius: 10px;
+// }
+ 
+// ::-webkit-scrollbar-thumb {
+//     border-radius: 10px;
+//     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+// }
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #160501;
+}
 `;
 
 export const Meta = styled.div`
@@ -72,7 +96,8 @@ export const Meta = styled.div`
 export const Image = styled.img`
   border: 0;
   width: 100%;
-  max-width: 305px;
+  max-width: 150px;
+  min-width: 150px;
   cursor: pointer;
   height: 100%;
   padding: 0;
@@ -83,11 +108,17 @@ export const Image = styled.img`
 export const Item = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap : wrap;
   margin-right: 5px;
   position: relative;
-  overflow-x: auto;
   cursor: pointer;
   transition: transform 0.2s;
+  // overflow: scroll; //test
+  // position: absolute;
+  // left: 0;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  // padding-right: 150px;
   &:hover {
     transform: scale(1.3);
     z-index: 99;
@@ -110,6 +141,8 @@ export const Item = styled.div`
       margin-right: 30px;
     }
   }
+
+  ::-webkit-scrollbar {display:none;}
 `;
 
 export const FeatureText = styled.p`
@@ -189,17 +222,51 @@ export const Maturity = styled.div`
 `;
 
 export const WatchList = styled.button`
-color: red;
-position: relative;
-left: 0px;
-top: 65px;
-cursor: pointer;
-background-color: transparent;
-border: 0;
-margin-left : 10px;
-margin-bottom: 0px;
-img {
-  filter: brightness(0) invert(1);
-  width: 24px;
-}
+  background-color: #000000;
+  border-color: #000000;
+  position: absolute;
+  right : 300px;
+  top: 50px;
+  width: 115px;
+  height: 145px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: #ff0a16;
+  }
+`;
+
+export const Rating = styled.button`
+  background-color: #000000;
+  border-color: #000000;
+  position: absolute;
+  right : 400px;
+  top: 50px;
+  width: 100px;
+  height: 145px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: #ff0a16;
+  }
 `;
