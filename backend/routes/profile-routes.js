@@ -17,7 +17,7 @@ router.delete('/delete', profileController.deleteProfile);
 router.post('/watchlist/find', profileController.hasWatchListed);
 router.post('/watchlist/add', profileController.addToWatchList);
 router.delete('/watchlist/delete', profileController.deleteWatchList);
-router.get('watchlist/get', profileController.getWatchList);
+router.post('/watchlist/get/', profileController.getWatchList);
 
 
 router.post('rating/add', profileController.addRating);

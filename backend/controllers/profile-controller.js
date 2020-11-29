@@ -203,11 +203,52 @@ const deleteWatchList = async(req, res, next) => {
 }
 
 const getWatchList = async(req, res, next) => {
-    let query;
+    let query, query1;
+    
+    const {PROFILE_ID, EMAIL} = req.body;
+
     query = `SELECT MW.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.MATURITY_RATING, M.IMAGE_URL
     FROM MOVIE_WATCHLIST MW, MOVIE M
     WHERE MW.MOVIE_ID = M.MOVIE_ID AND
-    EMAIL = :email AND PROFILE_ID = :profile_id;`
+    EMAIL = :email AND PROFILE_ID = :profile_id`;
+
+    query1 = `SELECT SW.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.MATURITY_RATING, S.IMAGE_URL
+    FROM SHOW_WATCHLIST SW, SHOW S
+    WHERE SW.SHOW_ID = S.SHOW_ID AND
+    EMAIL = :email AND PROFILE_ID = :profile_id
+    `
+    try {
+        const result = await database.simpleExecute(query, {
+            email : EMAIL,
+            profile_id : PROFILE_ID
+        });
+        
+        const result1 = await database.simpleExecute(query1, {
+            email : EMAIL,
+            profile_id : PROFILE_ID
+        });
+
+        const shows = {
+            title : 'Shows',
+            data : result1.rows
+        };
+
+        const movies = {
+            title: 'Movies',
+            data : result.rows
+        }
+
+        const arr = [shows, movies];
+        
+        console.log('getting watchlist for', EMAIL, PROFILE_ID);
+        console.log(arr);
+
+        res.status(200).json({arr});
+
+    } catch(err){
+        console.log(err);
+        res.status(400).json(err);
+    }
 }
 
 const addRating = async(req, res, next) => {

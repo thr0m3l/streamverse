@@ -7,6 +7,7 @@ import { FooterContainer } from './footer';
 import {AuthContext} from './../context/auth-context';
 import { SelectProfileContainer } from './profiles';
 import Baron from 'react-baron/dist/es5';
+import { colors } from 'material-ui/styles';
 
 
 export function BrowseContainer({ slides }) {
@@ -31,8 +32,30 @@ export function BrowseContainer({ slides }) {
     }
 
     async function getWatchList(){
+      
+      try {
+        const response = await fetch('http://localhost:5000/api/profiles/watchlist/get', {
+          method: 'POST',
+          headers: {
+                'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify({
+            EMAIL: auth.email,
+            PROFILE_ID : auth.profile
+          })
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+
+        if (responseData.arr) setSlideRows(responseData.arr);
+      } catch (err){
+          console.log(err);
+      }
+      
 
     }
+
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
@@ -42,11 +65,11 @@ export function BrowseContainer({ slides }) {
     }, [profile.PROFILE_ID]);
 
     useEffect(() => {
-      console.log(slides[category]);
+      console.log(slides);
       setSlideRows(slides[category]);
 
       if (category === 'watchlist'){
-
+        getWatchList();
       }
     }, [slides, category]);
 
@@ -68,7 +91,7 @@ export function BrowseContainer({ slides }) {
       <>
         {loading ? <Loading src = {'2'}/> : <Loading.ReleaseBody />}
 
-         <Header src="joker1" dontShowOnSmallViewPort>
+         <Header  dontShowOnSmallViewPort>
           <Header.Frame>
             <Header.Group>
               <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix" />
@@ -114,7 +137,7 @@ export function BrowseContainer({ slides }) {
             </Header.Group>
           </Header.Frame>
 
-          {category !== 'search' && <Header.Feature>
+          {/* {(category === 'films' || category === 'series' )&& <Header.Feature>
             <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
             <Header.Text>
               Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham
@@ -123,7 +146,7 @@ export function BrowseContainer({ slides }) {
             </Header.Text>
             <Header.PlayButton> Play </Header.PlayButton>
           </Header.Feature>
-          }
+          } */}
 
         </Header>
 
@@ -131,7 +154,7 @@ export function BrowseContainer({ slides }) {
             {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
-                <Baron>
+                <Baron style>
                 <Card.Entities>
               {slideItem.data.map((item) => (
                 <Card.Item key={item.MOVIE_ID} item={item}>

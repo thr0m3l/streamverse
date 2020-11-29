@@ -164,7 +164,7 @@ async function fetchShowData(totalPages){
 async function fetchGenreData(){
     
 
-    axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=e7bafd491af23dcc2cc134b14174e118&language=en-US').
+    axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=e7bafd491af23dcc2cc134b14174e118&language=en-US').
     then(function (response) {
         for(i = 0 ; i < response.data.genres.length; ++i){
             let {id, name} = response.data.genres[i];
@@ -184,9 +184,9 @@ async function fetchGenreData(){
     });
 }
 
-// fetchMovieData(5);
 // fetchGenreData();
-fetchShowData(5);
+fetchMovieData(20);
+fetchShowData(20);
 
 
 
