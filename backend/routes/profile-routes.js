@@ -20,9 +20,9 @@ router.delete('/watchlist/delete', profileController.deleteWatchList);
 router.post('/watchlist/get/', profileController.getWatchList);
 
 
-router.post('rating/add', profileController.addRating);
-router.get('rating/find', profileController.findRating);
-router.patch('rating/update', profileController.updateRating);
+router.post('/rating/add', profileController.addRating);
+router.post('/rating/find', profileController.findRating);
+router.patch('/rating/update', profileController.updateRating);
 
 
 

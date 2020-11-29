@@ -3,6 +3,8 @@ const HttpError = require('../models/http-error');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const database = require('./../services/database');
+const { query } = require('express');
+const oracledb = require('oracledb');
 
 const getProfile = async (req, res, next) => {
     const email = req.params.email;
@@ -239,7 +241,7 @@ const getWatchList = async(req, res, next) => {
         }
 
         const arr = [shows, movies];
-        
+
         console.log('getting watchlist for', EMAIL, PROFILE_ID);
         console.log(arr);
 
@@ -252,11 +254,138 @@ const getWatchList = async(req, res, next) => {
 }
 
 const addRating = async(req, res, next) => {
+    const {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID, RATING} = req.body;
+
+    let query;
+
     
+
+    if (MOVIE_ID){
+        query = `INSERT INTO MOVIE_WATCH 
+        (MOVIE_ID, EMAIL, PROFILE_ID, RATING) 
+        VALUES (:movie_id, :email, :profile_id, :rating)`
+        
+        try {
+            const result = await database.simpleExecute(query, {
+                movie_id : MOVIE_ID,
+                email : EMAIL,
+                profile_id : PROFILE_ID,
+                rating : RATING
+            });
+
+            res.status(200).json({
+                message : 'Inserted rating'
+            });
+
+        } catch (err){
+            console.log(err);
+
+            query = `UPDATE MOVIE_WATCH
+            SET RATING = :rating
+            WHERE MOVIE_ID = :movie_id AND PROFILE_ID = :profile_id AND EMAIL = :email`
+
+            try {
+                const result = await database.simpleExecute(query, {
+                    movie_id : MOVIE_ID,
+                    email : EMAIL,
+                    profile_id : PROFILE_ID,
+                    rating : RATING
+                });
+
+                res.status(200).json({
+                    message : 'Updated rating'
+                });
+            } catch (err1){  
+                console.log(err1)
+                res.status(400).json({message: 'couldnt add rating'});
+            }
+        }
+    } else {
+
+
+    }
 }
 
 const findRating = async(req, res, next) => {
+    const {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID} = req.body;
+
+    let func = `CREATE OR REPLACE FUNCTION GET_MOVIE_RATING
+     (MID IN NUMBER, PID IN VARCHAR2, EML IN VARCHAR2)
+    RETURN NUMBER IS
+        R NUMBER DEFAULT -1;
+    BEGIN
+        SELECT RATING INTO R
+        FROM MOVIE_WATCH
+        WHERE MOVIE_ID = MID AND PROFILE_ID = PID AND EMAIL = EML;
+        RETURN R;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN -1;
+
+    END;
+    `
+
+    let func1 = `CREATE OR REPLACE FUNCTION GET_SHOW_RATING 
+    (SID IN NUMBER, PID IN VARCHAR2, EML IN VARCHAR2)
+    RETURN NUMBER IS
+        R NUMBER DEFAULT -1;
+    BEGIN
+        SELECT RATING INTO R
+        FROM SHOW_WATCH
+        WHERE SHOW_ID = SID AND PROFILE_ID = PID AND EMAIL = EML;
+        RETURN R;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN -1;
+    END;`
+
+    try {
+        await database.simpleExecute(func);
+        await database.simpleExecute(func1);
+
+        // res.status(200).json({message : 'Okay'});
+    } catch (err){
+        console.log(err);
+    }
+
+    if (MOVIE_ID){
+        try {
+            const result = await database.simpleExecute(`
+                BEGIN
+                    :rating := GET_MOVIE_RATING (:movie_id, :profile_id, :email);
+                END;
+            `, {
+                rating : {dir : oracledb.BIND_OUT, type : oracledb.NUMBER},
+                movie_id : MOVIE_ID,
+                profile_id : PROFILE_ID,
+                email : EMAIL
+            });
+            res.status(200).json(result.outBinds);
+        } catch(err){
+            console.log(err);
+            res.status(400).json({err});
+        }
+    } else {
+        try {
+            const result = await database.simpleExecute(`
+                BEGIN
+                    :rating := GET_SHOW_RATING (:show_id, :profile_id, :email);
+                END;
+            `, {
+                rating : {dir : oracledb.BIND_OUT, type : oracledb.NUMBER},
+                show_id : SHOW_ID,
+                profile_id : PROFILE_ID,
+                email : EMAIL
+            });
     
+            console.log(result.outBinds);
+    
+            res.status(200).json(result.outBinds);
+        } catch(err){
+            console.log(err);
+            res.status(400).json({err});
+        }
+    }
 }
 
 const updateRating = async(req, res, next) => {

@@ -8,6 +8,8 @@ import {AuthContext} from './../context/auth-context';
 import { SelectProfileContainer } from './profiles';
 import Baron from 'react-baron/dist/es5';
 import { colors } from 'material-ui/styles';
+import {useHistory} from 'react-router-dom';
+
 
 
 export function BrowseContainer({ slides }) {
@@ -16,9 +18,12 @@ export function BrowseContainer({ slides }) {
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [slideRows, setSlideRows] = useState([]);    
+    const [slideRows, setSlideRows] = useState([]);
+    const [profiles, setProfiles] = useState([]);    
     const auth = useContext(AuthContext); //auth context
+    const history = useHistory();
 
+    
     async function searchHandler (keyword){
         const url = `http://localhost:5000/api/browse/search/${keyword}`;
         const response = await fetch(url);
@@ -127,10 +132,15 @@ export function BrowseContainer({ slides }) {
                   </Header.Group>
 
                   <Header.Group>
+                    <Header.TextLink onClick = { () => history.push(ROUTES.ADD_SUBSCRIPTION)}> Subscription </Header.TextLink>
+                  </Header.Group>
+                  <Header.Group>
                     <Header.TextLink onClick = {() => auth.logout()}>
                        Sign Out
                     </Header.TextLink>
                   </Header.Group>
+
+
 
                 </Header.Dropdown>
               </Header.Profile>
@@ -154,7 +164,7 @@ export function BrowseContainer({ slides }) {
             {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
-                <Baron style>
+                {/* <Baron> */}
                 <Card.Entities>
               {slideItem.data.map((item) => (
                 <Card.Item key={item.MOVIE_ID} item={item}>
@@ -167,7 +177,7 @@ export function BrowseContainer({ slides }) {
                 </Card.Item>
               ))}
             </Card.Entities>
-            </Baron>
+            {/* </Baron> */}
             <Card.Feature category = {category}>
                 <Player>
                   <Player.Button/>
