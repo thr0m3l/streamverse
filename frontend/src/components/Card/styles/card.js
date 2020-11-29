@@ -72,7 +72,8 @@ export const Meta = styled.div`
 export const Image = styled.img`
   border: 0;
   width: 100%;
-  max-width: 305px;
+  max-width: 150px;
+  min-width: 150px;
   cursor: pointer;
   height: 100%;
   padding: 0;
@@ -83,9 +84,9 @@ export const Image = styled.img`
 export const Item = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap : wrap;
   margin-right: 5px;
   position: relative;
-  overflow-x: auto;
   cursor: pointer;
   transition: transform 0.2s;
   &:hover {

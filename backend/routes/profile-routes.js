@@ -10,15 +10,21 @@ const router = express.Router();
 //router.use(checkAuth);
 
 router.get('/:email', profileController.getProfile);
+router.post('/add', profileController.addProfile);
+router.patch('/update', profileController.updateProfile);
+router.delete('/delete', profileController.deleteProfile);
 
 router.post('/watchlist/find', profileController.hasWatchListed);
-
 router.post('/watchlist/add', profileController.addToWatchList);
+router.delete('/watchlist/delete', profileController.deleteWatchList);
+router.get('watchlist/get', profileController.getWatchList);
 
-router.post('/add', profileController.addProfile);
 
-router.patch('/update', profileController.updateProfile);
+router.post('rating/add', profileController.addRating);
+router.get('rating/find', profileController.findRating);
+router.patch('rating/update', profileController.updateRating);
 
-router.delete('/delete', profileController.deleteProfile);
+
+
 
 module.exports = router;

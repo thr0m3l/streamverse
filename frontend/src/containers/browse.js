@@ -6,6 +6,8 @@ import logo from '../logo.svg';
 import { FooterContainer } from './footer';
 import {AuthContext} from './../context/auth-context';
 import { SelectProfileContainer } from './profiles';
+import Baron from 'react-baron/dist/es5';
+
 
 export function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('films');
@@ -28,6 +30,9 @@ export function BrowseContainer({ slides }) {
         }]);
     }
 
+    async function getWatchList(){
+
+    }
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
@@ -39,7 +44,13 @@ export function BrowseContainer({ slides }) {
     useEffect(() => {
       console.log(slides[category]);
       setSlideRows(slides[category]);
+
+      if (category === 'watchlist'){
+
+      }
     }, [slides, category]);
+
+    
 
     useEffect(() => {
       if (searchTerm.length === 1 && prevCategory === '') {
@@ -69,6 +80,15 @@ export function BrowseContainer({ slides }) {
               <Header.TextLink active={category === 'films' ? 'true' : 'false'} onClick={() => setCategory('films')}>
                 Movies
               </Header.TextLink>
+              
+              <Header.TextLink active={category === 'watchlist' ? 'true' : 'false'} onClick={() => setCategory('watchlist')}>
+                WatchList
+              </Header.TextLink>
+
+              <Header.TextLink active={category === 'new' ? 'true' : 'false'} onClick={() => setCategory('new')}>
+                New and Popular
+              </Header.TextLink>
+
             </Header.Group>
             <Header.Group>
               <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -111,6 +131,7 @@ export function BrowseContainer({ slides }) {
             {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
+                <Baron>
                 <Card.Entities>
               {slideItem.data.map((item) => (
                 <Card.Item key={item.MOVIE_ID} item={item}>
@@ -123,6 +144,7 @@ export function BrowseContainer({ slides }) {
                 </Card.Item>
               ))}
             </Card.Entities>
+            </Baron>
             <Card.Feature category = {category}>
                 <Player>
                   <Player.Button/>

@@ -109,7 +109,12 @@ const hasWatchListed = async (req, res, next) => {
             show_id : SHOW_ID
         });
 
-        res.status(200).json({result: result.rows});
+        // console.log(result);
+
+        if (result.rows.length > 0) message = 'YES';
+        else message = 'NO';
+
+        res.status(200).json({message : message});
     } catch(err){
         console.log(err);
         res.status(400).json({message: 'Couldnt get watchlist info'});
@@ -158,7 +163,64 @@ const addToWatchList = async (req, res, next) => {
 
 }
 
+const deleteWatchList = async(req, res, next) => {
+    const {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID} = req.body;
+    let query;
 
+    if (MOVIE_ID){
+        query = `
+        DELETE FROM MOVIE_WATCHLIST
+        WHERE EMAIL = :email AND PROFILE_ID = :profile_id AND MOVIE_ID = :movie_id
+        `;
+        try {
+            const result = await database.simpleExecute(query, {
+                email : EMAIL,
+                profile_id : PROFILE_ID,
+                movie_id : MOVIE_ID
+            });
+            res.status(200).json({message : 'deleted'});
+        } catch(err){
+            console.log(err);
+            res.status(400).json(err);
+        }
+    } else {
+        query = `
+        DELETE FROM SHOW_WATCHLIST
+        WHERE EMAIL = :email AND PROFILE_ID = :profile_id AND SHOW_ID = :show_id
+        `;
+        try {
+            const result = await database.simpleExecute(query, {
+                email : EMAIL,
+                profile_id : PROFILE_ID,
+                show_id : SHOW_ID
+            });
+            res.status(200).json({message : 'deleted'});
+        } catch(err){
+            console.log(err);
+            res.status(400).json(err);
+        }
+    }
+}
+
+const getWatchList = async(req, res, next) => {
+    let query;
+    query = `SELECT MW.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.MATURITY_RATING, M.IMAGE_URL
+    FROM MOVIE_WATCHLIST MW, MOVIE M
+    WHERE MW.MOVIE_ID = M.MOVIE_ID AND
+    EMAIL = :email AND PROFILE_ID = :profile_id;`
+}
+
+const addRating = async(req, res, next) => {
+    
+}
+
+const findRating = async(req, res, next) => {
+    
+}
+
+const updateRating = async(req, res, next) => {
+    
+}
 
 
 exports.getProfile = getProfile;
@@ -167,3 +229,8 @@ exports.updateProfile = updateProfile;
 exports.deleteProfile = deleteProfile;
 exports.hasWatchListed = hasWatchListed;
 exports.addToWatchList = addToWatchList;
+exports.deleteWatchList = deleteWatchList;
+exports.addRating = addRating;
+exports.getWatchList = getWatchList;
+exports.findRating = findRating;
+exports.updateRating = updateRating;

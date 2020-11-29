@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import {AuthContext} from '../../context/auth-context';
-
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
 import {
   Container,
   Group,
@@ -88,27 +89,38 @@ Card.Feature = function CardFeature({ children, category, ...restProps }) {
   
 
   async function fetchWatchInfo(){
-    const response = await fetch('http://localhost:5000/api/profiles/watchlist/find', {
-        method: 'POST',
-        headers: {
-              'Content-Type' : 'application/json',
-        },
-        body: JSON.stringify({
-          EMAIL: auth.email,
-          PROFILE_ID : auth.profile,
-          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
-          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
-        })
+    const body = JSON.stringify({
+      EMAIL: auth.email,
+      PROFILE_ID : auth.profile,
+      MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+      SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
     });
-    console.log(response.result);
 
-    if(response.result && response.result.length > 0) setInWatchList(true);
-    else setInWatchList(false);
+    console.log(body);
+      try {
+        const response = await fetch('http://localhost:5000/api/profiles/watchlist/find', {
+          method: 'POST',
+          headers: {
+                'Content-Type' : 'application/json',
+          },
+          body: body
+      });
+
+      const responseData = await response.json();
+      console.log(responseData);
+
+      if(responseData.message === 'YES') setInWatchList(true);
+      else if (responseData.message === 'NO') setInWatchList(false);
+
+      } catch (err){
+        console.log(err);
+      }
+    
   }
 
   useEffect(() => {
     fetchWatchInfo();
-  }, [itemFeature])
+  }, [itemFeature, showFeature])
 
   
 
@@ -129,6 +141,23 @@ Card.Feature = function CardFeature({ children, category, ...restProps }) {
     setInWatchList(true);
   }
 
+  async function deleteFromWatchList (){
+    const response = await fetch('http://localhost:5000/api/profiles/watchlist/delete', {
+        method: 'DELETE',
+        headers: {
+              'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({
+          EMAIL: auth.email,
+          PROFILE_ID : auth.profile,
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
+        })
+    });
+    console.log(response.json());
+    setInWatchList(false);
+  }
+
 
   return showFeature ? (
     <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1280${itemFeature.IMAGE_URL}`}>
@@ -145,10 +174,12 @@ Card.Feature = function CardFeature({ children, category, ...restProps }) {
           <FeatureText fontWeight="bold">
             {itemFeature.NAME}
           </FeatureText>
-          <WatchList onClick = {postWatchInfo}>
-            {!inWatchList && 'Add to Watchlist'}
-            {inWatchList && 'Added to watchlist'}
-          </WatchList>
+          {!inWatchList && <WatchList onClick = {postWatchInfo}> 
+              <AddIcon/>
+          </WatchList>}
+          {inWatchList && <WatchList onClick = {deleteFromWatchList} >
+            <ClearIcon/>
+          </WatchList>}
         </Group>
 
         {children}
