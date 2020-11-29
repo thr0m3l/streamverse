@@ -13,6 +13,8 @@ export default function SignIn() {
     const [error, setError] = useState('');
     const auth = useContext(AuthContext); //auth context
 
+    var valid_sub,subid;
+
     const isInvalid = password === '' || emailAddress === '';
   
     const handleSignin = async event => {
@@ -37,9 +39,37 @@ export default function SignIn() {
             console.log(responseData);
 
             if (response.status === 201){
-                auth.login(emailAddress, responseData.token); //updates the auth context
-                console.log(auth.email);
-                history.push( ROUTES.BROWSE ); //Successful login, moves to netflix profiles page
+                  auth.login(emailAddress, responseData.token); //updates the auth context
+                  console.log(auth.email);
+
+                  //getting the sub id of the user
+                  const url = `http://localhost:5000/api/subscription/subid/${emailAddress}`;
+                  const response = await fetch(url);
+                  var data = await response.json();
+                  console.log(data);
+                  if(data["sub_id"]){
+        
+                    subid = data["sub_id"]["SUB_ID"];
+                    console.log(subid);
+                    if(subid){
+                      auth.set_sub_id(subid);//adding sub id to auth context
+                      const url2= `http://localhost:5000/api/subscription/isvalid/${subid}`;
+                      const response2 = await fetch(url2);
+                      valid_sub = await response2.json();
+                      valid_sub= valid_sub["VALID"];
+                      if(valid_sub){
+                        history.push( ROUTES.BROWSE);
+                      }else{
+                        history.push( ROUTES.ADD_SUBSCRIPTION );      
+                      }
+                    }else{
+                      history.push( ROUTES.ADD_SUBSCRIPTION );
+                    }
+                  }else{
+                    history.push( ROUTES.ADD_SUBSCRIPTION );
+                  }
+                  
+                //history.push( ROUTES.ADD_SUBSCRIPTION ); //Successful login, moves to netflix profiles page
             } else if (response.status === 422){
                 setError('User does not exist. Please sign up instead');
             } else if (response.status === 423){
@@ -91,3 +121,24 @@ export default function SignIn() {
       </>
     );
   }
+
+
+/*  if(subid){
+    //add sub id to auth context
+    auth.set_sub_id(sudid);
+    const url2= `http://localhost:5000/api/subscription/isvalid/${subid}`;
+    const response2 = await fetch(url);
+    valid_sub = await response.json();
+    valid_sub =  valid_sub["VALID"];
+    console.log(valid_sub);
+    if(valid_sub===0){
+      history.push( ROUTES.ADD_SUBSCRIPTION );
+    }
+    else{
+      history.push(ROUTES.BROWSE);
+    }
+  }else{
+    history.push( ROUTES.ADD_SUBSCRIPTION );    
+  }
+
+*/

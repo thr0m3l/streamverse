@@ -1,5 +1,6 @@
 const {validationResult, Result} = require('express-validator');
 const database = require('./../services/database');
+const oracledb = require('oracledb');
 
 const addSubscription = async (req, res, next) => {
     const {SUB_TYPE,EMAIL, END_DATE} = req.body;
@@ -88,8 +89,31 @@ const deleteSubscription = async (req, res, next) => {
     }
 }
 
+const isValidSubscription = async (req, res, next) => {
+    const sub_id = req.params.sub_id;
+    var valid =0;
+    try {
+        const result = await database.simpleExecute(
+            `SELECT * FROM SUBSCRIPTION
+             WHERE SUB_ID = :sub_id AND END_DATE < SYSDATE `,{
+                 sub_id : sub_id
+             });
+        
+        if(result.rows.length === 0){
+            valid=1;
+        }else{
+            valid=0;
+        }
+
+        res.status(200).json({VALID: valid});
+    } catch (err){
+        console.log(err);
+    }
+}
+
 exports.getSubscriptions = getSubscriptions;
 exports.addSubscription = addSubscription;
 exports.updateSubscription = updateSubscription;
 exports.deleteSubscription = deleteSubscription;
 exports.getSubId = getSubId;
+exports.isValidSubscription = isValidSubscription;

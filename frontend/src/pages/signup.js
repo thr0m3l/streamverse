@@ -48,8 +48,8 @@ export default function Signup(){
             console.log(responseData);
 
             if (response.status === 201){
-                auth.login(email, responseData.body.token);
-                history.push(ROUTES.BROWSE); //Successful signup, moves to netflix browse page
+                auth.login(email, responseData.token);
+                history.push(ROUTES.ADD_SUBSCRIPTION); //Successful signup, moves to netflix subscripption page
 
                 //TODO: add GET request to get user's profiles + auth token
             } else if (response.status === 422){
