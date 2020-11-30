@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
-import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription } from './pages';
+import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription} from './pages';
 import {AuthContext} from './context/auth-context';
 
 
@@ -11,6 +11,7 @@ function App() {
   const [email, setEmail] = useState(false);
   const [profile, setProfile] = useState(false);
   const [sub_id,set_Sub_Id] = useState(false);
+  const [bill,set_Bill] = useState(false);
   
   const login = useCallback((email, token) => {
       setToken(token);
@@ -19,6 +20,10 @@ function App() {
   
   const set_sub_id = useCallback((subid) => {
     set_Sub_Id(subid);
+  }, []);
+
+  const set_bill = useCallback((b) => {
+    set_Bill(b);
   }, []);
   
   const logout = useCallback(() => {
@@ -64,6 +69,15 @@ function App() {
       <Route exact path={ROUTES.ADD_SUBSCRIPTION}>
         <AddSubscription/>
       </Route>
+      <Route exact path={ROUTES.UPDATE_SUBSCRIPTION}>
+        <UpdateSubscription/>
+      </Route>
+      <Route exact path={ROUTES.CANCEL_SUBCRIPTION}>
+        <CancelSubscription/>
+      </Route>
+      <Route exact path={ROUTES.ACCOUNT_SETTINGS}>
+        <AccountSettings/>
+      </Route>
       <Redirect to = {ROUTES.HOME}/>
       </Switch>
     );
@@ -75,9 +89,11 @@ function App() {
       email: email,
       token: token, 
       sub_id : sub_id,
+      bill : bill,
       login: login, 
       logout: logout,
       set_sub_id : set_sub_id,
+      set_bill : set_bill,
       profile : profile,
       isLoggedIn : !!token}}>
     <Router>

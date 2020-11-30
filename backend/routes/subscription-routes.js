@@ -13,6 +13,8 @@ router.get('/', subscriptionController.getSubscriptions);
 
 router.get('/subid/:email', subscriptionController.getSubId);
 
+router.get('/bill/:sub_id', subscriptionController.getBill);
+
 router.get('/isvalid/:sub_id', subscriptionController.isValidSubscription);
 
 router.post('/add', subscriptionController.addSubscription);

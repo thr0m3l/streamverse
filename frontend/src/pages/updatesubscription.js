@@ -9,7 +9,7 @@ import { HeaderContainer } from '../containers/header';
 
 
 
-export default function AddSubscription() {
+export default function UpdateSubscription() {
     const history = useHistory();
     const [expire_date,set_expire_date] = useState('');
     const [bill,setBill] = useState('');
@@ -17,8 +17,12 @@ export default function AddSubscription() {
     
     const [error,setError] = useState('');
     const auth = useContext(AuthContext);
+
+    const sub_id = auth.sub_id;
     const email = auth.email;
     console.log(email);
+    
+    
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     
     const isInvalid =   expire_date==="" || sub_type==="" ;
@@ -28,15 +32,15 @@ export default function AddSubscription() {
 
         //send data to the backend
         try{
-            const response = await fetch('http://localhost:5000/api/subscription/add', {
-            method: 'POST',
+            const response = await fetch('http://localhost:5000/api/subscription/update', {
+            method: 'PATCH',
             headers: {
                   'Content-Type' : 'application/json',
 
             },
             body: JSON.stringify({
+                    SUB_ID :sub_id ,
                     SUB_TYPE : sub_type, 
-                    EMAIL : email,
                     END_DATE : expire_date
                 })
             });
@@ -49,12 +53,7 @@ export default function AddSubscription() {
             console.log("after submit data in subscribe",responseData);
 
             if (response.status === 201){
-                const url = `http://localhost:5000/api/subscription/subid/${email}`;
-                const response = await fetch(url);
-                var data = await response.json();
-                data = data["sub_id"]["SUB_ID"];
-                //adding sub_id to auth context
-                auth.set_sub_id(data);
+                
                 history.push(ROUTES.BROWSE); //Successful subscription, moves to netflix browse page
 
             } else if (response.status === 422){
@@ -73,9 +72,9 @@ export default function AddSubscription() {
     <>
     <HeaderContainer/>
             <Form>
-                <Form.Title>Add Subscription</Form.Title>
+                <Form.Title>Update Subscription</Form.Title>
                 {error && <Form.Error data-testid="error">{error}</Form.Error>}
-                <Form.Base onSubmit={handleSubscription} method="POST">
+                <Form.Base onSubmit={handleSubscription} method="PATCH">
                 
 
                 
@@ -110,8 +109,8 @@ export default function AddSubscription() {
 
 
 
-                <Form.Submit disabled={isInvalid} type="submit" data-testid="add-subscription">
-                    Start Membership
+                <Form.Submit disabled={isInvalid} type="submit" data-testid="update-subscription">
+                    Update Membership
                 </Form.Submit>
                 </Form.Base>
             </Form>
