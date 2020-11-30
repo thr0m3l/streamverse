@@ -42,6 +42,27 @@ const getSubId = async (req, res, next) =>{
     }
 }
 
+
+const getBill = async (req, res, next) =>{
+    const subid = req.params.sub_id;
+
+    try {
+        const result = await database.simpleExecute(
+            `SELECT BILL
+            FROM SUBSCRIPTION
+            WHERE SUB_ID = :sub_id`, {
+                sub_id : subid
+            } 
+        );
+        
+        res.status(200).json({bill: result.rows[0]});
+    } catch (err){
+        console.log(err);
+        console.log('Cannot get bill from database');
+        res.status(400).json({message: 'Cannot get bill from database'});
+    }
+}
+
 const getSubscriptions = async (req, res, next) => {
     try {
         const result = await database.simpleExecute(`SELECT * FROM SUBSCRIPTION`);
@@ -53,15 +74,19 @@ const getSubscriptions = async (req, res, next) => {
     
 }
 
+
+
+
 const updateSubscription = async (req, res, next) => {
-    const {SUB_ID, SUB_TYPE} = req.body;
+    const {SUB_ID, SUB_TYPE,END_DATE} = req.body;
 
     try {
         database.simpleExecute(
             `UPDATE SUBSCRIPTION 
-            SET SUB_TYPE = :sub_type 
+            SET SUB_TYPE = :sub_type , END_DATE = :end_date
             WHERE SUB_ID = :sub_id`, {
                 sub_type : SUB_TYPE,
+                end_date : END_DATE,
                 sub_id : SUB_ID   
             }
         )
@@ -117,3 +142,4 @@ exports.updateSubscription = updateSubscription;
 exports.deleteSubscription = deleteSubscription;
 exports.getSubId = getSubId;
 exports.isValidSubscription = isValidSubscription;
+exports.getBill = getBill;

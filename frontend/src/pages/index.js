@@ -5,3 +5,6 @@ export {default as Signup} from './signup';
 export {default as Profiles} from './profiles';
 export {default as CreateProfile} from './createprofile';
 export {default as AddSubscription} from './add_subscription';
+export {default as AccountSettings} from './accountsettings';
+export {default as UpdateSubscription} from './updatesubscription';
+export {default as CancelSubscription} from './cancelsubscription';

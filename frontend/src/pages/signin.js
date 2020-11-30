@@ -13,7 +13,7 @@ export default function SignIn() {
     const [error, setError] = useState('');
     const auth = useContext(AuthContext); //auth context
 
-    var valid_sub,subid;
+    var valid_sub,subid,Bill;
 
     const isInvalid = password === '' || emailAddress === '';
   
@@ -58,6 +58,13 @@ export default function SignIn() {
                       valid_sub = await response2.json();
                       valid_sub= valid_sub["VALID"];
                       if(valid_sub){
+
+                        const url3 = `http://localhost:5000/api/subscription/bill/${subid}`;
+                        const response3 = await fetch(url3);         
+                        Bill = await response3.json(); 
+                        Bill = Bill["bill"]["BILL"];
+                        auth.set_bill(Bill);              
+
                         history.push( ROUTES.BROWSE);
                       }else{
                         history.push( ROUTES.ADD_SUBSCRIPTION );      

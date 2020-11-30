@@ -135,6 +135,9 @@ export function BrowseContainer({ slides }) {
                     <Header.TextLink onClick = { () => history.push(ROUTES.ADD_SUBSCRIPTION)}> Subscription </Header.TextLink>
                   </Header.Group>
                   <Header.Group>
+                    <Header.TextLink onClick = { () => history.push(ROUTES.ACCOUNT_SETTINGS)}> Settings </Header.TextLink>
+                  </Header.Group>
+                  <Header.Group>
                     <Header.TextLink onClick = {() => auth.logout()}>
                        Sign Out
                     </Header.TextLink>
