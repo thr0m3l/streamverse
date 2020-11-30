@@ -17,7 +17,7 @@ export default function UpdateSubscription() {
     
     const [error,setError] = useState('');
     const auth = useContext(AuthContext);
-
+    var Bill;
     const sub_id = auth.sub_id;
     const email = auth.email;
     console.log(email);
@@ -53,8 +53,13 @@ export default function UpdateSubscription() {
             console.log("after submit data in subscribe",responseData);
 
             if (response.status === 201){
+                const url3 = `http://localhost:5000/api/subscription/bill/${sub_id}`;
+                const response3 = await fetch(url3);         
+                Bill = await response3.json(); 
+                Bill = Bill["bill"]["BILL"];
+                auth.set_bill(Bill);     
                 
-                history.push(ROUTES.BROWSE); //Successful subscription, moves to netflix browse page
+                history.push(ROUTES.BROWSE); //Successful update subscription, moves to netflix browse page
 
             } else if (response.status === 422){
                 setError('Invalid user info');
