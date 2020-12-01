@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext } from 'react';
 import ReactDOM from 'react-dom';
 import { Container, Button, Overlay, Inner, Close } from './styles/player';
 import VideoPlayer from 'react-video-js-player';
-
+import ReactPlayer from 'react-player';
 export const PlayerContext = createContext();
 
 export default function Player({ children, ...restProps }) {
@@ -22,10 +22,7 @@ Player.Video = function PlayerVideo({ src, ...restProps }) {
     ? ReactDOM.createPortal(
         <Overlay onClick={() => setShowPlayer(false)} data-testid="player">
           <Inner>
-            <VideoPlayer id="netflix-player"
-            src = {src}
-            width = "1280"
-            height = "720"/>
+            <ReactPlayer controls url = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'/>
             <Close />
           </Inner>
         </Overlay>,
