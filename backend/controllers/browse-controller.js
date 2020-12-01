@@ -105,7 +105,133 @@ const getShowByGenre = async (req, res, next) => {
     }
 }
 
+const getEpisodes = async(req, res, next) => {
+    const show_id = req.params.show_id;
+
+    const result = await database.simpleExecute(`SELECT SEASONS
+        FROM SHOW
+        WHERE SHOW_ID = :show_id`, {
+            show_id : show_id
+    });
+
+    const seasons = result.rows[0].SEASONS;
+
+    const result1 = await database.simpleExecute(`
+        SELECT *
+        FROM EPISODE
+        WHERE SHOW_ID = :show_id`, {
+            show_id : show_id
+    });
+
+    // res.status(200).json(result1.rows);
+
+    const response = [];
+
+    for(s = 1; s <= seasons; ++s){
+        const title = 'Season ' + s;
+        const data = [];
+
+        for(e = 0; e < result1.rows.length; ++e){
+            if (result1.rows[e].SEASON_NO === s){
+                data.push(result1.rows[e]);
+            }
+        }
+
+        response.push({
+            title : title,
+            data : data
+        });
+    }
+
+    res.status(200).json(response);
+
+
+
+}
+
+const getSuggestions = async(req, res, next) => {
+    try{
+        let suggestions;
+        
+        const mostWatched = await database.simpleExecute(`
+            SELECT W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION
+            FROM MOVIE_WATCH W, MOVIE M
+            WHERE W.MOVIE_ID = M.MOVIE_ID AND ROWNUM <= 50
+            GROUP BY W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION
+            ORDER BY COUNT(*) DESC`);
+
+        const topRated = await database.simpleExecute(`
+            SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL, RELEASE_DATE, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+            FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
+            FROM MOVIE
+            WHERE ROWNUM <= 50
+            ORDER BY "RATING" DESC
+        `);
+
+        const topRatedShows = await database.simpleExecute(
+            `SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM START_DATE) as START_DATE, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+            FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
+            FROM SHOW
+            WHERE ROWNUM <= 50
+            ORDER BY "RATING" DESC`
+        );
+        
+        const newMovies = await database.simpleExecute(
+            `SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_YEAR, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+            FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
+            FROM MOVIE
+            WHERE ROWNUM <= 50
+            ORDER BY RELEASE_DATE DESC`
+        );
+
+        const newShows = await database.simpleExecute(
+            `SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM START_DATE) as START_YEAR, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                      FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
+                       FROM SHOW
+                       WHERE ROWNUM <= 50
+                       ORDER BY START_DATE DESC`
+        );
+
+        suggestions = [
+            {
+                title : 'Top Rated Movies',
+                data : topRated.rows
+            },
+            {
+                title: 'Most Watched Movies',
+                data : mostWatched.rows
+            },
+            {
+                title : 'Top Rated Shows',
+                data : topRatedShows.rows
+            },
+            {
+                title : 'Most Watched Shows',
+                data : []
+            },
+            {
+                title : 'New Movies',
+                data: newMovies.rows
+            },
+            {
+                title : 'New Shows',
+                data : newShows.rows
+            }
+        ];
+
+        res.status(200).json(suggestions);
+    } catch(err){
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
 
 exports.getMovieByGenre = getMovieByGenre;
 exports.getShowByGenre = getShowByGenre;
 exports.search = search;
+exports.getEpisodes = getEpisodes;
+exports.getSuggestions = getSuggestions;
