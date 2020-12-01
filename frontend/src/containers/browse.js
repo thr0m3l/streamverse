@@ -61,6 +61,13 @@ export function BrowseContainer({ slides }) {
 
     }
 
+    async function getSuggestions(event){
+      const response = await fetch('http://localhost:5000/api/browse/suggestions');
+      const responseData = await response.json();
+      console.log('Getting response data. . .');
+      setSlideRows(responseData);
+    }
+
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
@@ -117,8 +124,11 @@ export function BrowseContainer({ slides }) {
                 WatchList
               </Header.TextLink>
 
-              <Header.TextLink active={category === 'new' ? 'true' : 'false'} onClick={() => setCategory('new')}>
-                New and Popular
+              <Header.TextLink active={category === 'suggestions' ? 'true' : 'false'} onClick={(event) => {
+                setCategory('suggestions');
+                getSuggestions(event);
+                }}>
+                Suggestions
               </Header.TextLink>
 
             </Header.Group>

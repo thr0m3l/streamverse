@@ -12,5 +12,6 @@ router.get('/movies/:genre', browseController.getMovieByGenre);
 router.get('/shows/:genre', browseController.getShowByGenre);
 router.get('/search/:kw', browseController.search);
 router.get('/shows/episodes/:show_id', browseController.getEpisodes);
+router.get('/suggestions', browseController.getSuggestions);
 
 module.exports = router;
