@@ -131,6 +131,23 @@ const login = async (req, res, next) => {
     
 }
 
+const getMaxProfiles = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT MAX_PROFILES
+         FROM USER_NETFLIX
+         WHERE EMAIL = :email`,{
+             email : EMAIL
+         });
+        
+        res.status(200).json({mp: result.rows[0]});
+    } catch (err){
+        console.log(err);
+    }
+}
+
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
+exports.getMaxProfiles = getMaxProfiles; 

@@ -4,14 +4,30 @@ const oracledb = require('oracledb');
 
 const addSubscription = async (req, res, next) => {
     const {SUB_TYPE,EMAIL, END_DATE} = req.body;
+    const TERMINATION_DATE =END_DATE;
+    const RUNNING = 1;
+    try {
+        database.simpleExecute(
+            `UPDATE SUBSCRIPTION
+            SET RUNNING = 0, TERMINATION_DATE=SYSDATE, TOTAL_BILL = ROUND( ( MONTHS_BETWEEN(SYSDATE,START_DATE)) *BILL  ,2) 
+            WHERE (EMAIL=:email AND RUNNING=1)`, {
+                email: EMAIL
+            }
+        )
+    } catch(err){
+        console.log(err);
+        res.status(400).json({message: 'Failed to add subscription to database'});
+    }
 
     try {
         database.simpleExecute(
-            `INSERT INTO SUBSCRIPTION (SUB_ID,SUB_TYPE,EMAIL,END_DATE)
-            VALUES (SUBSCRIPTION_SUB_ID_SEQ.NEXTVAL, :sub_type, :email, :end_date)`, {
+            `INSERT INTO SUBSCRIPTION (SUB_ID,SUB_TYPE,EMAIL,END_DATE , TERMINATION_DATE , RUNNING)
+            VALUES (SUBSCRIPTION_SUB_ID_SEQ.NEXTVAL, :sub_type, :email, :end_date, :termination_date, :running)`, {
                 sub_type : SUB_TYPE,
                 email: EMAIL,
                 end_date : END_DATE,
+                termination_date : TERMINATION_DATE,
+                running : RUNNING
             }
         )
         res.status(201).json({message: 'Successfully added subscription'});
@@ -29,7 +45,7 @@ const getSubId = async (req, res, next) =>{
         const result = await database.simpleExecute(
             `SELECT SUB_ID
             FROM SUBSCRIPTION
-            WHERE EMAIL = :email`, {
+            WHERE EMAIL = :email AND RUNNING=1`, {
                 email : email
             } 
         );
@@ -74,8 +90,23 @@ const getSubscriptions = async (req, res, next) => {
     
 }
 
-
-
+const getHistory = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+            SELECT SUB_TYPE, TO_CHAR(START_DATE,'MONTH DD,YYYY') S_DATE,TO_CHAR(TERMINATION_DATE,'MONTH DD,YYYY') T_DATE,SUB_TYPE,TOTAL_BILL
+            FROM SUBSCRIPTION
+            WHERE RUNNING = 0 AND EMAIL = :email 
+            ORDER BY TERMINATION_DATE`,{
+                email : EMAIL
+            });
+        
+        res.status(200).json({history : result.rows});
+    } catch (err){
+        console.log(err);
+    }
+    
+}
 
 const updateSubscription = async (req, res, next) => {
     const {SUB_ID, SUB_TYPE,END_DATE} = req.body;
@@ -98,13 +129,14 @@ const updateSubscription = async (req, res, next) => {
 }
 
 const deleteSubscription = async (req, res, next) => {
-    const {SUB_ID} = req.body;
+    const {EMAIL} = req.body;
 
     try {
         database.simpleExecute(
-            `DELETE SUBSCRIPTION
-            WHERE SUB_ID =:sub_id`, {
-                sub_id : SUB_ID   
+            `UPDATE SUBSCRIPTION
+            SET RUNNING =0, TERMINATION_DATE = SYSDATE,TOTAL_BILL = ROUND( ( MONTHS_BETWEEN(SYSDATE,START_DATE)) *BILL  ,2)
+            WHERE EMAIL =: email AND RUNNING = 1`, {
+                 email : EMAIL   
             }
         )
         res.status(201).json({message: 'Successfully deleted subscription'});
@@ -120,7 +152,7 @@ const isValidSubscription = async (req, res, next) => {
     try {
         const result = await database.simpleExecute(
             `SELECT * FROM SUBSCRIPTION
-             WHERE SUB_ID = :sub_id AND END_DATE < SYSDATE `,{
+             WHERE SUB_ID = :sub_id AND RUNNING = 0`,{
                  sub_id : sub_id
              });
         
@@ -143,3 +175,4 @@ exports.deleteSubscription = deleteSubscription;
 exports.getSubId = getSubId;
 exports.isValidSubscription = isValidSubscription;
 exports.getBill = getBill;
+exports.getHistory = getHistory;

@@ -2,7 +2,6 @@ import React, {useState, useEffect}from 'react';
 import { Header, Profiles } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
-import {Form} from '../components';
 
 export function SelectProfileContainer({ email, setProfile }) {
     const [profiles, setProfiles] = useState([]);
@@ -13,10 +12,11 @@ export function SelectProfileContainer({ email, setProfile }) {
         const url = `http://localhost:5000/api/profiles/${email}`;
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data.profile);
+        console.log(data);
         console.log(profiles);
 
         setProfiles(data.profile);
+        console.log(profiles);
     }
 
     useEffect ( () => {

@@ -8,3 +8,5 @@ export const ADD_SUBSCRIPTION = '/addsubscription';
 export const ACCOUNT_SETTINGS = '/accountsettings';
 export const UPDATE_SUBSCRIPTION ="/updatesubscription";
 export const CANCEL_SUBCRIPTION = "/cancelsubscription";
+export const SUBSCRIPTION_HISTORY ="/subscriptionhistory";
+export const DELETE_PROFILE = "/deleteprofile";

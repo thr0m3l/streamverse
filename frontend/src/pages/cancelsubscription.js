@@ -12,6 +12,7 @@ export default function CancelSubscription(){
     const [error,setError] = useState('');
     const auth = useContext(AuthContext);
     const sub_id  = auth.sub_id;
+    const email = auth.email;
     
     const handleCancelSubscription = async event =>{
         event.preventDefault();
@@ -19,13 +20,13 @@ export default function CancelSubscription(){
         //send data to the backend
         try{
             const response = await fetch('http://localhost:5000/api/subscription/delete', {
-            method: 'DELETE',
+            method: 'PATCH',
             headers: {
                   'Content-Type' : 'application/json',
 
             },
             body: JSON.stringify({
-                    SUB_ID : sub_id
+                    EMAIL : email
                 })
             });
             

@@ -8,3 +8,5 @@ export {default as AddSubscription} from './add_subscription';
 export {default as AccountSettings} from './accountsettings';
 export {default as UpdateSubscription} from './updatesubscription';
 export {default as CancelSubscription} from './cancelsubscription';
+export {default as SubscriptionHistory} from './subscription_history';
+export {default as DeleteProfile} from './deleteprofile';

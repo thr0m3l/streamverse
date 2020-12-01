@@ -7,14 +7,14 @@ import {AuthContext} from './../context/auth-context';
 
 export default function CreateProfile() {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+
     const [name,setName] = useState('');
-    const [email,setEmail] = useState('');
     const [dob,setDOB] = useState('');
     const [error,setError] = useState('');
     
     const isInvalid = name ==='' || dob==="" ;
-
-    const auth = useContext(AuthContext);
+    const email = auth.email;
 
 
     const handleCreateProfile = async event =>{
@@ -22,11 +22,6 @@ export default function CreateProfile() {
 
         //send data to the backend
         try{
-            setEmail(auth.email);
-
-            if (auth.email) console.error(auth.email);
-            else console.error('Baaaal');
-
 
             const response = await fetch('http://localhost:5000/api/profiles/add', {
             method: 'POST',
@@ -34,8 +29,8 @@ export default function CreateProfile() {
                   'Content-Type' : 'application/json',
             },
             body: JSON.stringify({
-                    PROFILE_ID : name,
                     EMAIL : email,
+                    PROFILE_ID : name,
                     DOB : dob 
             })
             });
@@ -57,9 +52,6 @@ export default function CreateProfile() {
         }catch(err){
             console.log(err);
             console.log("Sending data to backend failed while creating profile");
-            setName('');
-            setEmail('');
-            setDOB('');
             setError(err.message);
         }
     }
@@ -75,7 +67,7 @@ export default function CreateProfile() {
 
                     <Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (DD-MON-YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
 
-                    <Form.Submit disabled={isInvalid} type="submit" data-testid="creeate-profile">
+                    <Form.Submit disabled={isInvalid} type="submit" data-testid="create-profile">
                         Add Profile
                     </Form.Submit>
                 </Form.Base>

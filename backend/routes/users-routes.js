@@ -14,6 +14,7 @@ router.post('/signup', [
 
 router.post('/login', usersController.login);
 
+router.get('/maxprofiles/:email', usersController.getMaxProfiles);
 router.use(checkAuth);
 
 module.exports = router;

@@ -20,8 +20,7 @@ export default function UpdateSubscription() {
     var Bill;
     const sub_id = auth.sub_id;
     const email = auth.email;
-    console.log(email);
-    
+    const mp = auth.max_profiles;
     
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     
@@ -33,14 +32,14 @@ export default function UpdateSubscription() {
         //send data to the backend
         try{
             const response = await fetch('http://localhost:5000/api/subscription/update', {
-            method: 'PATCH',
+            method: 'POST',
             headers: {
                   'Content-Type' : 'application/json',
 
             },
             body: JSON.stringify({
-                    SUB_ID :sub_id ,
                     SUB_TYPE : sub_type, 
+                    EMAIL : email ,
                     END_DATE : expire_date
                 })
             });
@@ -57,9 +56,25 @@ export default function UpdateSubscription() {
                 const response3 = await fetch(url3);         
                 Bill = await response3.json(); 
                 Bill = Bill["bill"]["BILL"];
-                auth.set_bill(Bill);     
-                
-                history.push(ROUTES.BROWSE); //Successful update subscription, moves to netflix browse page
+                auth.set_bill(Bill);   
+                setTimeout(() => { console.log("World!"); }, 500);
+                //getting max_num of profiles of the user in new plan
+                const u = `http://localhost:5000/api/users/maxprofiles/${email}`;
+                const r = await fetch(u);
+                var d = await r.json();
+                d= d["mp"]["MAX_PROFILES"];
+                console.log("Maximum profiles in new plaaaaaaaan",d);
+                console.log("ager plaaaaaaaaaaan e num profiles =",mp);
+
+                //new num of profiles ager cheye kom hole delete e push korbo
+                if(d<mp){
+                    const pt=mp-d;
+                    auth.set_ptbd(pt);
+                    history.push(ROUTES.DELETE_PROFILE);
+                }
+                else{
+                    history.push(ROUTES.BROWSE); //Successful update subscription, np delete profile needed    
+                }
 
             } else if (response.status === 422){
                 setError('Invalid user info');

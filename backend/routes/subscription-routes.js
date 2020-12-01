@@ -19,8 +19,10 @@ router.get('/isvalid/:sub_id', subscriptionController.isValidSubscription);
 
 router.post('/add', subscriptionController.addSubscription);
 
-router.patch('/update', subscriptionController.updateSubscription);
+router.get('/history/:email', subscriptionController.getHistory);
 
-router.delete('/delete', subscriptionController.deleteSubscription);
+router.post('/update', subscriptionController.addSubscription);
+
+router.patch('/delete', subscriptionController.deleteSubscription);
 
 module.exports = router;

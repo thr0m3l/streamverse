@@ -11,7 +11,7 @@ export const Container = styled.div`
   width: 100%;
   margin: auto;
   max-width: 100;
-  padding: 60px 68px 40px;
+  padding: 60px 68px 40px 60px;
   margin-bottom: 10px;
 `;
 
@@ -89,6 +89,7 @@ export const Submit = styled.button`
   border: 0;
   color: white;
   cursor: pointer;
+  width : 200px;
 
   &:disabled {
     opacity: 0.5;

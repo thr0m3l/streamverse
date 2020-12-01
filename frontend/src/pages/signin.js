@@ -41,6 +41,14 @@ export default function SignIn() {
             if (response.status === 201){
                   auth.login(emailAddress, responseData.token); //updates the auth context
                   console.log(auth.email);
+                  
+                  //getting max_num of profiles of the user
+                  const u = `http://localhost:5000/api/users/maxprofiles/${emailAddress}`;
+                  const r = await fetch(u);
+                  var d = await r.json();
+                  d= d["mp"]["MAX_PROFILES"];
+                  console.log("Maximum profiles ",d);
+                  auth.set_max_profiles(d);
 
                   //getting the sub id of the user
                   const url = `http://localhost:5000/api/subscription/subid/${emailAddress}`;
@@ -63,8 +71,8 @@ export default function SignIn() {
                         const response3 = await fetch(url3);         
                         Bill = await response3.json(); 
                         Bill = Bill["bill"]["BILL"];
-                        auth.set_bill(Bill);              
-
+                        auth.set_bill(Bill);
+                        
                         history.push( ROUTES.BROWSE);
                       }else{
                         history.push( ROUTES.ADD_SUBSCRIPTION );      

@@ -34,15 +34,18 @@ export default function AccountSettings() {
             
             <Form2.TextSmall>{email}</Form2.TextSmall>
             <Form2.Link to="/cancelsubscription">Cancel membership</Form2.Link>
+        
 
             <Form2.Text>Plan Details</Form2.Text>
             <Form2.TextSmall>{type}</Form2.TextSmall>
             <Form2.TextSmall>{bill}</Form2.TextSmall>
-            <Form2.Link to="/updatesubscription">Upgrade Your Plan</Form2.Link>
+            <Form2.Link to="/updatesubscription">Change Your Plan</Form2.Link>
+            <Form2.Link to="/subscriptionhistory">Subscription History</Form2.Link>
 
 
             <Form2.Text>Settings</Form2.Text>
             <Form2.Link to="#">Watch History</Form2.Link>
+            <Form2.Link to="/deleteprofile">Delete Profile</Form2.Link>
         </Form2>
         <FooterContainer/>
       </>  

@@ -191,6 +191,7 @@ export const FeatureCallOut = styled.h2`
 export const Text = styled.p`
   color: white;
   font-size: 22px;
+  color : orange;
   line-height: normal;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
   padding: 30px;
