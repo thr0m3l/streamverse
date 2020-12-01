@@ -9,8 +9,8 @@ import { SelectProfileContainer } from './profiles';
 import Baron from 'react-baron/dist/es5';
 import { colors } from 'material-ui/styles';
 import {useHistory} from 'react-router-dom';
-
-
+import SlideshowIcon from '@material-ui/icons/Slideshow';
+import Button from '@material-ui/core/Button'
 
 export function BrowseContainer({ slides }) {
     const [category, setCategory] = useState('films');
@@ -71,11 +71,15 @@ export function BrowseContainer({ slides }) {
 
     useEffect(() => {
       console.log(slides);
-      setSlideRows(slides[category]);
-
+      
+      if (category === 'films' || category === 'series'){
+        setSlideRows(slides[category]);
+      }
+      
       if (category === 'watchlist'){
         getWatchList();
       }
+      
     }, [slides, category]);
 
     
@@ -174,16 +178,22 @@ export function BrowseContainer({ slides }) {
                   <Card.Image src={`https://image.tmdb.org/t/p/w780${item.IMAGE_URL}`} />
                   <Card.Meta>
                     <Card.SubTitle>{item.TITLE}</Card.SubTitle>
-                    <Card.Text>{item.DESCRIPTION}</Card.Text>
+
+                    {category === 'episodes' && <Card.SubTitle> 
+                      {'Season ' + item.SEASON_NO + ' Episode ' + item.EPISODE_NO}
+                      </Card.SubTitle>}
+
+                    {/* <Card.Text>{item.DESCRIPTION}</Card.Text> */}
                     <Card.Text> {item.RATING}</Card.Text>
                   </Card.Meta>
                 </Card.Item>
               ))}
             </Card.Entities>
             {/* </Baron> */}
-            <Card.Feature category = {category}>
-                <Player>
-                  <Player.Button/>
+            <Card.Feature category = {category} setCategory = {setCategory} setSlideRows = {setSlideRows}>
+                
+                <Player>  
+                  {category === 'films' || 'episodes' && <Player.Button/>}
                   <Player.Video src = "../../public/videos/bunny.mp4" />
                 </Player>
             </Card.Feature>

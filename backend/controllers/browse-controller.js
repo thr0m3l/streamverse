@@ -105,7 +105,52 @@ const getShowByGenre = async (req, res, next) => {
     }
 }
 
+const getEpisodes = async(req, res, next) => {
+    const show_id = req.params.show_id;
+
+    const result = await database.simpleExecute(`SELECT SEASONS
+        FROM SHOW
+        WHERE SHOW_ID = :show_id`, {
+            show_id : show_id
+    });
+
+    const seasons = result.rows[0].SEASONS;
+
+    const result1 = await database.simpleExecute(`
+        SELECT *
+        FROM EPISODE
+        WHERE SHOW_ID = :show_id`, {
+            show_id : show_id
+    });
+
+    // res.status(200).json(result1.rows);
+
+    const response = [];
+
+    for(s = 1; s <= seasons; ++s){
+        const title = 'Season ' + s;
+        const data = [];
+
+        for(e = 0; e < result1.rows.length; ++e){
+            if (result1.rows[e].SEASON_NO === s){
+                data.push(result1.rows[e]);
+            }
+        }
+
+        response.push({
+            title : title,
+            data : data
+        });
+    }
+
+    res.status(200).json(response);
+
+
+
+}
+
 
 exports.getMovieByGenre = getMovieByGenre;
 exports.getShowByGenre = getShowByGenre;
 exports.search = search;
+exports.getEpisodes = getEpisodes;

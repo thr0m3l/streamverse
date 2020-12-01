@@ -118,9 +118,9 @@ async function fetchShowData(totalPages){
                 let {first_air_date, id, overview, original_language, 
                     name, vote_average, vote_count, poster_path} = response.data.results[i];
                 
-                // const resp = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=e7bafd491af23dcc2cc134b14174e118&language=en-US`);
+                const resp = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=e7bafd491af23dcc2cc134b14174e118&language=en-US`);
 
-                // let {episode_run_time, last_air_date, number_of_episodes, number_of_seasons, status} = resp.data;
+                let {episode_run_time, last_air_date, number_of_episodes, number_of_seasons, status} = resp.data;
 
                 // console.log(adult);
                 // console.log(title);
@@ -130,38 +130,38 @@ async function fetchShowData(totalPages){
             // if (status !== 'Ended') last_air_date = null;
 
             try {
-            //     database.simpleExecute(`INSERT INTO SHOW (SHOW_ID, TITLE,
-            //         DESCRIPTION, START_DATE, RATING, TOTAL_VOTES, IMAGE_URL, LANGUAGE, LENGTH, SEASONS, EPISODES, END_DATE)
-            //    VALUES (:show_id, :title, :overview, TO_DATE (:release_date, 'yyyy-mm-dd'), 
-            //    :vote_average, :vote_count, :poster_path, :lang, :len, :seasons, :episodes, TO_DATE (:last_air_date, 'yyyy-mm-dd'))`,
-            //    {
-            //        show_id : id,
-            //        title : name,
-            //        overview : overview,
-            //        release_date : first_air_date,
-            //        vote_average : vote_average,
-            //        vote_count : vote_count,
-            //        poster_path : poster_path,
-            //        lang : original_language,
-            //        len : episode_run_time[0],
-            //        seasons: number_of_seasons,
-            //        episodes : number_of_episodes,
-            //        last_air_date : last_air_date
-            //    } );
+                database.simpleExecute(`INSERT INTO SHOW (SHOW_ID, TITLE,
+                    DESCRIPTION, START_DATE, RATING, TOTAL_VOTES, IMAGE_URL, LANGUAGE, LENGTH, SEASONS, EPISODES, END_DATE)
+               VALUES (:show_id, :title, :overview, TO_DATE (:release_date, 'yyyy-mm-dd'), 
+               :vote_average, :vote_count, :poster_path, :lang, :len, :seasons, :episodes, TO_DATE (:last_air_date, 'yyyy-mm-dd'))`,
+               {
+                   show_id : id,
+                   title : name,
+                   overview : overview,
+                   release_date : first_air_date,
+                   vote_average : vote_average,
+                   vote_count : vote_count,
+                   poster_path : poster_path,
+                   lang : original_language,
+                   len : episode_run_time[0],
+                   seasons: number_of_seasons,
+                   episodes : number_of_episodes,
+                   last_air_date : last_air_date
+               } );
 
                fetchEpisode(id);
 
 
-            //    for(j = 0; j < response.data.results[i].genre_ids.length; ++j){
-            //         let genre_id = response.data.results[i].genre_ids[j];
-            //         // console.log(response.data.results[i].genre_ids[j]);
-            //         database.simpleExecute(`INSERT INTO SHOW_GENRE (SHOW_ID, GENRE_ID) 
-            //         VALUES (:show_id, :genre_id) `, {
-            //             show_id : id,
-            //             genre_id : genre_id
-            //     });
+               for(j = 0; j < response.data.results[i].genre_ids.length; ++j){
+                    let genre_id = response.data.results[i].genre_ids[j];
+                    // console.log(response.data.results[i].genre_ids[j]);
+                    database.simpleExecute(`INSERT INTO SHOW_GENRE (SHOW_ID, GENRE_ID) 
+                    VALUES (:show_id, :genre_id) `, {
+                        show_id : id,
+                        genre_id : genre_id
+                });
                 
-            //    }
+               }
             } catch (err){
                 console.log(err);
             }
