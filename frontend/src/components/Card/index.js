@@ -22,8 +22,7 @@ import {
   Item,
   Image,
   WatchList,
-  Rating,
-  Episodes
+  Rating
 } from './styles/card';
 
 export const FeatureContext = createContext();
@@ -91,12 +90,8 @@ Card.Rating = function CardRating ({children, ...restProps}){
   return <Rating {...restProps}> {children} </Rating>
 }
 
-Card.Episodes = function CardEpisodes ({children, ...restProps}){
-  return <Episodes {...restProps}> {children} </Episodes>
-}
 
-
-Card.Feature = function CardFeature({ children, category, setCategory, setSlideRows, ...restProps }) {
+Card.Feature = function CardFeature({ children, category, ...restProps }) {
   const { showFeature, itemFeature, setShowFeature } = useContext(FeatureContext);
   const auth = useContext(AuthContext);
   const [inWatchList, setInWatchList] = useState(false);
@@ -107,8 +102,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
     const body = JSON.stringify({
       EMAIL: auth.email,
       PROFILE_ID : auth.profile,
-      MOVIE_ID: itemFeature.MOVIE_ID,
-      SHOW_ID : itemFeature.SHOW_ID
+      MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+      SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
     });
 
     console.log(body);
@@ -135,7 +130,6 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
   useEffect(() => {
     fetchWatchInfo();
     getRating();
-    
   }, [itemFeature, showFeature])
 
   
@@ -149,8 +143,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
         body: JSON.stringify({
           EMAIL: auth.email,
           PROFILE_ID : auth.profile,
-          MOVIE_ID: itemFeature.MOVIE_ID,
-          SHOW_ID : itemFeature.SHOW_ID
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
         })
     });
     console.log(response);
@@ -167,8 +161,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
         body: JSON.stringify({
           EMAIL: auth.email,
           PROFILE_ID : auth.profile,
-          MOVIE_ID: itemFeature.MOVIE_ID,
-          SHOW_ID : itemFeature.SHOW_ID,
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null,
           RATING : rating
         })
     });
@@ -190,8 +184,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
         body: JSON.stringify({
           EMAIL: auth.email,
           PROFILE_ID : auth.profile,
-          MOVIE_ID: itemFeature.MOVIE_ID,
-          SHOW_ID : itemFeature.SHOW_ID
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
         })
     });
 
@@ -207,8 +201,6 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
     }
   }
 
-
-
   async function deleteFromWatchList (){
     const response = await fetch('http://localhost:5000/api/profiles/watchlist/delete', {
         method: 'DELETE',
@@ -218,41 +210,22 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
         body: JSON.stringify({
           EMAIL: auth.email,
           PROFILE_ID : auth.profile,
-          MOVIE_ID: itemFeature.MOVIE_ID,
-          SHOW_ID : itemFeature.SHOW_ID
+          MOVIE_ID: category === 'films' ? itemFeature.MOVIE_ID : null,
+          SHOW_ID : category === 'series' ? itemFeature.SHOW_ID : null
         })
     });
     console.log(response.json());
     setInWatchList(false);
   }
 
-  async function getEpisodes(){
-    try{
-      console.log(itemFeature.SHOW_ID);
-      const response = await fetch(`http://localhost:5000/api/browse/shows/episodes/${itemFeature.SHOW_ID}`);
-      const responseData = await response.json();
-      console.log(responseData);
-      setSlideRows(responseData);
-    } catch(err){
-      console.log(err);
-    }
-    
-    
-  }
-
-  
-
 
   return showFeature ? (
     <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1280${itemFeature.IMAGE_URL}`}>
       <Content>
-      {category === 'episodes' && <Card.SubTitle> 
-                      {'Season ' + itemFeature.SEASON_NO + ' Episode ' + itemFeature.EPISODE_NO}
-                      </Card.SubTitle>}
         <FeatureTitle>{itemFeature.TITLE}</FeatureTitle>
         <FeatureText>{itemFeature.DESCRIPTION}</FeatureText>
         <FeatureText> {'Rating: ' + itemFeature.RATING}</FeatureText>
-        <FeatureClose onClick={() => {setShowFeature(false); setIsRated(false); setRating(-1)}}>
+        <FeatureClose onClick={() => setShowFeature(false)}>
           <img src="/images/icons/close.png" alt="Close" />
         </FeatureClose>
 
@@ -276,10 +249,6 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
           </Rating>
           }
 
-            
-
-
-
           {(!isRated || rating === 10) && <Rating style= {{
             right : '500px',
             background : '#c41212'
@@ -288,13 +257,6 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
           </Rating>
           }
         </Group>
-        
-        {category === 'series' && <Card.Episodes onClick = { (event) => {
-                setCategory('episodes');
-                getEpisodes();
-                }}>
-                  Episodes
-            </Card.Episodes>}
 
         {children}
       </Content>
