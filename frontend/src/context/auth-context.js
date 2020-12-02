@@ -8,11 +8,13 @@ export const AuthContext = createContext({
   sub_id : null,
   bill : null,
   max_profiles : null,
+  num_profiles :null,
   ptbd : null,
   login: () => {},
   logout: () => {},
   set_sub_id : () => {},
   set_bill : ()=>{},
   set_max_profiles : () => {},
-  set_ptbd : () => {}
+  set_ptbd : () => {},
+  set_num_profiles : () =>{}
 });

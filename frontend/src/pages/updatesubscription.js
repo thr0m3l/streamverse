@@ -44,15 +44,13 @@ export default function UpdateSubscription() {
                 })
             });
 
-            console.log(sub_type);
-            console.log(expire_date);
             
             const responseData = await response.json();
             
             console.log("after submit data in subscribe",responseData);
 
             if (response.status === 201){
-                const url3 = `http://localhost:5000/api/subscription/bill/${sub_id}`;
+                /*const url3 = `http://localhost:5000/api/subscription/bill/${sub_id}`;
                 const response3 = await fetch(url3);         
                 Bill = await response3.json(); 
                 Bill = Bill["bill"]["BILL"];
@@ -65,7 +63,23 @@ export default function UpdateSubscription() {
                 d= d["mp"]["MAX_PROFILES"];
                 console.log("Maximum profiles in new plaaaaaaaan",d);
                 console.log("ager plaaaaaaaaaaan e num profiles =",mp);
-
+                auth.set_max_profiles(d);*/
+                var d;
+                console.log(sub_type);
+                console.log(expire_date);
+                if(sub_type=="BAS"){
+                    auth.set_bill(5);
+                    d=2;
+                    auth.set_max_profiles(2);
+                }else if(sub_type=="STA"){
+                    auth.set_max_profiles(4);
+                    d=4;
+                    auth.set_bill(8);
+                }else{
+                    auth.set_max_profiles(6);
+                    d=6;
+                    auth.set_bill(10);
+                }
                 //new num of profiles ager cheye kom hole delete e push korbo
                 if(d<mp){
                     const pt=mp-d;

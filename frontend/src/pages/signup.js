@@ -23,7 +23,6 @@ export default function Signup(){
 
     const handleSignup = async event =>{
         event.preventDefault();
-
         //send data to the backend
         try{
             const response = await fetch('http://localhost:5000/api/users/signup', {
@@ -93,9 +92,12 @@ export default function Signup(){
                     <Form.Input  placeholder="Credit Card No." value={creditcard} onChange={({target})=> setCreditCard(target.value) } />
                     
                     <Form.Input  placeholder="Phone Number." value={phone} onChange={({target})=> setPhone(target.value) } />
-                    
+    
+                    <CountryDropdown value="country"
+                    onChange={(val) => setCountryId(val) } />
+                                    
                     <Form.Input   placeholder="Country" value={country_id} onChange={({target})=> setCountryId(target.value) } />
-                
+
                     <Form.Submit disabled={isInvalid} type="submit" data-testid="sign-up">
                         Sign Up
                     </Form.Submit>

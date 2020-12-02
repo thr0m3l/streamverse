@@ -10,3 +10,4 @@ export {default as UpdateSubscription} from './updatesubscription';
 export {default as CancelSubscription} from './cancelsubscription';
 export {default as SubscriptionHistory} from './subscription_history';
 export {default as DeleteProfile} from './deleteprofile';
+export {default as ProfileInfo} from './profileinfo';

@@ -10,3 +10,4 @@ export const UPDATE_SUBSCRIPTION ="/updatesubscription";
 export const CANCEL_SUBCRIPTION = "/cancelsubscription";
 export const SUBSCRIPTION_HISTORY ="/subscriptionhistory";
 export const DELETE_PROFILE = "/deleteprofile";
+export const PROFILE_INFO = "/profileinfo";

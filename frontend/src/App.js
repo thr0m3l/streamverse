@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
-import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription,SubscriptionHistory,DeleteProfile} from './pages';
+import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription,SubscriptionHistory,DeleteProfile,ProfileInfo} from './pages';
 import {AuthContext} from './context/auth-context';
 
 
@@ -14,6 +14,7 @@ function App() {
   const [bill,set_Bill] = useState(false);
   const [max_profiles,set_MaxProfiles] = useState(false);
   const [ptbd,set_PTBD] = useState(false);
+  const [num_profiles,set_NumProfiles] = useState(false);
   
   const login = useCallback((email, token) => {
       setToken(token);
@@ -34,6 +35,10 @@ function App() {
   
   const set_max_profiles = useCallback((mp) => {
     set_MaxProfiles(mp);
+  }, []);
+
+  const set_num_profiles = useCallback((np) => {
+    set_NumProfiles(np);
   }, []);
   
   const logout = useCallback(() => {
@@ -69,6 +74,9 @@ function App() {
       </Route> */}
       <Route exact path={ROUTES.HOME}>
         <Home/>
+      </Route>
+      <Route exact path={ROUTES.PROFILE_INFO}>
+        <ProfileInfo/>
       </Route>
       <Route exact path={ROUTES.CREATE_PROFILE}>
         <CreateProfile/>
@@ -107,12 +115,14 @@ function App() {
       sub_id : sub_id,
       bill : bill,
       max_profiles : max_profiles,
+      num_profiles : num_profiles,
       ptbd : ptbd,
       login: login, 
       logout: logout,
       set_sub_id : set_sub_id,
       set_bill : set_bill,
       set_max_profiles : set_max_profiles,
+      set_num_profiles : set_num_profiles,
       set_ptbd : set_ptbd,
       profile : profile,
       isLoggedIn : !!token}}>
