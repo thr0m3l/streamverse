@@ -8,6 +8,7 @@ export default function Browse() {
     const auth = useContext(AuthContext);
     console.log(auth.email);
     console.log(auth.sub_id);
+    console.log("in browse,num_profiles",auth.num_profiles);
     const { series } = useContent('series');
     const { films } = useContent('films');
     const slides = selectionFilter({ series, films });

@@ -12,7 +12,7 @@ import { HeaderContainer } from '../containers/header';
 export default function AddSubscription() {
     const history = useHistory();
     const [expire_date,set_expire_date] = useState('');
-    const [bill,setBill] = useState('');
+    
     const[sub_type,set_sub_type] = useState('');
     
     const [error,setError] = useState('');
@@ -43,6 +43,16 @@ export default function AddSubscription() {
 
             console.log(sub_type);
             console.log(expire_date);
+            if(sub_type=="BAS"){
+                auth.set_max_profiles(2);
+                auth.set_bill(5);
+            }else if(sub_type=="STA"){
+                auth.set_max_profiles(4);
+                auth.set_bill(8);
+            }else{
+                auth.set_max_profiles(6);
+                auth.set_bill(10);
+            }
             
             const responseData = await response.json();
             
