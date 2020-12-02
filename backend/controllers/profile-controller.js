@@ -301,7 +301,45 @@ const addRating = async(req, res, next) => {
             }
         }
     } else {
+        query = `INSERT INTO SHOW_WATCH 
+        (SHOW_ID, EMAIL, PROFILE_ID, RATING) 
+        VALUES (:show_id, :email, :profile_id, :rating)`
+        
+        try {
+            const result = await database.simpleExecute(query, {
+                show_id : SHOW_ID,
+                email : EMAIL,
+                profile_id : PROFILE_ID,
+                rating : RATING
+            });
 
+            res.status(200).json({
+                message : 'Inserted rating'
+            });
+
+        } catch (err){
+            console.log(err);
+
+            query = `UPDATE SHOW_WATCH
+            SET RATING = :rating
+            WHERE SHOW_ID = :show_id AND PROFILE_ID = :profile_id AND EMAIL = :email`
+
+            try {
+                const result = await database.simpleExecute(query, {
+                    show_id : SHOW_ID,
+                    email : EMAIL,
+                    profile_id : PROFILE_ID,
+                    rating : RATING
+                });
+
+                res.status(200).json({
+                    message : 'Updated rating'
+                });
+            } catch (err1){  
+                console.log(err1)
+                res.status(400).json({message: 'couldnt add rating'});
+            }
+        }
 
     }
 }

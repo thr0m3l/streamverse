@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription,SubscriptionHistory,DeleteProfile} from './pages';
@@ -15,10 +15,24 @@ function App() {
   const [max_profiles,set_MaxProfiles] = useState(false);
   const [ptbd,set_PTBD] = useState(false);
   
+  
+
+
   const login = useCallback((email, token) => {
       setToken(token);
       setEmail(email);
+      // localStorage.setItem('userData', JSON.stringify({
+      //   email : email,
+      //   token : token
+      // }))
   }, []);
+
+  // useEffect ( () => {
+  //   const storedData = JSON.parse(localStorage.getItem('userData'));
+  //   if (storedData && storedData.token){
+  //     login(storedData.email, storedData.token);
+  //   } 
+  // }, []);
   
   const set_sub_id = useCallback((subid) => {
     set_Sub_Id(subid);
@@ -39,6 +53,7 @@ function App() {
   const logout = useCallback(() => {
     setToken(null);
     setEmail(null);
+    localStorage.removeItem('userData');
   }, []);
 
   let routes;

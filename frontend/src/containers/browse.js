@@ -28,12 +28,9 @@ export function BrowseContainer({ slides }) {
         const url = `http://localhost:5000/api/browse/search/${keyword}`;
         const response = await fetch(url);
         const data = await response.json();
-        console.log('searching');
-        console.log(data);
-        setSlideRows([{
-          title: 'Search Results',
-          data: data.results
-        }]);
+        // console.log('searching');
+        // console.log(data);
+        setSlideRows(data);
     }
 
     async function getWatchList(){
@@ -51,7 +48,7 @@ export function BrowseContainer({ slides }) {
         });
 
         const responseData = await response.json();
-        console.log(responseData);
+        // console.log(responseData);
 
         if (responseData.arr) setSlideRows(responseData.arr);
       } catch (err){
@@ -73,7 +70,7 @@ export function BrowseContainer({ slides }) {
         setLoading(false);
       }, 3000);
       auth.profile = profile.PROFILE_ID;
-      console.log('Auth.profile_id = ' + auth.profile);
+      // console.log('Auth.profile_id = ' + auth.profile);
     }, [profile.PROFILE_ID]);
 
     useEffect(() => {
@@ -145,9 +142,9 @@ export function BrowseContainer({ slides }) {
                     <Header.TextLink> {profile.PROFILE_ID} </Header.TextLink>
                   </Header.Group>
 
-                  <Header.Group>
+                  {/* <Header.Group>
                     <Header.TextLink onClick = { () => history.push(ROUTES.ADD_SUBSCRIPTION)}> Subscription </Header.TextLink>
-                  </Header.Group>
+                  </Header.Group> */}
                   <Header.Group>
                     <Header.TextLink onClick = { () => history.push(ROUTES.ACCOUNT_SETTINGS)}> Settings </Header.TextLink>
                   </Header.Group>
@@ -203,7 +200,7 @@ export function BrowseContainer({ slides }) {
             <Card.Feature category = {category} setCategory = {setCategory} setSlideRows = {setSlideRows}>
                 
                 <Player>  
-                  {category === 'films' || 'episodes' && <Player.Button/>}
+                  {(category === 'films' || category === 'episodes') && <Player.Button/>}
                   <Player.Video src = "../../public/videos/bunny.mp4" />
                 </Player>
             </Card.Feature>

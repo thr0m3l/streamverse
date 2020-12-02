@@ -86,19 +86,65 @@ const getShowByGenre = async (req, res, next) => {
  const search = async (req, res, next) => {
     const kw = req.params.kw;
 
-    const query = `(SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
-        FROM MOVIE M
-        WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)) 
+    const movieQuery = `
+        (
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
+            FROM MOVIE M
+            WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)
+        )
         UNION
-        (SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
-        FROM SHOW S
-        WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw))`;
-
+        (
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
+            FROM MOVIE M, MOVIE_CELEB MC, CELEB C
+            WHERE (M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw))
+        )
+        UNION 
+        (
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
+            FROM MOVIE M, MOVIE_GENRE MG, GENRE G
+            WHERE (M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw))
+        )`
+    
+    const showQuery = `
+        (
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
+            FROM SHOW S
+            WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)
+        )
+        UNION
+        (
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
+            FROM SHOW S, SHOW_CELEB SC, CELEB C
+            WHERE (S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw))
+        )
+        UNION
+        (
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
+            FROM SHOW S, SHOW_GENRE SG, GENRE G
+            WHERE (S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw))
+        )
+        `
     try {
-        const result = await database.simpleExecute(query, {
+        const movies = await database.simpleExecute(movieQuery, {
             kw : '%' + kw + '%'
         });
-        res.status(200).json({results: result.rows});
+
+        const shows = await database.simpleExecute(showQuery, {
+            kw : '%' + kw + '%'
+        });
+        
+        const result = [
+            {
+                title: 'Search Result from Movies',
+                data : movies.rows
+            },
+            {
+                title: 'Search Result from Shows',
+                data : shows.rows
+            }
+        ]
+
+        res.status(200).json(result);
     } catch(err){
         console.log(err);
         res.status(401).json({message: 'Search failed'});
@@ -177,6 +223,14 @@ const getSuggestions = async(req, res, next) => {
             WHERE ROWNUM <= 50
             ORDER BY "RATING" DESC`
         );
+
+        const mostWatchedShows = await database.simpleExecute(
+            `SELECT W.SHOW_ID, S.TITLE, S.RATING, S.IMAGE_URL, S.DESCRIPTION
+            FROM SHOW_WATCH W, SHOW S
+            WHERE W.SHOW_ID = S.SHOW_ID AND ROWNUM <= 50
+            GROUP BY W.SHOW_ID, S.TITLE, S.RATING, S.IMAGE_URL, S.DESCRIPTION
+            ORDER BY COUNT(*) DESC`
+        );
         
         const newMovies = await database.simpleExecute(
             `SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_YEAR, 
@@ -211,7 +265,7 @@ const getSuggestions = async(req, res, next) => {
             },
             {
                 title : 'Most Watched Shows',
-                data : []
+                data : mostWatchedShows.rows
             },
             {
                 title : 'New Movies',

@@ -111,7 +111,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
       SHOW_ID : itemFeature.SHOW_ID
     });
 
-    console.log(body);
+    // console.log(body);
       try {
         const response = await fetch('http://localhost:5000/api/profiles/watchlist/find', {
           method: 'POST',

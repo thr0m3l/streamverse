@@ -17,12 +17,22 @@ export default function Player({ children, ...restProps }) {
 
 Player.Video = function PlayerVideo({ src, ...restProps }) {
   const { showPlayer, setShowPlayer } = useContext(PlayerContext);
+  const ref = React.createRef();
 
+  async function saveTime (){
+    console.log('Paused');
+    const time = ref.current.getCurrentTime();
+    console.log(time);
+  }
   return showPlayer
     ? ReactDOM.createPortal(
         <Overlay onClick={() => setShowPlayer(false)} data-testid="player">
           <Inner>
-            <ReactPlayer controls url = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'/>
+            <ReactPlayer
+            ref = {ref} 
+            controls
+            url = 'https://www.youtube.com/watch?v=ysz5S6PUM-U' 
+            onPause = {saveTime}/>
             <Close />
           </Inner>
         </Overlay>,
