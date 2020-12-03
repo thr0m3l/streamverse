@@ -139,6 +139,12 @@ const deleteSubscription = async (req, res, next) => {
                  email : EMAIL   
             }
         )
+        database.simpleExecute(
+            `DELETE FROM PROFILE
+            WHERE EMAIL =: email `, {
+                 email : EMAIL   
+            }
+        )
         res.status(201).json({message: 'Successfully deleted subscription'});
     } catch(err){
         console.log(err);

@@ -19,6 +19,8 @@ export default function Signup(){
     const [error,setError] = useState('');
     const auth = useContext(AuthContext);
     
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    
     const isInvalid = name ==='' || email ==='' || dob==="" || password===''|| creditcard==='' || phone==='';
 
     const handleSignup = async event =>{
@@ -87,6 +89,23 @@ export default function Signup(){
 
                     <Form.Input type="password" autoComplete="off" placeholder="Password" value={password} onChange={({target})=> setPassword(target.value) } />
                     
+                    <form onSelect={({target})=> {
+                    var date = new Date(target.value);
+                    var day = date.getDate();
+                    var month = date.getMonth();
+                    month = months[month];
+                    var year=date.getFullYear();
+                    var s=[day,month,year].join('-');
+                    console.log('Final date=',s);
+                    setDOB(s);
+                    } }>
+
+                        
+                    <label htmlFor="date"  style={{color: "white"}}>Date of Birth  </label>
+                    
+                    <input type="date" id="date" ></input>
+                    </form>
+                    
                     <Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (DD-MON-YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
                     
                     <Form.Input  placeholder="Credit Card No." value={creditcard} onChange={({target})=> setCreditCard(target.value) } />
@@ -112,3 +131,7 @@ export default function Signup(){
         </>
     );
 }
+
+/*
+<Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (DD-MON-YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
+                    */

@@ -14,13 +14,15 @@ export function DeleteProfileContainer({ email }) {
     const history = useHistory();
     const [error, setError] = useState('');
     const Email =auth.email;
-    const pt=auth.ptbd;
     const mp =auth.max_profiles;
     var msg,prof_name;
+    const np=auth.num_profiles;
+    const pt=auth.ptbd;
 
+    var p = Math.abs(mp-np);
     var del =[];
     if(pt){
-        msg = "Click to Delete "+pt+" Profiles";
+        msg = "Click to Delete "+p+" Profiles";
     }else{
         msg = "Click to Delete Profiles";
     }
@@ -74,15 +76,15 @@ export function DeleteProfileContainer({ email }) {
 }
 
     const handleDelete = ()=>{
+
         for(let i=0;i<del.length;i++)
         {
             prof_name = del[i];
             handleDeleteProfile();
         }
-        auth.set_max_profiles(mp-pt);
+        auth.set_ptbd(0);
         history.push(ROUTES.BROWSE);
     }
-    
     return (
     <>
       <Header bg={false}>

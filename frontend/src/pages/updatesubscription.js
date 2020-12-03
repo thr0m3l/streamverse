@@ -17,10 +17,7 @@ export default function UpdateSubscription() {
     
     const [error,setError] = useState('');
     const auth = useContext(AuthContext);
-    var Bill;
-    const sub_id = auth.sub_id;
     const email = auth.email;
-    const mp = auth.max_profiles;
     
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     
@@ -80,11 +77,11 @@ export default function UpdateSubscription() {
                     d=6;
                     auth.set_bill(10);
                 }
+                const np = auth.num_profiles;
                 //new num of profiles ager cheye kom hole delete e push korbo
-                if(d<mp){
-                    const pt=mp-d;
-                    auth.set_ptbd(pt);
+                if(d<np){
                     history.push(ROUTES.DELETE_PROFILE);
+                    auth.set_ptbd(np-d);
                 }
                 else{
                     history.push(ROUTES.BROWSE); //Successful update subscription, np delete profile needed    
