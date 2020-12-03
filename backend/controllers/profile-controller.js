@@ -426,8 +426,48 @@ const findRating = async(req, res, next) => {
     }
 }
 
-const updateRating = async(req, res, next) => {
-    
+const getTime = async (req, res, next) => {
+    const {movie_id, profile_id, email} = req.query;
+
+    try {
+        const result = await database.simpleExecute(`
+            BEGIN
+                GET_MOVIE_TIMESTAMP(:movie_id, :profile_id, :email, :tm);
+            END;
+        `, {
+            movie_id : movie_id,
+            profile_id, profile_id,
+            email :email,
+            tm : {dir : oracledb.BIND_OUT, type : oracledb.NUMBER}
+        });
+
+        res.status(200).json({WATCHED_UPTO : result.outBinds.tm});
+    } catch(err){
+        console.log(err);
+    }
+
+}
+
+const setTime = async (req, res, next) => {
+    const {movie_id, profile_id, email, watched_upto} = req.body;
+
+    try {
+        const result = await database.simpleExecute(`
+            BEGIN
+                SET_MOVIE_TIMESTAMP(:movie_id, :profile_id, :email, :tm);
+            END;
+        `, {
+            movie_id : movie_id,
+            profile_id, profile_id,
+            email :email,
+            tm : watched_upto
+        });
+
+
+        res.status(200).json({message: 'Time saved'});
+    } catch(err){
+        console.log(err);
+    }
 }
 
 
@@ -441,4 +481,5 @@ exports.deleteWatchList = deleteWatchList;
 exports.addRating = addRating;
 exports.getWatchList = getWatchList;
 exports.findRating = findRating;
-exports.updateRating = updateRating;
+exports.getTime = getTime;
+exports.setTime = setTime;

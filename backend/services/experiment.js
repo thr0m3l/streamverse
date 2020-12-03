@@ -172,7 +172,7 @@ async function fetchMovieData (startPage, totalPages){
             arr.push(overview);
         }
     }
-    console.log(arr);
+    // console.log(arr);
 
     main(arr);
 }

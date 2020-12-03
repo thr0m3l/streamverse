@@ -199,10 +199,7 @@ export function BrowseContainer({ slides }) {
             {/* </Baron> */}
             <Card.Feature category = {category} setCategory = {setCategory} setSlideRows = {setSlideRows}>
                 
-                <Player>  
-                  {(category === 'films' || category === 'episodes') && <Player.Button/>}
-                  <Player.Video src = "../../public/videos/bunny.mp4" />
-                </Player>
+                
             </Card.Feature>
             </Card>
             ))}
