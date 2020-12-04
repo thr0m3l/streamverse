@@ -1,0 +1,2440 @@
+{
+  "RECORDS": [
+    {
+      "MOVIE_ID": "11",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "11",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "11",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "13",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "13",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "13",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "14",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "15",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "15",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "16",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "16",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "62",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "62",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "62",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "76",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "76",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "78",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "78",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "78",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "81",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "81",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "81",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "85",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "85",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "98",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "98",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "98",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "101",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "101",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "101",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "110",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "110",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "110",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "121",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "121",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "121",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "122",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "122",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "122",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "129",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "129",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "129",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "147",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "149",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "155",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "155",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "155",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "155",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "185",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "185",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "194",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "194",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "197",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "198",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "198",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "204",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "204",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "204",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "234",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "234",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "238",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "238",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "239",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "239",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "239",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "240",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "240",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "274",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "274",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "274",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "274",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "278",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "278",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "279",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "279",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "279",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "279",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "280",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "280",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "280",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "284",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "284",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "284",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "289",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "289",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "307",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "307",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "311",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "311",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "335",
+      "GENRE_ID": "37"
+    },
+    {
+      "MOVIE_ID": "346",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "346",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "348",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "348",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "387",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "387",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "387",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "389",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "405",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "424",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "424",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "424",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "426",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "426",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "426",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "429",
+      "GENRE_ID": "37"
+    },
+    {
+      "MOVIE_ID": "489",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "490",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "490",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "497",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "497",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "497",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "500",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "500",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "510",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "521",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "521",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "524",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "539",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "539",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "539",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "548",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "548",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "548",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "550",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "595",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "595",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "598",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "598",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "614",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "627",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "627",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "629",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "629",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "629",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "631",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "637",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "637",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "640",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "640",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "641",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "641",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "654",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "654",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "655",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "670",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "670",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "670",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "670",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "680",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "680",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "694",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "694",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "745",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "745",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "745",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "752",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "752",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "752",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "769",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "769",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "770",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "770",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "770",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "775",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "775",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "775",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "800",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "800",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "804",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "807",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "807",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "807",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "821",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "821",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "827",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "827",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "827",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "829",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "829",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "829",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "843",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "843",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "857",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "857",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "857",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "862",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "862",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "862",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "20271",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "20453",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "20453",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "20722",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "20722",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "20941",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "21334",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "21334",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "21334",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "21634",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "21634",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "21634",
+      "GENRE_ID": "10770"
+    },
+    {
+      "MOVIE_ID": "24167",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "24382",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "24382",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "25376",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "25376",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "25376",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "26022",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "26022",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "28178",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "28971",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "28971",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "28971",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "28978",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "28978",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "29264",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "29264",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "29264",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "30588",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "30588",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "31442",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "31442",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "38286",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "40096",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "40096",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "41050",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "42229",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "42229",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "42269",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "42269",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "47796",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "50014",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "55960",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "60243",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "68718",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "68718",
+      "GENRE_ID": "37"
+    },
+    {
+      "MOVIE_ID": "76203",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "77338",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "77338",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "83564",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "92060",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "92060",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "92321",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "92321",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "92321",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "94047",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "94047",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "94047",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "94047",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "106646",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "106646",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "110416",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "110416",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "110416",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "113833",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "120467",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "120467",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "140420",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "142061",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "142061",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "146233",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "146233",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "146233",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "149871",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "149871",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "149871",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "150540",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "150540",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "150540",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "150540",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "152532",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "157336",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "157336",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "157336",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "160885",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "185789",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "185789",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "185789",
+      "GENRE_ID": "10770"
+    },
+    {
+      "MOVIE_ID": "205596",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "265177",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "266856",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "266856",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "282848",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "282848",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "282848",
+      "GENRE_ID": "10770"
+    },
+    {
+      "MOVIE_ID": "290098",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "290098",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "290098",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "293299",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "293299",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "293299",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "299536",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "299536",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "299536",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "303867",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "303867",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "303867",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "313106",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "313106",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "315465",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "315465",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "316029",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "324857",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "324857",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "324857",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "324857",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "324857",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "331482",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "331482",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "334533",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "334533",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "354912",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "354912",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "354912",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "354912",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "354912",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "354912",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "369557",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "369557",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "369557",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "369557",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "372058",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "372058",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "372058",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "379170",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "379170",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "381284",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "381341",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "381341",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "393729",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "397567",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "398924",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "400160",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "400160",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "400928",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "400928",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "400928",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "406997",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "406997",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "414419",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "423612",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "423612",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "424694",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "430424",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "432517",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "432517",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "432517",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "445030",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "445030",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "446159",
+      "GENRE_ID": "37"
+    },
+    {
+      "MOVIE_ID": "446159",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "446159",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "449176",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "449176",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "449176",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "470044",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "470044",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "475557",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "475557",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "475557",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "476292",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "476292",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "476292",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "476292",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "488623",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "488623",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "496243",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "496243",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "496243",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "504253",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "504253",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "504253",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "505262",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "505262",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "505262",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "505262",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "505262",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "508965",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "508965",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "508965",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "508965",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "522212",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "522518",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "522518",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "522518",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "522924",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "522924",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "522924",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "527641",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "527641",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "530915",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "530915",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "537061",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "554596",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "556574",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "556574",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "556574",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "556901",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "564427",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "579245",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "579245",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "583083",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "592350",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "592350",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "592350",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "592350",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "592350",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "596054",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "599521",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "599521",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "599521",
+      "GENRE_ID": "10770"
+    },
+    {
+      "MOVIE_ID": "609242",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "609242",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "609242",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "618344",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "618344",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "618344",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "618344",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "618344",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "620683",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "630566",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "630566",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "630566",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "637920",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "637920",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "637920",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "638507",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "638507",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "638507",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "638507",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "638507",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "644479",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "644479",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "656563",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "656563",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "664767",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "664767",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "664767",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "664767",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "696374",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "724089",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "935",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "935",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "935",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "947",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "947",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "947",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "947",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "962",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "962",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "962",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "992",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "992",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "992",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "1059",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "1059",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1059",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "1059",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "1091",
+      "GENRE_ID": "27"
+    },
+    {
+      "MOVIE_ID": "1091",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "1091",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "1092",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "1402",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1422",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1422",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "1422",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "1580",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "1580",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "1585",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "1585",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1585",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "1626",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1675",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1675",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "1955",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "1955",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "2011",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "2011",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "2457",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "2457",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "2721",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "3034",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "3082",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "3082",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "3083",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "3112",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "3112",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "3112",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "3175",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "3175",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "3777",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "3777",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "4348",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "4348",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "4935",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "4935",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "4935",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "5511",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "5511",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "5544",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "5544",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "5544",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "5924",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "5924",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "5925",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "6977",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "6977",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "6977",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "7345",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "7347",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "7347",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "7347",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "7508",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "7857",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "7857",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "7984",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "8290",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "8392",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "8392",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "8392",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "8587",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "8587",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "8587",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "9323",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "9323",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "9323",
+      "GENRE_ID": "878"
+    },
+    {
+      "MOVIE_ID": "9764",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "9764",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "9764",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "10098",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "10098",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "10238",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "10242",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "10376",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "10376",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "10376",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "10404",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "10494",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "10494",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "10515",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "10515",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "10515",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "10515",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "10515",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "10674",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "10674",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "10681",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "10681",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "10774",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11010",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11010",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "11104",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "11216",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11216",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "11324",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11324",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "11324",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "11602",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11645",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11645",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "11645",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "11656",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11656",
+      "GENRE_ID": "80"
+    },
+    {
+      "MOVIE_ID": "11658",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "11658",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11658",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "11658",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "11659",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11659",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "11712",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11712",
+      "GENRE_ID": "28"
+    },
+    {
+      "MOVIE_ID": "11712",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "11778",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11878",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "11878",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "11953",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "12104",
+      "GENRE_ID": "10402"
+    },
+    {
+      "MOVIE_ID": "12445",
+      "GENRE_ID": "12"
+    },
+    {
+      "MOVIE_ID": "12445",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "12477",
+      "GENRE_ID": "16"
+    },
+    {
+      "MOVIE_ID": "12477",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "12477",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "12761",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "14160",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "14160",
+      "GENRE_ID": "10751"
+    },
+    {
+      "MOVIE_ID": "14696",
+      "GENRE_ID": "14"
+    },
+    {
+      "MOVIE_ID": "14696",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "14696",
+      "GENRE_ID": "9648"
+    },
+    {
+      "MOVIE_ID": "15244",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "15383",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "15383",
+      "GENRE_ID": "53"
+    },
+    {
+      "MOVIE_ID": "15383",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "17295",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "17295",
+      "GENRE_ID": "36"
+    },
+    {
+      "MOVIE_ID": "17295",
+      "GENRE_ID": "10752"
+    },
+    {
+      "MOVIE_ID": "18148",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "18438",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "18438",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "19404",
+      "GENRE_ID": "18"
+    },
+    {
+      "MOVIE_ID": "19404",
+      "GENRE_ID": "35"
+    },
+    {
+      "MOVIE_ID": "19404",
+      "GENRE_ID": "10749"
+    },
+    {
+      "MOVIE_ID": "19426",
+      "GENRE_ID": "18"
+    }
+  ]
+}

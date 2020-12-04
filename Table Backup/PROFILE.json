@@ -1,0 +1,19 @@
+{
+  "RECORDS": [
+    {
+      "PROFILE_ID": "Hossain",
+      "EMAIL": "romel.rcs@gmail.com",
+      "DOB": "27/5/1998 00:00:00"
+    },
+    {
+      "PROFILE_ID": "Romel",
+      "EMAIL": "romel.rcs@gmail.com",
+      "DOB": "27/10/1998 00:00:00"
+    },
+    {
+      "PROFILE_ID": "Tanzim",
+      "EMAIL": "romel.rcs@gmail.com",
+      "DOB": "27/6/1988 00:00:00"
+    }
+  ]
+}

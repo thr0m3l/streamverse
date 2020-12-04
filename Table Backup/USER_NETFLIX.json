@@ -1,0 +1,26 @@
+{
+  "RECORDS": [
+    {
+      "NAME": "Tanzim",
+      "EMAIL": "romel@gmail.com",
+      "DOB": "27/10/1998 00:00:00",
+      "COUNTRY": "BGD                           ",
+      "CREDIT_CARD": "123",
+      "PASSWORD": "$2a$12$NNsrpsYJ2qISIQLcPLP2ueIQ2BHpQTHrIkzn6uiUWUlkiKVXGahlK",
+      "PHONE": "123",
+      "JOINED": "25/11/2020 00:01:44",
+      "MAX_PROFILES": "0"
+    },
+    {
+      "NAME": "Tanzim Hossain Romel",
+      "EMAIL": "romel.rcs@gmail.com",
+      "DOB": "27/5/1998 00:00:00",
+      "COUNTRY": "Bangladesh                    ",
+      "CREDIT_CARD": "1234",
+      "PASSWORD": "$2a$12$Y9EcwpKy2UZY3QAdXALWF.awSs/stDbNpWb62yqylcfnPUQcpP8uK",
+      "PHONE": "1234",
+      "JOINED": "22/11/2020 23:34:54",
+      "MAX_PROFILES": "6"
+    }
+  ]
+}

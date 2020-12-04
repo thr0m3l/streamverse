@@ -1,0 +1,48 @@
+{
+  "RECORDS": [
+    {
+      "SUB_ID": "4",
+      "SUB_TYPE": "PRE",
+      "EMAIL": "romel.rcs@gmail.com",
+      "START_DATE": "30/11/2020 12:11:41",
+      "END_DATE": "12/1/2021 00:00:00",
+      "BILL": "10",
+      "TOTAL_BILL": "0",
+      "RUNNING": "",
+      "TERMINATION_DATE": ""
+    },
+    {
+      "SUB_ID": "5",
+      "SUB_TYPE": "PRE",
+      "EMAIL": "romel.rcs@gmail.com",
+      "START_DATE": "2/12/2020 02:16:12",
+      "END_DATE": "28/12/2020 00:00:00",
+      "BILL": "10",
+      "TOTAL_BILL": "0",
+      "RUNNING": "0",
+      "TERMINATION_DATE": "2/12/2020 10:17:55"
+    },
+    {
+      "SUB_ID": "6",
+      "SUB_TYPE": "STA",
+      "EMAIL": "romel.rcs@gmail.com",
+      "START_DATE": "2/12/2020 10:17:55",
+      "END_DATE": "14/12/2020 00:00:00",
+      "BILL": "8",
+      "TOTAL_BILL": "0.65",
+      "RUNNING": "0",
+      "TERMINATION_DATE": "4/12/2020 23:03:11"
+    },
+    {
+      "SUB_ID": "7",
+      "SUB_TYPE": "PRE",
+      "EMAIL": "romel.rcs@gmail.com",
+      "START_DATE": "4/12/2020 23:03:11",
+      "END_DATE": "21/12/2020 00:00:00",
+      "BILL": "10",
+      "TOTAL_BILL": "0",
+      "RUNNING": "0",
+      "TERMINATION_DATE": "4/12/2020 23:03:11"
+    }
+  ]
+}

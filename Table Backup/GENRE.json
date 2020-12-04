@@ -1,0 +1,139 @@
+{
+  "RECORDS": [
+    {
+      "GENRE_ID": "18",
+      "NAME": "Drama",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10759",
+      "NAME": "Action & Adventure",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10766",
+      "NAME": "Soap",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10749",
+      "NAME": "Romance",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10763",
+      "NAME": "News",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10767",
+      "NAME": "Talk",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "99",
+      "NAME": "Documentary",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "28",
+      "NAME": "Action",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "27",
+      "NAME": "Horror",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10770",
+      "NAME": "TV Movie",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "9648",
+      "NAME": "Mystery",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10768",
+      "NAME": "War & Politics",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "80",
+      "NAME": "Crime",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10402",
+      "NAME": "Music",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10762",
+      "NAME": "Kids",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "16",
+      "NAME": "Animation",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10764",
+      "NAME": "Reality",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "37",
+      "NAME": "Western",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "36",
+      "NAME": "History",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "878",
+      "NAME": "Science Fiction",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10752",
+      "NAME": "War",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "35",
+      "NAME": "Comedy",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10765",
+      "NAME": "Sci-Fi & Fantasy",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "10751",
+      "NAME": "Family",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "12",
+      "NAME": "Adventure",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "14",
+      "NAME": "Fantasy",
+      "CONTENTS": "0"
+    },
+    {
+      "GENRE_ID": "53",
+      "NAME": "Thriller",
+      "CONTENTS": "0"
+    }
+  ]
+}

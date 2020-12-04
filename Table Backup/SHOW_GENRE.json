@@ -1,0 +1,2392 @@
+{
+  "RECORDS": [
+    {
+      "SHOW_ID": "95",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "95",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "95",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "100",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "100",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "185",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "185",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "246",
+      "GENRE_ID": "12"
+    },
+    {
+      "SHOW_ID": "246",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "246",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "246",
+      "GENRE_ID": "28"
+    },
+    {
+      "SHOW_ID": "288",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "288",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "326",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "326",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "615",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "688",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "713",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "888",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "900",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1044",
+      "GENRE_ID": "99"
+    },
+    {
+      "SHOW_ID": "1063",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "1063",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1063",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "1063",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1087",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "1087",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1087",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1087",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1274",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1395",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1395",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "1396",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1398",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1399",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1399",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1399",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1399",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1400",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "1405",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1405",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1408",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1414",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1414",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "1414",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1425",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1429",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "1429",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1429",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1429",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1429",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1429",
+      "GENRE_ID": "10768"
+    },
+    {
+      "SHOW_ID": "1437",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1437",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1437",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1438",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1457",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1487",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "1487",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1487",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1618",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "1618",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1622",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1622",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1622",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "1668",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "1705",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1778",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1778",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "1891",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1911",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1911",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "1920",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1972",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1981",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "1981",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "1981",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "1988",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "1988",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "2004",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "2004",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "2038",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "2085",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "2085",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "2085",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "2085",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "2098",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "2098",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "2098",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "2098",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "2190",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "2207",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "2490",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "2913",
+      "GENRE_ID": "10762"
+    },
+    {
+      "SHOW_ID": "3137",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "3322",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "3322",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "3498",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "3570",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "3570",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "3570",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "3570",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "3854",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "3854",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "4057",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "4194",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "4194",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "4336",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "4336",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "4500",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "4500",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "4500",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "4574",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "4574",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "4574",
+      "GENRE_ID": "10762"
+    },
+    {
+      "SHOW_ID": "4574",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "4604",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "4604",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "4613",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "4629",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "4629",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "5920",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "6040",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "8724",
+      "GENRE_ID": "99"
+    },
+    {
+      "SHOW_ID": "9302",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "12637",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "12637",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "12637",
+      "GENRE_ID": "10766"
+    },
+    {
+      "SHOW_ID": "13579",
+      "GENRE_ID": "99"
+    },
+    {
+      "SHOW_ID": "13643",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "13916",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "13916",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "14929",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "15621",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "16420",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "16946",
+      "GENRE_ID": "99"
+    },
+    {
+      "SHOW_ID": "17149",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "17149",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "18165",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "18165",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "18165",
+      "GENRE_ID": "10749"
+    },
+    {
+      "SHOW_ID": "19885",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "19885",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "19885",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "21409",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "21510",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "21729",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "26453",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "28136",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "28136",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "30981",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "30981",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "30981",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "30981",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "30984",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "30984",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "31109",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "31109",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "31132",
+      "GENRE_ID": "12"
+    },
+    {
+      "SHOW_ID": "31132",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "31132",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "31251",
+      "GENRE_ID": "10762"
+    },
+    {
+      "SHOW_ID": "31356",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "31654",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "31654",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "31654",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "32062",
+      "GENRE_ID": "99"
+    },
+    {
+      "SHOW_ID": "32118",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "32118",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "32118",
+      "GENRE_ID": "10762"
+    },
+    {
+      "SHOW_ID": "32368",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "32368",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "32368",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "32871",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "33217",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "33880",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "33880",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "33880",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "33880",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "33880",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "34105",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "34109",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "34109",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "34109",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "34158",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "34158",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "34524",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "34524",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "34742",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "34742",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "34742",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "35610",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "35610",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "35753",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "35790",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "35790",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "35790",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "35790",
+      "GENRE_ID": "10762"
+    },
+    {
+      "SHOW_ID": "35790",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "35935",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "37419",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "37606",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "37606",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "37854",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "37854",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "37863",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "37863",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "39218",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "39218",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "40008",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "40075",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "40075",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "42009",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "42509",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "42589",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "42589",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "42589",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "42589",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "42671",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "42671",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "42671",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "42916",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "42916",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "43982",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "43982",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "43982",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "44006",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "45782",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "45782",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "45782",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "45783",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "45790",
+      "GENRE_ID": "12"
+    },
+    {
+      "SHOW_ID": "45790",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "45790",
+      "GENRE_ID": "27"
+    },
+    {
+      "SHOW_ID": "45790",
+      "GENRE_ID": "28"
+    },
+    {
+      "SHOW_ID": "45950",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "45950",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "45950",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "45950",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "46028",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "46028",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "46041",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "46041",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "46041",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "46260",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "46260",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "46260",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "46260",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "46298",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "46298",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "46298",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "46648",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "46849",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "46896",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "48891",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "48891",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "56998",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "56998",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "57706",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "57706",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "57706",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "58841",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "60059",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "60059",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "60059",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "60574",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "60622",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "60622",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "60625",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "60728",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "60728",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "60728",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "60728",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "60797",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "60808",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "60808",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "60863",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61175",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "61175",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "61222",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61222",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61223",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61339",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "61339",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61374",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61374",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61374",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "61374",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "61459",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61459",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61459",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "61459",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "61461",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61461",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61461",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61461",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "61617",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61617",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61663",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61663",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61663",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61670",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61695",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "61752",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61752",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "61852",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "61852",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61852",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "61852",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "61852",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "61852",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "61901",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61901",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "61923",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "61923",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "61923",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "61923",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "62110",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "62110",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "62110",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "62273",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "62560",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "62560",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "62565",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "62565",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "62715",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "62715",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "62741",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "62741",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "62741",
+      "GENRE_ID": "10749"
+    },
+    {
+      "SHOW_ID": "62742",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "62742",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "62742",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "62742",
+      "GENRE_ID": "10749"
+    },
+    {
+      "SHOW_ID": "62914",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "62914",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "63145",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "63247",
+      "GENRE_ID": "878"
+    },
+    {
+      "SHOW_ID": "63333",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "63333",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "63407",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "63407",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "63407",
+      "GENRE_ID": "10766"
+    },
+    {
+      "SHOW_ID": "63767",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "63767",
+      "GENRE_ID": "10749"
+    },
+    {
+      "SHOW_ID": "63926",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "63926",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "64196",
+      "GENRE_ID": "12"
+    },
+    {
+      "SHOW_ID": "64196",
+      "GENRE_ID": "14"
+    },
+    {
+      "SHOW_ID": "64196",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "64706",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "64706",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "64710",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "65143",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "65143",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "65249",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "65249",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "65249",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "65292",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "65292",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "65320",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "65329",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "65329",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "65329",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "65329",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "65567",
+      "GENRE_ID": "10768"
+    },
+    {
+      "SHOW_ID": "65648",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "65648",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "65930",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "65930",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "65930",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "65931",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "65931",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "65931",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "65931",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "65931",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "65931",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "66078",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "66078",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "66078",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "66330",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "66330",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "66732",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "66732",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "66732",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "66958",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "66958",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "67070",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "67070",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "67075",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "67075",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "67075",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "67389",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "67389",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "67389",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "67915",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "67915",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "68129",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "68129",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "68129",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "68267",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "68267",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "68267",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "68507",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "68595",
+      "GENRE_ID": "99"
+    },
+    {
+      "SHOW_ID": "68854",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "68854",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "68854",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "69050",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "69346",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "69346",
+      "GENRE_ID": "10768"
+    },
+    {
+      "SHOW_ID": "69478",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "69740",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "69740",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "70523",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "70523",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "70523",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "70593",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "70593",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "70593",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "70785",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "70785",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "70796",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "71365",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "71365",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "71712",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "71912",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "71912",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "71912",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "72002",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "72002",
+      "GENRE_ID": "10766"
+    },
+    {
+      "SHOW_ID": "72296",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "72305",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "72305",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "72305",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "72305",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "72517",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "72517",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "72548",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "72548",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "72548",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "72636",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "72636",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "72636",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "72750",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "73223",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "73946",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "73946",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "74081",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "74081",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "74387",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "74387",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "74387",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "74440",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "74440",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "74577",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "74577",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "74577",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "75006",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "75006",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "75006",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "75006",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "75865",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "75865",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "76121",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "76121",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "76121",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "76132",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "76132",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "76132",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "76479",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "76669",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "76669",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "76669",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "76747",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "76773",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "77721",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "77721",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "77721",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "79242",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "79242",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "79242",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "79460",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "79649",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "80564",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "80564",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "80564",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "80564",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "81046",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "81046",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "81046",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "81114",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "81114",
+      "GENRE_ID": "10751"
+    },
+    {
+      "SHOW_ID": "81356",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "81356",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "82591",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "82591",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "82856",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "82856",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "83095",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "83095",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "83095",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "83095",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "83097",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "83097",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "83097",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "83097",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "83097",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "83100",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "83100",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "83103",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "83103",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "83121",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "83121",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "84669",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "84669",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "85844",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "85844",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "85844",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "85844",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "85937",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "85937",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "85937",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "85937",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "85940",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "85940",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "85940",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "86248",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "86248",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "86831",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "86831",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "87432",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "87432",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "87739",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "88040",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "88040",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "88043",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "88046",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "88046",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "88803",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "88803",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "88803",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "88805",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "88805",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "88805",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "89456",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "89456",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "89456",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "90027",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "90260",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "90937",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "90937",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "91275",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "91875",
+      "GENRE_ID": "80"
+    },
+    {
+      "SHOW_ID": "91875",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "92685",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "92983",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "92983",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "93149",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "93149",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "93149",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "93812",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "93846",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "93846",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "94404",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "94404",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "94404",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "95269",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "95269",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "95601",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "96150",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "96150",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "96160",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "96160",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "96203",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "96203",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "96316",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "96316",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "96462",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "96713",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "96713",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "96713",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "97186",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "97860",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "97860",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "97860",
+      "GENRE_ID": "9648"
+    },
+    {
+      "SHOW_ID": "97860",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "97860",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "98986",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "99778",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "99778",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "99778",
+      "GENRE_ID": "10765"
+    },
+    {
+      "SHOW_ID": "100757",
+      "GENRE_ID": "10759"
+    },
+    {
+      "SHOW_ID": "100883",
+      "GENRE_ID": "35"
+    },
+    {
+      "SHOW_ID": "102903",
+      "GENRE_ID": "18"
+    },
+    {
+      "SHOW_ID": "111111",
+      "GENRE_ID": "16"
+    },
+    {
+      "SHOW_ID": "111111",
+      "GENRE_ID": "10765"
+    }
+  ]
+}
