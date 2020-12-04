@@ -1,24 +1,25 @@
 import React, {useState, useEffect,useContext}from 'react';
-import { Form, Header, Profiles,Form2 } from '../components';
+import { Form, Header } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import {AuthContext} from './../context/auth-context';
 import {useHistory} from 'react-router-dom';
-import { Checkbox } from '@material-ui/core';
-import { Radio } from '@material-ui/core';
+import { SimpleDialog,Checkbox } from '@material-ui/core';
 
 
 export function DeleteProfileContainer({ email }) {
     const auth = useContext(AuthContext);
     const [profiles, setProfiles] = useState([]);
+    const [error,setError] = useState('');
     const history = useHistory();
-    const [error, setError] = useState('');
+    const [val,setval] = useState(0);
+    
     const Email =auth.email;
     const mp =auth.max_profiles;
     var msg,prof_name;
     const np=auth.num_profiles;
     const pt=auth.ptbd;
-
+    const isInvalid = !(val<pt);
     var p = Math.abs(mp-np);
     var del =[];
     if(pt){
@@ -69,52 +70,62 @@ export function DeleteProfileContainer({ email }) {
 
         }catch(err){
             console.log(err);
-            console.log("Sending data to backend failed while signing up");
+            console.log("Sending data to backend failed while deleting");
             setError(err.message);
         }
     
 }
-
     const handleDelete = ()=>{
-
-        for(let i=0;i<del.length;i++)
-        {
-            prof_name = del[i];
-            handleDeleteProfile();
+        console.log("del length = "+del.length+" pt= "+pt);
+       if(del.length<pt && pt){
+            
+            history.push(ROUTES.PROFILE_INFO);
+       }else{
+            for(let i=0;i<del.length;i++)
+            {
+                prof_name = del[i];
+                console.log("deleting profile",prof_name);
+                handleDeleteProfile();
+            }
+            auth.set_ptbd(0);
+            history.push(ROUTES.BROWSE);
         }
-        auth.set_ptbd(0);
-        history.push(ROUTES.BROWSE);
     }
+
+    const ProfileList =  profiles.map((profile)=>{
+        return (
+            <Header.Frame  >
+                <form onClick={ ({target})=> del.push(target.value) }>
+                
+                <input type="radio" name="sub_type" value={profile.PROFILE_ID} id="radio"/><label htmlFor="radio" style={{color: "white",fontSize: 40,fontStyle:"oblique"}}>   {profile.PROFILE_ID}</label>
+                </form>
+            </Header.Frame>
+        );
+    })
+
     return (
     <>
       <Header bg={false}>
-        <Header.Frame>
-          <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
+      <Header.Frame  >
+            <Header.Logo  to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.ButtonLink onClick = {() => auth.logout()}>
+                Sign Out
+        </Header.ButtonLink>
         </Header.Frame>
       </Header>
+        <Form>
+            <Form.Title>{msg}</Form.Title>
+            
+        <Form.Base onSubmit={handleDelete} method="DELETE">
+        
+       
+            {ProfileList}
 
-        <Form2>
-            <Form2.Title>{msg}</Form2.Title>
-        <Form2.Base onSubmit={handleDelete} method="DELETE">
-      <Profiles>
-        <Profiles.List>
-            {profiles.map((name,index)=>{
-            return (
-                
-                <Profiles.User onClick = { () => {del.push(name.PROFILE_ID)}}>
-                
-                <Profiles.Name >{name.PROFILE_ID}</Profiles.Name>
-                <Profiles.Picture src={index+1}/>
-                </Profiles.User>
-            )
-            })}
-        </Profiles.List>
-      </Profiles>
-      <Form2.Submit  type="submit" data-testid="delete">
-        Proceed
-    </Form2.Submit>
-    </Form2.Base>
-      </Form2>
+            <Form.Submit  type="submit" data-testid="delete">
+            Proceed
+            </Form.Submit>
+        </Form.Base>
+      </Form>
       
     </>
   );

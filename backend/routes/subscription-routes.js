@@ -25,4 +25,6 @@ router.post('/update', subscriptionController.addSubscription);
 
 router.patch('/delete', subscriptionController.deleteSubscription);
 
+router.get('/plans', subscriptionController.getplans);
+
 module.exports = router;

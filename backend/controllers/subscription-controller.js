@@ -94,7 +94,7 @@ const getHistory = async (req, res, next) => {
     const EMAIL = req.params.email;
     try {
         const result = await database.simpleExecute(`
-            SELECT SUB_TYPE, TO_CHAR(START_DATE,'MONTH DD,YYYY') S_DATE,TO_CHAR(TERMINATION_DATE,'MONTH DD,YYYY') T_DATE,SUB_TYPE,TOTAL_BILL
+            SELECT SUB_TYPE, TO_CHAR(START_DATE,'DD/MM//YYYY') S_DATE,TO_CHAR(TERMINATION_DATE,'DD/MM//YYYY') T_DATE,SUB_TYPE,TOTAL_BILL
             FROM SUBSCRIPTION
             WHERE RUNNING = 0 AND EMAIL = :email 
             ORDER BY TERMINATION_DATE`,{
@@ -174,6 +174,17 @@ const isValidSubscription = async (req, res, next) => {
     }
 }
 
+const getplans = async (req, res, next) => {
+    try {
+        const result = await database.simpleExecute(`SELECT * FROM SUBSCRIPTION_TYPE`);
+        
+        res.status(200).json({plans: result.rows});
+    } catch (err){
+        console.log(err);
+    }
+    
+}
+
 exports.getSubscriptions = getSubscriptions;
 exports.addSubscription = addSubscription;
 exports.updateSubscription = updateSubscription;
@@ -182,3 +193,4 @@ exports.getSubId = getSubId;
 exports.isValidSubscription = isValidSubscription;
 exports.getBill = getBill;
 exports.getHistory = getHistory;
+exports.getplans=getplans;

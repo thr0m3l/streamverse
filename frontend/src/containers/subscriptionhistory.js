@@ -1,6 +1,5 @@
 import React, {useState, useEffect,useContext}from 'react';
 import { Header, Profiles,Header2 } from '../components';
-import { Profile } from '../components/header/styles/header';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import {AuthContext} from './../context/auth-context';
@@ -8,7 +7,6 @@ import {AuthContext} from './../context/auth-context';
 export function SubscriptionHistoryContainer({ email}) {
     const auth = useContext(AuthContext);
     const [subs, setSubs] = useState([]);
-    
     //console.log(email);
     async function fetchFromAPI (){
         
@@ -45,12 +43,68 @@ export function SubscriptionHistoryContainer({ email}) {
 
       <Profiles.Title>Payment History</Profiles.Title>
       
-      <Header bg={false}>
+      <Header.Frame >
+            <Header.Frame className="container">
+                <Header.Frame className="col-12" >
+                <Header2.Text  >Start Date</Header2.Text>
+                </Header.Frame>
+                <Header.Frame className="col-12">
+                    <Header2.Text>End Date</Header2.Text>
+                </Header.Frame>
+                <Header.Frame className="col-12 ">
+                    <Header2.Text>Plan Type</Header2.Text>
+                </Header.Frame>
+                <Header.Frame className="col-12">
+                    <Header2.Text>Total Bill</Header2.Text>
+                </Header.Frame>
+              </Header.Frame>
+        </Header.Frame>
+        
+      
+      
+        
         
             {subs.map((name,index)=>{
             return (
                 <>
-                <Header2.Text >Subscription {index+1}</Header2.Text>
+                  <Header.Frame>
+                  <Header.Frame className="container">
+                      <Header.Frame className="col-12" >
+                          <Header.Text  >{name.S_DATE}</Header.Text>
+                      </Header.Frame>
+                      <Header.Frame className="col-12 ">
+                          <Header.Text>{name.T_DATE}</Header.Text>
+                      </Header.Frame>
+                      <Header.Frame className="col-12">
+                          <Header.Text>{name.SUB_TYPE}</Header.Text>
+                      </Header.Frame>
+                      <Header.Frame className="col-12">
+                          <Header.Text>{name.TOTAL_BILL+" Dollars"}</Header.Text>
+                      </Header.Frame>
+                  </Header.Frame>
+                  </Header.Frame>
+
+                </>
+            )
+            })}
+        
+      
+      
+    </>
+  );
+}
+/*<Header.Frame>
+          <Header.Group>
+              <Header.Text>Start Date</Header.Text>
+              <Header.Text>End Date</Header.Text>
+              <Header.Text>Bill</Header.Text>
+              <Header.Text>Plan Type</Header.Text>
+          </Header.Group>
+      </Header.Frame>
+ */
+
+ /*
+ <Header2.Text >Subscription {index+1}</Header2.Text>
                 <Header.Frame>
                         <Header.Group>
                             <Header.Text>Start Date</Header.Text>
@@ -76,21 +130,4 @@ export function SubscriptionHistoryContainer({ email}) {
                         <Header.Text>{name.SUB_TYPE}</Header.Text>
                         </Header.Group>
                 </Header.Frame>
-                </>
-            )
-            })}
-        
-      
-      </Header>
-    </>
-  );
-}
-/*<Header.Frame>
-          <Header.Group>
-              <Header.Text>Start Date</Header.Text>
-              <Header.Text>End Date</Header.Text>
-              <Header.Text>Bill</Header.Text>
-              <Header.Text>Plan Type</Header.Text>
-          </Header.Group>
-      </Header.Frame>
- */
+                */

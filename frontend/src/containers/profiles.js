@@ -34,7 +34,10 @@ export function SelectProfileContainer({ email, setProfile }) {
         <Header bg={false}>
           <Header.Frame>
             <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
-            <Header.ButtonLink to={ROUTES.PROFILE_INFO}>Create Profile</Header.ButtonLink>
+            {profiles.length<auth.max_profiles?<Header.ButtonLink to={ROUTES.CREATE_PROFILE}>Create Profile</Header.ButtonLink>:<><Header.ButtonLink onClick = {() => auth.logout()}>
+                Log Out
+        </Header.ButtonLink></>}
+         
           </Header.Frame>
         </Header>
 

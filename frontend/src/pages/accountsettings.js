@@ -1,11 +1,9 @@
-import React, {useState, useContext} from 'react';
-import {Card, Form,Form2} from '../components';
-import { JumbotronContainer } from '../containers/jumbotron';
+import React, { useContext} from 'react';
+import {Form2,Header} from '../components';
 import * as ROUTES from '../constants/routes';
-import {useHistory} from 'react-router-dom';
 import {AuthContext} from './../context/auth-context';
 import { FooterContainer } from '../containers/footer';
-import { HeaderContainer } from '../containers/header';
+import logo from '../logo.svg';
 
 
 export default function AccountSettings() {
@@ -26,7 +24,15 @@ export default function AccountSettings() {
     
     return(
         <>
-        <HeaderContainer/>
+        <Header >
+         <Header.Frame  >
+            <Header.Logo  to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.ButtonLink onClick = {() => auth.logout()}>
+                Sign Out
+            </Header.ButtonLink>
+        </Header.Frame>
+      </Header>
+
         <Form2>
             <Form2.Title>Account Settings</Form2.Title>
         

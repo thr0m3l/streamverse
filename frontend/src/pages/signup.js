@@ -21,8 +21,7 @@ export default function Signup(){
     
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     
-    const isInvalid = name ==='' || email ==='' || dob==="" || password===''|| creditcard==='' || phone==='';
-
+    const isInvalid = name ==='' || email ==='' || dob==="" || password===''|| creditcard==='' || phone==='';   
     const handleSignup = async event =>{
         event.preventDefault();
         //send data to the backend
