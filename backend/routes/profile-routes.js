@@ -22,7 +22,9 @@ router.post('/watchlist/get/', profileController.getWatchList);
 
 router.post('/rating/add', profileController.addRating);
 router.post('/rating/find', profileController.findRating);
-router.patch('/rating/update', profileController.updateRating);
+
+router.get('/movie/time/get', profileController.getTime);
+router.post('/movie/time/set', profileController.setTime);
 
 
 

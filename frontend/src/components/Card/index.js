@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import Player from './../player/index';
 
 import {
   Container,
@@ -295,7 +296,10 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
                 }}>
                   Episodes
             </Card.Episodes>}
-
+            <Player>  
+                  {(category === 'films' || category === 'episodes' || category === 'watchlist') && <Player.Button/>}
+                  <Player.Video src = "../../public/videos/bunny.mp4" itemFeature = {itemFeature}/>
+            </Player>
         {children}
       </Content>
     </Feature>
