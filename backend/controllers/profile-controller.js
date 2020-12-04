@@ -347,45 +347,6 @@ const addRating = async(req, res, next) => {
 const findRating = async(req, res, next) => {
     const {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID} = req.body;
 
-    let func = `CREATE OR REPLACE FUNCTION GET_MOVIE_RATING
-     (MID IN NUMBER, PID IN VARCHAR2, EML IN VARCHAR2)
-    RETURN NUMBER IS
-        R NUMBER DEFAULT -1;
-    BEGIN
-        SELECT RATING INTO R
-        FROM MOVIE_WATCH
-        WHERE MOVIE_ID = MID AND PROFILE_ID = PID AND EMAIL = EML;
-        RETURN R;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            RETURN -1;
-
-    END;
-    `
-
-    let func1 = `CREATE OR REPLACE FUNCTION GET_SHOW_RATING 
-    (SID IN NUMBER, PID IN VARCHAR2, EML IN VARCHAR2)
-    RETURN NUMBER IS
-        R NUMBER DEFAULT -1;
-    BEGIN
-        SELECT RATING INTO R
-        FROM SHOW_WATCH
-        WHERE SHOW_ID = SID AND PROFILE_ID = PID AND EMAIL = EML;
-        RETURN R;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            RETURN -1;
-    END;`
-
-    try {
-        await database.simpleExecute(func);
-        await database.simpleExecute(func1);
-
-        // res.status(200).json({message : 'Okay'});
-    } catch (err){
-        console.log(err);
-    }
-
     if (MOVIE_ID){
         try {
             const result = await database.simpleExecute(`

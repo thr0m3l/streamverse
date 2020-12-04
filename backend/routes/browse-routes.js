@@ -14,4 +14,5 @@ router.get('/search/:kw', browseController.search);
 router.get('/shows/episodes/:show_id', browseController.getEpisodes);
 router.get('/suggestions', browseController.getSuggestions);
 
+router.get('/similarity', browseController.similarity);
 module.exports = router;

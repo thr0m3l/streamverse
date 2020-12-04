@@ -1,5 +1,6 @@
 const HttpError = require('../models/http-error');
 const database = require('./../services/database');
+const cosine_similarity = require('../services/cosine_similarity');
 
 const getMovieByGenre = async (req, res, next) => {
    const genre = req.params.genre;
@@ -284,8 +285,26 @@ const getSuggestions = async(req, res, next) => {
     }
 }
 
+const similarity = async(req, res, next) => {
+    try {
+        const result = await database.simpleExecute(`
+            SELECT MOVIE_ID, DESCRIPTION
+            FROM MOVIE
+            WHERE DESCRIPTION IS NOT NULL
+        `);
+
+        // main(arr);
+        cosine_similarity.main(result.rows);
+        res.status(200).json({message : 'Similarity Calculation successful'});
+    } catch(err){
+        console.log(err);
+        res.status(401).json({message: 'Similarity error'});
+    }
+}
+
 exports.getMovieByGenre = getMovieByGenre;
 exports.getShowByGenre = getShowByGenre;
 exports.search = search;
 exports.getEpisodes = getEpisodes;
 exports.getSuggestions = getSuggestions;
+exports.similarity = similarity;

@@ -1,5 +1,19 @@
 const api_key = 'e7bafd491af23dcc2cc134b14174e118';
 const axios = require('axios');
+const database = require('./database');
+
+// async function startup() {
+//     try {
+//       console.log('Initializing database module');
+    
+//       await database.initialize();
+//     } catch (err) {
+//       console.error(err);
+//       process.exit(1); // Non-zero failure code
+//     }
+//   }
+  
+//   startup();
 
 
 function tokenize_docs(documents) {
@@ -14,13 +28,18 @@ function tokenize_docs(documents) {
  */
 function vocabulary(tokenized_docs) {
     var vocab = [];
+    // console.log(tokenized_docs);
     for (var i=0; i<tokenized_docs.length; ++i) {
         for (var k=0; k<tokenized_docs[i].length; ++k) {
             var word = tokenized_docs[i][k].toLowerCase();
             if (!vocab.includes(word)) vocab.push(word);
         }
     }
+    // console.log('vocab', vocab);
+    
     return vocab.sort();
+
+
 }
 
 
@@ -47,6 +66,7 @@ function count_vectorize(tokenized_docs, vocabulary) {
     var vecs = [];
     for (var i=0; i<tokenized_docs.length; ++i) {
         var vec = [];
+        // console.log(tokenized_docs[i]);
         var count = counter(tokenized_docs[i].map(x => x.toLowerCase()));
         for (var k=0; k<vocabulary.length; ++k) {
             if (count.hasOwnProperty(vocabulary[k])) {
@@ -130,54 +150,70 @@ function query_vectorize(query, vocab, model_num_docs, model_word_counts) {
     return tfidf_vec;
 }
 
-function main(documents) {
-    const tokenized = tokenize_docs(documents);
+async function main(documents) {
+    docs_overview = documents.map( x => {
+        return x.DESCRIPTION;
+    });
+
+    console.log(docs_overview);
+
+    const tokenized = tokenize_docs(docs_overview);
     const lexicon = vocabulary(tokenized);
     const count_vecs = count_vectorize(tokenized, lexicon);
     const [tfidf_vecs, word_freqs] = tfidf_vectorize(count_vecs, lexicon);
 
     const query = function (text) {
         query_vec = query_vectorize(
-                text, lexicon, tfidf_vecs.length, word_freqs);
+                text.DESCRIPTION, lexicon, tfidf_vecs.length, word_freqs);
         var ranked = [];
         for (var i=0; i<tfidf_vecs.length; ++i) {
-            ranked.push([cosine_similarity(query_vec, tfidf_vecs[i]), documents[i]]);
-            console.log([cosine_similarity(query_vec, tfidf_vecs[i]), documents[i]]);
+            ranked.push(
+                {
+                    score : cosine_similarity(query_vec, tfidf_vecs[i]), 
+                    id1: text.MOVIE_ID, 
+                    id2: documents[i].MOVIE_ID
+                }
+            );
+            // console.log([cosine_similarity(query_vec, tfidf_vecs[i]), documents[i]]);
         }
         return ranked.sort((x, y) => y[0] - x[0]);
+
     }
 
     const s3 = 'Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.';
     const s1 = 'Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Saurons forces. Meanwhile, Frodo and Sam take the ring closer to the heart of Mordor, the dark lords realm.';
     
-    query(s1);
-}
+    for(i = 0; i < documents.length; ++i){
+        let arr = query({MOVIE_ID: documents[i].MOVIE_ID, DESCRIPTION: documents[i].DESCRIPTION})
 
-
-async function fetchMovieData (startPage, totalPages){
-    let arr = [];
-    
-    for(pi =  startPage; pi <= totalPages; ++pi){
-        
-        
-        let page = pi.toString();
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=${page}`);
-        
-        for(i = 0 ; i < response.data.results.length; ++i){
-            // console.log(response.data.results[i]);
-
-            let {release_date, adult, id, overview, original_language, 
-                title, vote_average, vote_count, poster_path} = response.data.results[i];
-
-            arr.push(overview);
+        for(j = 0; j < arr.length; ++j){
+            const {id1, id2, score} = arr[j];
+            
+            try {
+                const result = await database.simpleExecute(`
+                BEGIN
+                    INSERT INTO MOVIE_SIMILARITY(MOVIE_ID1, MOVIE_ID2, SCORE)
+                    VALUES(:id1, :id2, :score);
+                EXCEPTION
+                    WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                END;
+                `, {
+                    id1 : id1,
+                    id2 : id2,
+                    score : score
+                })
+            } catch (err) {
+                console.log(err);
+            }
         }
-    }
-    // console.log(arr);
-
-    main(arr);
-}
-
-fetchMovieData(1, 1);
         
 
+    }
+
+
+
+}
+        
+exports.main = main;
 // console.log(main([s1, s3]));
