@@ -1,5 +1,5 @@
 import React, { useContext} from 'react';
-import {Form2,Header} from '../components';
+import {Form, Form2,Header} from '../components';
 import * as ROUTES from '../constants/routes';
 import {AuthContext} from './../context/auth-context';
 import { FooterContainer } from '../containers/footer';
@@ -52,23 +52,11 @@ export default function AccountSettings() {
             <Form2.Text>Settings</Form2.Text>
             <Form2.Link to="#">Watch History</Form2.Link>
             <Form2.Link to="/deleteprofile">Delete Profile</Form2.Link>
+            <Form2.Link to="/updatephone">Update Phone Number</Form2.Link>
+            <Form2.Link to="/updatepassword">Update Password</Form2.Link>
+           
         </Form2>
         <FooterContainer/>
       </>  
     );
 }
-
-/*
-<Form>
-            <Form.Title>Account Settings</Form.Title>
-            <h2>Membership and billing</h2>
-            <h2>cancel membership</h2>
-            <h2>user email</h2>
-            <h2 className="ml-2">monthly bill</h2>
-            <Form.Title>plan details</Form.Title>
-            <h2>plan name</h2>
-            <h2>upgrade your plan</h2>
-            <Form.Title>settings</Form.Title>
-            <Form.Link to="#">see watch history</Form.Link>
-        </Form>
-        */

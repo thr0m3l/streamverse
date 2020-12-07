@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Error, Base, Title, Text, TextSmall, Link, Input, Submit } from './styles/form';
+import { Container, Error, Base, Title, Text, TextSmall, Link, Input, Submit,CharField } from './styles/form';
 
 export default function Form({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
@@ -35,4 +35,8 @@ Form.Input = function FormInput({ children, ...restProps }) {
 
 Form.Submit = function FormSubmit({ children, ...restProps }) {
   return <Submit {...restProps}>{children}</Submit>;
+};
+
+Form.CharField = function FormCharField({ children, ...restProps }) {
+  return <CharField {...restProps}>{children}</CharField>;
 };

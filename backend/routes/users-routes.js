@@ -15,6 +15,17 @@ router.post('/signup', [
 router.post('/login', usersController.login);
 
 router.get('/maxprofiles/:email', usersController.getMaxProfiles);
+
+router.patch('/updatephone',usersController.updatePhone);
+
+router.get('/getphone/:email', usersController.getPhone);
+
+router.patch('/updatepassword', usersController.updatePassword);
+
+router.get('/getmoviehistory/:email/:prof_id', usersController.getMovieWatchHistory);
+
+router.get('/getshowhistory/:email/:prof_id', usersController.getShowWatchHistory);
+
 router.use(checkAuth);
 
 module.exports = router;
