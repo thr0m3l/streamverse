@@ -11,3 +11,5 @@ export {default as CancelSubscription} from './cancelsubscription';
 export {default as SubscriptionHistory} from './subscription_history';
 export {default as DeleteProfile} from './deleteprofile';
 export {default as ProfileInfo} from './profileinfo';
+export {default as UpdatePhone} from './updatephone';
+export {default as UpdatePassword} from './updatepassword';

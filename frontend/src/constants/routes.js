@@ -11,3 +11,5 @@ export const CANCEL_SUBCRIPTION = "/cancelsubscription";
 export const SUBSCRIPTION_HISTORY ="/subscriptionhistory";
 export const DELETE_PROFILE = "/deleteprofile";
 export const PROFILE_INFO = "/profileinfo";
+export const UPDATE_PHONE = '/updatephone';
+export const UPDATE_PASSWORD = '/updatepassword';

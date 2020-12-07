@@ -1,4 +1,4 @@
-const {validationResult} = require('express-validator');
+const {validationResult, Result} = require('express-validator');
 const HttpError = require('../models/http-error');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -147,7 +147,126 @@ const getMaxProfiles = async (req, res, next) => {
     }
 }
 
+const updatePhone = async (req, res, next) => {
+    const {EMAIL,Phone} = req.body;
+    try {
+        const result = await database.simpleExecute(`
+        UPDATE USER_NETFLIX
+        SET PHONE = :phone
+        WHERE EMAIL = :email`,{
+             email : EMAIL,
+             phone : Phone
+         });
+        
+         res.status(201).json({message: 'Successfully updated phone'});
+    } catch (err){
+        console.log(err);
+    }
+}
+
+const getPhone = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT PHONE FROM USER_NETFLIX
+        WHERE EMAIL = :email`,{
+             email : EMAIL
+         });
+        
+         res.status(200).json({phone: result.rows[0]});
+    } catch (err){
+        console.log(err);
+    }
+}
+
+const updatePassword = async (req, res, next) => {
+    const {EMAIL,OLD_PASS,NEW_PASS,NEW_PASS_CON} = req.body;
+    
+    if(NEW_PASS!==NEW_PASS_CON){
+        const error = new HttpError(
+            'New passwords don\'t match',
+            422
+        );
+        return next (error);
+    }
+    else{
+        try {
+            const result = await database.simpleExecute(`
+            SELECT PASSWORD FROM USER_NETFLIX
+            WHERE EMAIL = :email`,{
+                 email : EMAIL
+             });
+             console.log("result here",result.rows[0]);
+             const {PASSWORD : hashedPassword} = result.rows[0];
+            if (await bcrypt.compare(OLD_PASS, hashedPassword)) {
+                
+                const PASSWORD2 = await bcrypt.hash(NEW_PASS, 12);
+                const result2 = await database.simpleExecute(`
+                UPDATE USER_NETFLIX
+                SET PASSWORD = :pw
+                WHERE EMAIL = :email`,{
+                    email : EMAIL,
+                    pw : PASSWORD2
+                });
+
+                res.status(201).json({message : 'password updated successfully'});
+            } else {
+                const error = new HttpError(
+                    'Incorrect Password',
+                    423
+                );
+                return next (error);
+            }
+        } catch (err){
+            console.log(err);
+        }
+    }
+}
+
+const getMovieWatchHistory = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    const PROF_ID = req.params.prof_id;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT MW.RATING,MW.WATCHED_UPTO,M.TITLE
+        FROM MOVIE_WATCH MW
+        JOIN MOVIE M ON M.MOVIE_ID=MW.MOVIE_ID
+        WHERE MW.EMAIL = :email AND MW.PROFILE_ID = :prof_id`,{
+             email : EMAIL,
+             prof_id : PROF_ID
+         });
+        
+        res.status(200).json({history: result.rows});
+    } catch (err){
+        console.log(err);
+    }
+}
+
+const getShowWatchHistory = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    const PROF_ID = req.params.prof_id;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT S.TITLE,S.RATING,E.SEASON_NO,E.EPISODE_NO,E.WATCHED_UPTO
+        FROM EPISODE_WATCH E
+        JOIN SHOW S ON S.SHOW_ID = E.SHOW_ID 
+        WHERE E.EMAIL =  :email AND E.PROFILE_ID = :prof_id`,{
+             email : EMAIL,
+             prof_id : PROF_ID
+         });
+        
+        res.status(200).json({history: result.rows});
+    } catch (err){
+        console.log(err);
+    }
+}
+
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
 exports.getMaxProfiles = getMaxProfiles; 
+exports.updatePhone = updatePhone;
+exports.getPhone = getPhone;
+exports.updatePassword = updatePassword;
+exports.getMovieWatchHistory = getMovieWatchHistory;
+exports.getShowWatchHistory = getShowWatchHistory;

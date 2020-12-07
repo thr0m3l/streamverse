@@ -1,7 +1,8 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
-import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription,SubscriptionHistory,DeleteProfile,ProfileInfo} from './pages';
+import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription,
+  UpdatePassword,SubscriptionHistory,DeleteProfile,ProfileInfo,UpdatePhone} from './pages';
 import {AuthContext} from './context/auth-context';
 
 
@@ -107,6 +108,12 @@ function App() {
       </Route>
       <Route exact path={ROUTES.UPDATE_SUBSCRIPTION}>
         <UpdateSubscription/>
+      </Route>
+      <Route exact path={ROUTES.UPDATE_PHONE}>
+        <UpdatePhone/>
+      </Route>
+      <Route exact path={ROUTES.UPDATE_PASSWORD}>
+        <UpdatePassword/>
       </Route>
       <Route exact path={ROUTES.CANCEL_SUBCRIPTION}>
         <CancelSubscription/>
