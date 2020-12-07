@@ -16,8 +16,10 @@ import {
   PlayButton,
   Text,
   Feature,
-  Logo,
+  Logo
 } from './styles/header';
+
+import Select from 'react-select';
 
 export default function Header({ bg = true, children, ...restProps }) {
   return bg ? (
@@ -45,7 +47,7 @@ Header.Logo = function HeaderLogo({ to, ...restProps }) {
   );
 };
 
-Header.Search = function HeaderSearch({ searchTerm, setSearchTerm, ...restProps }) {
+Header.Search = function HeaderSearch({ searchTerm, setSearchTerm, onSubmit, ...restProps }) {
   const [searchActive, setSearchActive] = useState(false);
 
   return (
@@ -59,6 +61,7 @@ Header.Search = function HeaderSearch({ searchTerm, setSearchTerm, ...restProps 
         placeholder="Search films and series"
         active={searchActive}
         data-testid="search-input"
+        onSubmit = {onSubmit}
       />
     </Search>
   );
@@ -99,3 +102,7 @@ Header.Text = function HeaderText({ children, ...restProps }) {
 Header.ButtonLink = function HeaderButtonLink({ children, ...restProps }) {
   return <ButtonLink {...restProps}>{children}</ButtonLink>;
 };
+
+Header.Select = function HeaderSelect({children, ...restProps}){
+  return <Select {...restProps}> {children} </Select>;
+}

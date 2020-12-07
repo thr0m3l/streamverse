@@ -4,7 +4,7 @@ import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import {AuthContext} from './../context/auth-context';
 
-export function SelectProfileContainer({ email, setProfile }) {
+export function SelectProfileContainer({ email, setProfile, setCategory }) {
     const [profiles, setProfiles] = useState([]);
     const auth = useContext(AuthContext);
     const mp=auth.max_profiles;
@@ -46,7 +46,7 @@ export function SelectProfileContainer({ email, setProfile }) {
           <Profiles.List>
               {profiles.map((name,index)=>{
               return (
-                  <Profiles.User onClick = { () => setProfile (name)}>
+                  <Profiles.User onClick = { (event) => {setProfile (name); setCategory('films'); }}>
                       <Profiles.Name >{name.PROFILE_ID}</Profiles.Name>
                       <Profiles.Picture src={index+1}/>
                   </Profiles.User>

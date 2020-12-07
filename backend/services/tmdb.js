@@ -24,10 +24,17 @@ async function fetchMovieData (startPage, totalPages){
             // console.log(release_date + ' ' + id + ' ' + title + ' ' + vote_average );
 
             try {
-                database.simpleExecute(`INSERT INTO MOVIE (MOVIE_ID, TITLE,
-                    DESCRIPTION, RELEASE_DATE, RATING, TOTAL_VOTES, IMAGE_URL, LANGUAGE, MATURITY_RATING)
-               VALUES (:movie_id, :title, :overview, TO_DATE (:release_date, 'yyyy-mm-dd'), 
-               :vote_average, :vote_count, :poster_path, :lang, :adult)`,
+                database.simpleExecute(`
+                BEGIN
+                    INSERT INTO MOVIE (MOVIE_ID, TITLE,
+                        DESCRIPTION, RELEASE_DATE, RATING, TOTAL_VOTES, IMAGE_URL, LANGUAGE, MATURITY_RATING)
+                VALUES (:movie_id, :title, :overview, TO_DATE (:release_date, 'yyyy-mm-dd'), 
+                :vote_average, :vote_count, :poster_path, :lang, :adult);
+                EXCEPTION
+                    WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                END;
+               `,
                {
                    movie_id : id,
                    title : title,
@@ -44,8 +51,14 @@ async function fetchMovieData (startPage, totalPages){
                for(j = 0; j < response.data.results[i].genre_ids.length; ++j){
                 let genre_id = response.data.results[i].genre_ids[j];
                 console.log(response.data.results[i].genre_ids[j]);
-                database.simpleExecute(`INSERT INTO MOVIE_GENRE (MOVIE_ID, GENRE_ID) 
-                    VALUES (:movie_id, :genre_id) `, {
+                database.simpleExecute(`
+                BEGIN
+                    INSERT INTO MOVIE_GENRE (MOVIE_ID, GENRE_ID) 
+                    VALUES (:movie_id, :genre_id);
+                EXCEPTION
+                    WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                END; `, {
                         movie_id : id,
                         genre_id : genre_id
                 });
@@ -76,8 +89,14 @@ async function fetchGenreData(){
         for(i = 0 ; i < response.data.genres.length; ++i){
             let {id, name} = response.data.genres[i];
             try {
-                database.simpleExecute(`INSERT INTO GENRE (GENRE_ID, NAME, CONTENTS)
-                VALUES (:genre_id, :genre_name, 0)`,
+                database.simpleExecute(`
+                BEGIN
+                INSERT INTO GENRE (GENRE_ID, NAME, CONTENTS)
+                VALUES (:genre_id, :genre_name, 0);
+                EXCEPTION
+                    WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                END;`,
                {
                     genre_id : id,
                     genre_name : name   
@@ -130,10 +149,18 @@ async function fetchShowData(totalPages){
             // if (status !== 'Ended') last_air_date = null;
 
             try {
-                database.simpleExecute(`INSERT INTO SHOW (SHOW_ID, TITLE,
+                database.simpleExecute(`
+                BEGIN
+                INSERT INTO SHOW (SHOW_ID, TITLE,
                     DESCRIPTION, START_DATE, RATING, TOTAL_VOTES, IMAGE_URL, LANGUAGE, LENGTH, SEASONS, EPISODES, END_DATE)
                VALUES (:show_id, :title, :overview, TO_DATE (:release_date, 'yyyy-mm-dd'), 
-               :vote_average, :vote_count, :poster_path, :lang, :len, :seasons, :episodes, TO_DATE (:last_air_date, 'yyyy-mm-dd'))`,
+               :vote_average, :vote_count, :poster_path, :lang, :len, :seasons, :episodes, TO_DATE (:last_air_date, 'yyyy-mm-dd'));
+               EXCEPTION
+                    WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                    WHEN OTHERS
+                        NULL;
+                END;`,
                {
                    show_id : id,
                    title : name,
@@ -155,8 +182,14 @@ async function fetchShowData(totalPages){
                for(j = 0; j < response.data.results[i].genre_ids.length; ++j){
                     let genre_id = response.data.results[i].genre_ids[j];
                     // console.log(response.data.results[i].genre_ids[j]);
-                    database.simpleExecute(`INSERT INTO SHOW_GENRE (SHOW_ID, GENRE_ID) 
-                    VALUES (:show_id, :genre_id) `, {
+                    database.simpleExecute(`
+                    BEGIN
+                    INSERT INTO SHOW_GENRE (SHOW_ID, GENRE_ID) 
+                    VALUES (:show_id, :genre_id);
+                    EXCEPTION
+                        WHEN DUP_VAL_ON_INDEX THEN
+                            NULL;
+                    END; `, {
                         show_id : id,
                         genre_id : genre_id
                 });
@@ -226,16 +259,25 @@ async function movieCredits (totalPages){
                             
                             try {
                                 await database.simpleExecute(`
-                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name)
-                                    `, {
+                                BEGIN    
+                                INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name);
+                                    EXCEPTION
+                                    WHEN DUP_VAL_ON_INDEX THEN
+                                    NULL;
+                                END;    `, {
                                     celeb_id : response.data.cast[i].id,
                                     celeb_name : response.data.cast[i].name
                                 });
                             console.log(response.data.cast[i].id, response.data.cast[i].name);
 
                                 await database.simpleExecute(
-                                    `INSERT INTO MOVIE_CELEB (CELEB_ID, MOVIE_ID, ROLE) 
-                                    VALUES (:celeb_id, :movie_id, :role) `,{
+                                    `BEGIN
+                                    INSERT INTO MOVIE_CELEB (CELEB_ID, MOVIE_ID, ROLE) 
+                                    VALUES (:celeb_id, :movie_id, :role);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                    END; `,{
                                         celeb_id : response.data.cast[i].id,
                                         movie_id : id,
                                         role : response.data.cast[i].known_for_department
@@ -253,16 +295,26 @@ async function movieCredits (totalPages){
                         if (response.data.crew[i].known_for_department === 'Acting' || response.data.crew[i].known_for_department === 'Directing'){
                             try {
                                 await database.simpleExecute(`
-                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name)
+                                    BEGIN
+                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                    END;
                                     `, {
                                     celeb_id : response.data.crew[i].id,
                                     celeb_name : response.data.crew[i].name
                                 });
-                            console.log(response.data.cast[i].id, response.data.cast[i].name);
+                            // console.log(response.data.cast[i].id, response.data.cast[i].name);
 
                                 await database.simpleExecute(
-                                    `INSERT INTO MOVIE_CELEB (CELEB_ID, MOVIE_ID, ROLE) 
-                                    VALUES (:celeb_id, :movie_id, :role) `,{
+                                    `BEGIN
+                                    INSERT INTO MOVIE_CELEB (CELEB_ID, MOVIE_ID, ROLE) 
+                                    VALUES (:celeb_id, :movie_id, :role);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                    END; `,{
                                         celeb_id : response.data.crew[i].id,
                                         movie_id : id,
                                         role : response.data.crew[i].known_for_department
@@ -300,32 +352,50 @@ async function showCredits (totalPages){
     for(pi =  1; pi <= totalPages; ++pi){
         let page = pi.toString();
         await axios.get(`https://api.themoviedb.org/3/tv/top_rated?api_key=${api_key}&language=en-US&page=${page}`)
-        .then(async (response) => {
-            for(i = 0 ; i < response.data.results.length; ++i){
+        .then(async (resp) => {
+            for(i = 0 ; i < resp.data.results.length; ++i){
                 // console.log(response.data.results[i]);
                 
-                let {id} = response.data.results[i];
+                let {id} = resp.data.results[i];
 
-            try {
-               await axios.get(`
-               https://api.themoviedb.org/3/tv/${id}/credits?api_key=${api_key}&language=en-US`).then( async (response) =>{
-                    console.log(response.data.cast.length);
-                    
-                    for(i = 0; i < response.data.cast.length; ++i){
+               const response = await axios.get(`
+               https://api.themoviedb.org/3/tv/${id}/credits?api_key=${api_key}&language=en-US`);
+                
+               console.log(id);     
+               
+               for(i = 0; i < response.data.cast.length; ++i){
                         if (response.data.cast[i].known_for_department === 'Acting' || response.data.cast[i].known_for_department === 'Directing'){
                             
                             try {
                                 await database.simpleExecute(`
-                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name)
+                                    BEGIN
+                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                        WHEN OTHERS THEN
+                                        NULL;
+                                    END;
                                     `, {
                                     celeb_id : response.data.cast[i].id,
                                     celeb_name : response.data.cast[i].name
                                 });
-                            console.log(response.data.cast[i].id, response.data.cast[i].name);
-
+                            } catch(err){
+                                console.log(err);
+                            }
+                            
+                            
+                            try {
                                 await database.simpleExecute(
-                                    `INSERT INTO SHOW_CELEB (CELEB_ID, SHOW_ID, ROLE) 
-                                    VALUES (:celeb_id, :show_id, :role) `,{
+                                    `BEGIN
+                                        INSERT INTO SHOW_CELEB (CELEB_ID, SHOW_ID, ROLE) 
+                                        VALUES (:celeb_id, :show_id, :role);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                            NULL;
+                                        WHEN OTHERS THEN
+                                            NULL;
+                                    END; `,{
                                         celeb_id : response.data.cast[i].id,
                                         show_id : id,
                                         role : response.data.cast[i].known_for_department
@@ -343,16 +413,34 @@ async function showCredits (totalPages){
                         if (response.data.crew[i].known_for_department === 'Acting' || response.data.crew[i].known_for_department === 'Directing'){
                             try {
                                 await database.simpleExecute(`
-                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name)
+                                    BEGIN
+                                    INSERT INTO CELEB (CELEB_ID, NAME) VALUES (:celeb_id, :celeb_name);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                        WHEN OTHERS THEN
+                                        NULL;
+                                    END;
                                     `, {
                                     celeb_id : response.data.crew[i].id,
                                     celeb_name : response.data.crew[i].name
                                 });
-                            console.log(response.data.cast[i].id, response.data.cast[i].name);
-
+                            } catch(err){
+                                console.log(err);
+                            }
+                            
+                            
+                            try {
                                 await database.simpleExecute(
-                                    `INSERT INTO SHOW_CELEB (CELEB_ID, SHOW_ID, ROLE) 
-                                    VALUES (:celeb_id, :show_id, :role) `,{
+                                    `BEGIN
+                                    INSERT INTO SHOW_CELEB (CELEB_ID, SHOW_ID, ROLE) 
+                                    VALUES (:celeb_id, :show_id, :role);
+                                    EXCEPTION
+                                        WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                        WHEN OTHERS THEN
+                                        NULL;
+                                    END; `,{
                                         celeb_id : response.data.crew[i].id,
                                         show_id : id,
                                         role : response.data.crew[i].known_for_department
@@ -365,14 +453,6 @@ async function showCredits (totalPages){
                             }
                         }
                     }
-
-               }).catch(function (err1){
-                   console.log(err1);
-               });
-
-            } catch (err){
-                console.log(err);
-            }
             
         }
 
@@ -398,9 +478,17 @@ async function fetchEpisode(id){
             let {episode_number, season_number, name, overview, still_path } = resp1.data.episodes[j];
 
             try {
-                await database.simpleExecute(`INSERT INTO EPISODE 
+                await database.simpleExecute(`
+                BEGIN
+                INSERT INTO EPISODE 
                 (SEASON_NO, EPISODE_NO, SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL)
-                VALUES (:s_no, :e_no, :show_id, :title, :description, :img_url)`, {
+                VALUES (:s_no, :e_no, :show_id, :title, :description, :img_url);
+                EXCEPTION
+                    WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                    WHEN OTHERS
+                        NULL;
+                END;`, {
                     s_no : season_number,
                     e_no : episode_number,
                     show_id : id,
@@ -423,8 +511,9 @@ async function fetchEpisode(id){
 // fetchMovieData(20);
 // fetchShowData(20);
 // movieCredits(20);
-showCredits(20);
+// showCredits(20);
 // fetchEpisode(60059);
 
-
+// fetchMovieData(20);
+// movieCredits(20);
 // export default requests;

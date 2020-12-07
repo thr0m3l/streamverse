@@ -26,7 +26,7 @@ router.post('/rating/find', profileController.findRating);
 router.get('/movie/time/get', profileController.getTime);
 router.post('/movie/time/set', profileController.setTime);
 
-
+router.get('/movie/continue', profileController.continueWatching);
 
 
 module.exports = router;

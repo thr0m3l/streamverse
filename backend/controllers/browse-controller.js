@@ -1,6 +1,8 @@
 const HttpError = require('../models/http-error');
 const database = require('./../services/database');
 const cosine_similarity = require('../services/cosine_similarity');
+const axios = require('axios');
+const { query } = require('express');
 
 const getMovieByGenre = async (req, res, next) => {
    const genre = req.params.genre;
@@ -85,28 +87,110 @@ const getShowByGenre = async (req, res, next) => {
  }
 
  const search = async (req, res, next) => {
-    const kw = req.params.kw;
+    const {kw, param, ss} = req.query; //keyword, search parameter and search space
+    if (!kw) kw = ' ';
+    if(!param) param = 'all';
+    if (!ss) ss = 'all';
+    let movieQuery, showQuery, select, from, where, order, space = ss;
+    let result = [];
+    
 
-    const movieQuery = `
+    if (ss === 'all' & param !== 'all') space = 'movie';
+    //Dynamic Query
+    //If search space is movie
+    if (space === 'movie') {
+        select = `SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE `;
+        from = `FROM MOVIE M `;
+        order = `ORDER BY M.RATING DESC `;
+        if (param === 'celeb'){
+            from += `, MOVIE_CELEB MC, CELEB C `;
+            where = `WHERE (M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw)) `;
+        } else if (param === 'genre'){
+            from += `, MOVIE_GENRE MG, GENRE G `;
+            where = `WHERE (M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw)) `;
+        } else if (param === 'title'){
+            where = `WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw) `;
+        } else if (param === 'year'){
+            where = `WHERE EXTRACT(YEAR FROM M.RELEASE_DATE) = :kw `
+        }
+        movieQuery = select + from + where + order;
+
+        try {
+            const movies = await database.simpleExecute(movieQuery, {
+                kw : (param !== 'year' ? '%' + kw + '%' : kw)
+            });
+
+            result.push({
+                title: 'Search Result from Movies',
+                data: movies.rows
+            });
+
+        } catch(err){
+            console.log(err);
+            res.status(400).json({message: 'Query failed'});
+        }
+    }
+
+    if (ss === 'all' & param != 'all') space = 'show';
+    //If search space is show
+
+    if (space === 'show') {
+        select = `SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL `;
+        from = `FROM SHOW S `;
+        order = `ORDER BY S.RATING DESC`
+
+        if (param === 'celeb'){
+            from += `, SHOW_CELEB MC, CELEB C `;
+            where = `WHERE (S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw)) `;
+        } else if (param === 'genre'){
+            from += `, SHOW_GENRE SG, GENRE G `;
+            where = `WHERE (S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw)) `;
+        } else if (param === 'title'){
+            where = `WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw) `;
+        } else if (param === 'year'){
+            where = `WHERE EXTRACT(YEAR FROM S.START_DATE) = :kw `
+        }
+        showQuery = select + from + where + order;
+        try {
+            const shows = await database.simpleExecute(showQuery, {
+                kw : (param !== 'year' ? '%' + kw + '%' : kw)
+            });
+            
+            result.push({
+                title: 'Search Result from Shows',
+                data: shows.rows
+            });
+        } catch(err){
+            console.log(err);
+            res.status(400).json({message: 'Query failed'});
+        }
+    } 
+
+
+    //Static Query
+    //In case no parameter and search space defined, assume all
+
+    if(param === 'all' && ss === 'all') {
+        movieQuery = `
         (
-            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
             FROM MOVIE M
             WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)
         )
         UNION
         (
-            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
             FROM MOVIE M, MOVIE_CELEB MC, CELEB C
             WHERE (M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw))
         )
         UNION 
         (
-            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
             FROM MOVIE M, MOVIE_GENRE MG, GENRE G
             WHERE (M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw))
         )`
-    
-    const showQuery = `
+
+        showQuery = `
         (
             SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
             FROM SHOW S
@@ -125,31 +209,32 @@ const getShowByGenre = async (req, res, next) => {
             WHERE (S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw))
         )
         `
-    try {
-        const movies = await database.simpleExecute(movieQuery, {
-            kw : '%' + kw + '%'
-        });
 
-        const shows = await database.simpleExecute(showQuery, {
-            kw : '%' + kw + '%'
-        });
-        
-        const result = [
-            {
-                title: 'Search Result from Movies',
-                data : movies.rows
-            },
-            {
-                title: 'Search Result from Shows',
-                data : shows.rows
-            }
-        ]
-
-        res.status(200).json(result);
-    } catch(err){
-        console.log(err);
-        res.status(401).json({message: 'Search failed'});
+        try {
+            const movies = await database.simpleExecute(movieQuery, {
+                kw : '%' + kw + '%'
+            });
+    
+            const shows = await database.simpleExecute(showQuery, {
+                kw : '%' + kw + '%'
+            });
+            
+            result = [
+                {
+                    title: 'Search Result from Movies',
+                    data : movies.rows
+                },
+                {
+                    title: 'Search Result from Shows',
+                    data : shows.rows
+                }
+            ]
+        } catch(err){
+            console.log(err);
+            res.status(401).json({message: 'Query failed'});
+        }
     }
+    res.status(200).json(result);
 }
 
 const getEpisodes = async(req, res, next) => {
@@ -166,7 +251,8 @@ const getEpisodes = async(req, res, next) => {
     const result1 = await database.simpleExecute(`
         SELECT *
         FROM EPISODE
-        WHERE SHOW_ID = :show_id`, {
+        WHERE SHOW_ID = :show_id
+        ORDER BY SEASON_NO, EPISODE_NO`, {
             show_id : show_id
     });
 
@@ -301,6 +387,8 @@ const similarity = async(req, res, next) => {
         res.status(401).json({message: 'Similarity error'});
     }
 }
+
+
 
 exports.getMovieByGenre = getMovieByGenre;
 exports.getShowByGenre = getShowByGenre;

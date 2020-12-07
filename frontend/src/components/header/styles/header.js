@@ -12,6 +12,7 @@ export const Background = styled.div`
   }
 `;
 
+
 export const Container = styled.div`
   display: flex;
   margin: 0 56px;
@@ -76,6 +77,7 @@ export const Search = styled.div`
     display: none;
   }
 `;
+
 
 export const SearchIcon = styled.button`
   cursor: pointer;

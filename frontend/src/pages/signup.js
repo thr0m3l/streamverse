@@ -102,7 +102,7 @@ export default function Signup(){
                         
                     <label htmlFor="date"  style={{color: "white"}}>Date of Birth  </label>
                     
-                    <input type="date" id="date" ></input>
+                    <input type="date" id="date" style = {{background: '#333333', color: 'white', height: '50px', bottom: '10px'}}></input>
                     </form>
                     
                     <Form.Input onfocus="(this.type='date')" placeholder="Date Of Birth (DD-MON-YYYY)" value={dob} onChange={({target})=> setDOB(target.value) } />
@@ -111,7 +111,14 @@ export default function Signup(){
                     
                     <Form.Input  placeholder="Phone Number." value={phone} onChange={({target})=> setPhone(target.value) } />
     
-                    <CountryDropdown value="country"
+                    <CountryDropdown value="country" style = {{
+                            background: '#333333',
+                            color : 'white',
+                            height : '60px',
+                            bottom: '10px',
+                            padding: ''
+                            }
+                        }
                     onChange={(val) => setCountryId(val) } />
                                     
                     <Form.Input   placeholder="Country" value={country_id} onChange={({target})=> setCountryId(target.value) } />

@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-//import Fuse from 'fuse.js';
+import React, { useState, useEffect, useContext, Component } from 'react';
 import { Card, Header, Loading, Player } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import { FooterContainer } from './footer';
 import {AuthContext} from './../context/auth-context';
 import { SelectProfileContainer } from './profiles';
-import Baron from 'react-baron/dist/es5';
-import { colors } from 'material-ui/styles';
 import {useHistory} from 'react-router-dom';
-import SlideshowIcon from '@material-ui/icons/Slideshow';
-import Button from '@material-ui/core/Button'
+
+// import Select from '@material-ui/core/Select';
 
 export function BrowseContainer({ slides }) {
-    const [category, setCategory] = useState('films');
+    const [category, setCategory] = useState('');
     const [prevCategory, setPrevCategory] = useState('');
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
@@ -24,13 +21,31 @@ export function BrowseContainer({ slides }) {
     const history = useHistory();
 
     
+
+    
     async function searchHandler (keyword){
-        const url = `http://localhost:5000/api/browse/search/${keyword}`;
+        const searchKey = keyword.split(':');
+        console.log(searchKey);
+        let key, param, ss;
+        if (searchKey.length === 1){
+          key = searchKey[0];
+          param = ss = 'all';
+        } else if (searchKey.length === 2){
+          key = searchKey[1];
+          ss = 'all';
+          param = searchKey[0];
+        } else {
+          ss = searchKey[0];
+          param = searchKey[1];
+          key = searchKey[2];
+        }
+
+        const url = `http://localhost:5000/api/browse/search/?kw=${key}&param=${param}&ss=${ss}`;
         const response = await fetch(url);
         const data = await response.json();
-        // console.log('searching');
-        // console.log(data);
-        setSlideRows(data);
+        console.log('searching');
+        console.log(data);
+        if (response.status === 200) setSlideRows(data);
     }
 
     async function getWatchList(){
@@ -68,14 +83,26 @@ export function BrowseContainer({ slides }) {
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 300);
       auth.profile = profile.PROFILE_ID;
+      getLastWatched();
       // console.log('Auth.profile_id = ' + auth.profile);
     }, [profile.PROFILE_ID]);
+
+    async function getLastWatched(){
+      if (category === 'films'){
+        const response = await fetch(`http://localhost:5000/api/profiles/movie/continue/?profile_id=${profile.PROFILE_ID}&email=${auth.email}`);
+        const responseData = await response.json();
+        console.log(responseData);
+        if (slides[category][0].title !== 'Continue Watching') slides[category].unshift(responseData);
+        slides[category][0] = responseData;
+      }
+    }
 
     useEffect(() => {
       console.log(slides);
       
+
       if (category === 'films' || category === 'series'){
         setSlideRows(slides[category]);
       }
@@ -83,8 +110,7 @@ export function BrowseContainer({ slides }) {
       if (category === 'watchlist'){
         getWatchList();
       }
-      
-    }, [slides, category]);
+    }, [category, profile.PROFILE_ID]);
 
     
 
@@ -129,7 +155,15 @@ export function BrowseContainer({ slides }) {
               </Header.TextLink>
 
             </Header.Group>
+            
+            
             <Header.Group>
+
+            {/* <Header.Select className = "mt-4 col-md-8 col-offset-4" width = '100px' options = {options} styles = {customStyles}> </Header.Select> */}
+
+            
+
+
               <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
               <Header.Profile>
                 
@@ -178,7 +212,6 @@ export function BrowseContainer({ slides }) {
             {slideRows && slideRows.map((slideItem)=>(
               <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
                 <Card.Title>{slideItem.title}</Card.Title>
-                {/* <Baron> */}
                 <Card.Entities>
               {slideItem.data.map((item) => (
                 <Card.Item key={item.MOVIE_ID} item={item}>
@@ -196,7 +229,6 @@ export function BrowseContainer({ slides }) {
                 </Card.Item>
               ))}
             </Card.Entities>
-            {/* </Baron> */}
             <Card.Feature category = {category} setCategory = {setCategory} setSlideRows = {setSlideRows}>
                 
                 
@@ -209,6 +241,6 @@ export function BrowseContainer({ slides }) {
       </>
     
     ) : (
-      <> <SelectProfileContainer email = {auth.email} setProfile = {setProfile}/> </>
+      <> <SelectProfileContainer email = {auth.email} setProfile = {setProfile} setCategory = {setCategory}/> </>
     );
 }

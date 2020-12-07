@@ -431,6 +431,37 @@ const setTime = async (req, res, next) => {
     }
 }
 
+const continueWatching = async (req, res, next) => {
+    const query = `
+    SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.IMAGE_URL, 
+    M.RATING, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE, W.TIME
+    FROM MOVIE_WATCH W, MOVIE M
+    WHERE M.MOVIE_ID = W.MOVIE_ID AND W.EMAIL = :email 
+    AND W.PROFILE_ID = :profile_id AND W.WATCHED_UPTO > 0
+    ORDER BY W.TIME DESC 
+     `
+    const {profile_id, email} = req.query;
+
+    console.log('Continue Watching ', profile_id, email);
+    
+    try {
+        const result = await database.simpleExecute(query, {
+            profile_id : profile_id,
+            email : email
+        });
+
+        res.status(200).json({
+            title: 'Continue Watching',
+            data : result.rows
+        });
+
+    } catch(err){
+        console.log(err);
+        res.status(400).json(err);
+    }
+
+}
+
 
 exports.getProfile = getProfile;
 exports.addProfile = addProfile;
@@ -444,3 +475,4 @@ exports.getWatchList = getWatchList;
 exports.findRating = findRating;
 exports.getTime = getTime;
 exports.setTime = setTime;
+exports.continueWatching = continueWatching;

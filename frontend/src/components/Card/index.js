@@ -104,7 +104,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
   const [isRated, setIsRated] = useState(false);
   const [rating, setRating] = useState(-1);
 
-  async function fetchWatchInfo(){
+  async function fetchWatchInfo(event){
     const body = JSON.stringify({
       EMAIL: auth.email,
       PROFILE_ID : auth.profile,
@@ -247,7 +247,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
   return showFeature ? (
     <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1280${itemFeature.IMAGE_URL}`}>
       <Content>
-      {category === 'episodes' && <Card.SubTitle> 
+      {itemFeature.SHOW_ID && itemFeature.SEASON_NO && <Card.SubTitle> 
                       {'Season ' + itemFeature.SEASON_NO + ' Episode ' + itemFeature.EPISODE_NO}
                       </Card.SubTitle>}
         <FeatureTitle>{itemFeature.TITLE}</FeatureTitle>
@@ -262,14 +262,14 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
           <FeatureText fontWeight="bold">
             {itemFeature.NAME}
           </FeatureText>
-          {!inWatchList && <WatchList onClick = {e => postWatchInfo(e)}> 
+          {!inWatchList && (!itemFeature.SEASON_NO) && <WatchList onClick = {e => postWatchInfo(e)}> 
               <AddIcon/>
           </WatchList>}
-          {inWatchList && <WatchList onClick = {deleteFromWatchList} >
+          {inWatchList && (!itemFeature.SEASON_NO) && <WatchList onClick = {deleteFromWatchList} >
             <ClearIcon/>
           </WatchList>}
           
-          { (!isRated || rating === 0) && 
+          { (!isRated || rating === 0) && (!itemFeature.SEASON_NO) && 
             <Rating style = {{
             background : '#32a84c'
             }} onClick = {e => ratingHandler(e, 10)}>
@@ -281,7 +281,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
 
 
 
-          {(!isRated || rating === 10) && <Rating style= {{
+          {(!isRated || rating === 10) && (!itemFeature.SEASON_NO) && <Rating style= {{
             right : '500px',
             background : '#c41212'
           }} onClick = {e => ratingHandler(e, 0)}>
@@ -290,14 +290,14 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
           }
         </Group>
         
-        {category === 'series' && <Card.Episodes onClick = { (event) => {
+        {itemFeature.SHOW_ID && !itemFeature.SEASON_NO && <Card.Episodes onClick = { (event) => {
                 setCategory('episodes');
                 getEpisodes();
                 }}>
                   Episodes
             </Card.Episodes>}
             <Player>  
-                  {(category === 'films' || category === 'episodes' || category === 'watchlist') && <Player.Button/>}
+                  {(itemFeature.MOVIE_ID || (itemFeature.SHOW_ID && itemFeature.EPISODE_NO)) && <Player.Button/>}
                   <Player.Video src = "../../public/videos/bunny.mp4" itemFeature = {itemFeature}/>
             </Player>
         {children}
