@@ -50,7 +50,8 @@ export default function AccountSettings() {
 
 
             <Form2.Text>Settings</Form2.Text>
-            <Form2.Link to="#">Watch History</Form2.Link>
+            <Form2.Link to="/moviehistory">Movie Watch History</Form2.Link>
+            <Form2.Link to="/showhistory">Show Watch History</Form2.Link>
             <Form2.Link to="/deleteprofile">Delete Profile</Form2.Link>
             <Form2.Link to="/updatephone">Update Phone Number</Form2.Link>
             <Form2.Link to="/updatepassword">Update Password</Form2.Link>

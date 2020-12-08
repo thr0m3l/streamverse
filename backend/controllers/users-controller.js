@@ -228,10 +228,11 @@ const getMovieWatchHistory = async (req, res, next) => {
     const PROF_ID = req.params.prof_id;
     try {
         const result = await database.simpleExecute(`
-        SELECT MW.RATING,MW.WATCHED_UPTO,M.TITLE
+        SELECT MW.RATING,MW.WATCHED_UPTO,M.TITLE,MW.TIME
         FROM MOVIE_WATCH MW
         JOIN MOVIE M ON M.MOVIE_ID=MW.MOVIE_ID
-        WHERE MW.EMAIL = :email AND MW.PROFILE_ID = :prof_id`,{
+        WHERE MW.EMAIL = :email AND MW.PROFILE_ID = :prof_id
+        ORDER BY MW.TIME DESC`,{
              email : EMAIL,
              prof_id : PROF_ID
          });

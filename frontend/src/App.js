@@ -2,7 +2,7 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {BrowserRouter as Router , Redirect, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import { Home,Signin,Signup,Browse,Profiles,CreateProfile,AddSubscription,AccountSettings,UpdateSubscription,CancelSubscription,
-  UpdatePassword,SubscriptionHistory,DeleteProfile,ProfileInfo,UpdatePhone} from './pages';
+  UpdatePassword,SubscriptionHistory,DeleteProfile,ProfileInfo,UpdatePhone,MovieHistory,ShowHistory} from './pages';
 import {AuthContext} from './context/auth-context';
 
 
@@ -117,6 +117,12 @@ function App() {
       </Route>
       <Route exact path={ROUTES.CANCEL_SUBCRIPTION}>
         <CancelSubscription/>
+      </Route>
+      <Route exact path={ROUTES.MOVIE_HISTORY}>
+        <MovieHistory/>
+      </Route>
+      <Route exact path={ROUTES.SHOW_HISTORY}>
+        <ShowHistory/>
       </Route>
       <Route exact path={ROUTES.SUBSCRIPTION_HISTORY}>
         <SubscriptionHistory/>

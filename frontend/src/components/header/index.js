@@ -16,7 +16,8 @@ import {
   PlayButton,
   Text,
   Feature,
-  Logo
+  Logo,
+  Container2
 } from './styles/header';
 
 import Select from 'react-select';
@@ -106,3 +107,7 @@ Header.ButtonLink = function HeaderButtonLink({ children, ...restProps }) {
 Header.Select = function HeaderSelect({children, ...restProps}){
   return <Select {...restProps}> {children} </Select>;
 }
+
+Header.Frame2 = function HeaderFrame2({ children, ...restProps }) {
+  return <Container2 {...restProps}>{children}</Container2>;
+};

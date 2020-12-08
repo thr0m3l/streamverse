@@ -13,3 +13,5 @@ export {default as DeleteProfile} from './deleteprofile';
 export {default as ProfileInfo} from './profileinfo';
 export {default as UpdatePhone} from './updatephone';
 export {default as UpdatePassword} from './updatepassword';
+export {default as MovieHistory} from './moviehistory';
+export {default as ShowHistory} from './showhistory';

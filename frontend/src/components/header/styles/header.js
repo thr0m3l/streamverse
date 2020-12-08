@@ -228,3 +228,13 @@ export const PlayButton = styled.button`
     color: white;
   }
 `;
+
+export const Container2 = styled.div`
+
+  display: flex;
+  
+  height: 34px;
+  padding:  0px 0px 5px 25px;
+  align-items: center;
+
+`;

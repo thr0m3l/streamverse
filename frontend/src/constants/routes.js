@@ -13,3 +13,5 @@ export const DELETE_PROFILE = "/deleteprofile";
 export const PROFILE_INFO = "/profileinfo";
 export const UPDATE_PHONE = '/updatephone';
 export const UPDATE_PASSWORD = '/updatepassword';
+export const MOVIE_HISTORY = '/moviehistory';
+export const SHOW_HISTORY = '/showhistory';
