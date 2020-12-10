@@ -25,7 +25,7 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
     console.log('Paused');
     const time = ref.current.getCurrentTime();
     
-    const response = await fetch('http://localhost:5000/api/profiles/movie/time/set', {
+    const response = await fetch('http://localhost:5000/api/profiles/time/set', {
         method: 'POST',
         headers: {
               'Content-Type' : 'application/json',
@@ -35,7 +35,9 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
           profile_id : auth.profile,
           movie_id: itemFeature.MOVIE_ID,
           show_id : itemFeature.SHOW_ID,
-          watched_upto : time
+          watched_upto : time,
+          episode_no : itemFeature.EPISODE_NO,
+          season_no : itemFeature.SEASON_NO
         })
     });
 
@@ -46,9 +48,10 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
   }
 
   async function getTime (event){
-    
+    let response;
     try{
-      const response = await fetch(`http://localhost:5000/api/profiles/movie/time/get/?email=${auth.email}&profile_id=${auth.profile}&movie_id=${itemFeature.MOVIE_ID}`);
+      if (itemFeature.MOVIE_ID) response = await fetch(`http://localhost:5000/api/profiles/time/get/?email=${auth.email}&profile_id=${auth.profile}&movie_id=${itemFeature.MOVIE_ID}`);
+      else if (itemFeature.SHOW_ID) response = await fetch(`http://localhost:5000/api/profiles/time/get/?email=${auth.email}&profile_id=${auth.profile}&show_id=${itemFeature.SHOW_ID}&episode_no=${itemFeature.EPISODE_NO}&season_no=${itemFeature.SEASON_NO}`);
       const responseData = await response.json();
       if (response.status === 200) ref.current.seekTo(responseData.WATCHED_UPTO, 'seconds');
     } catch(err){
@@ -65,7 +68,7 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
             <ReactPlayer
             ref = {ref} 
             controls
-            url = 'http://server2.ftpbd.net/FTP-2/English%20Movies/IMDB%20TOP%20250/004.%20The%20Dark%20Knight%20%282008%29%20720p%20%5BDual%20Audio%5D%5BEnglish%2BHindi%5D/The%20Dark%20Knight%20%282008%29%20BRrip%20720p%20x264%20Dual%20Audio%20%5BEng-Hindi%20%5D.mkv' 
+            url = 'http://srv2.cinehub24.com/11%2F6814-29162-Batman-The-Dark-Knight-Rises.mkv' 
             onPause = {event => saveTime(event)}
             onPlay = {event => getTime(event)}/>
             <Close />

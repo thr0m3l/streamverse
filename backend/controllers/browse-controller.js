@@ -10,7 +10,7 @@ const getMovieByGenre = async (req, res, next) => {
    let query;
    
    if (genre === 'all'){
-       query = `SELECT *
+       query = `SELECT M.MOVIE_ID, M.TITLE, M.IMAGE_URL, M.DESCRIPTION, EXTRACT (YEAR FROM M.RELEASE_DATE) as RELEASE_DATE, M.RATING, G.NAME
        FROM MOVIE M, MOVIE_GENRE MG, GENRE G
        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 1000
        ORDER BY DBMS_RANDOM.RANDOM`
@@ -53,10 +53,10 @@ const getShowByGenre = async (req, res, next) => {
     let query;
     
     if (genre === 'all'){
-        query = `SELECT *
-            FROM SHOW S, SHOW_GENRE SG, GENRE G
-            WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 1000
-            ORDER BY DBMS_RANDOM.RANDOM`
+        query = `SELECT S.SHOW_ID, S.TITLE, S.RATING, S.IMAGE_URL, S.DESCRIPTION, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE, G.NAME
+        FROM SHOW S, SHOW_GENRE SG, GENRE G
+        WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 1000
+        ORDER BY DBMS_RANDOM.RANDOM`
  
         try {
          const result = await database.simpleExecute(query);
@@ -66,7 +66,7 @@ const getShowByGenre = async (req, res, next) => {
              res.status(400).json({message: 'Cant fetch show data from backend'});
          }
     }
-     else {query = `SELECT *
+     else {query = `SELECT S.SHOW_ID, S.TITLE, S.IMAGE_URL, S.DESCRIPTION, EXTRACT(YEAR FROM S.START_DATE) || ' - ' || (YEAR FROM S.END_DATE) as RELEASE_DATE, G.NAME
         FROM SHOW S, SHOW_GENRE SG, GENRE G
         WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = G.GENRE_ID AND G.NAME = :genre
         ORDER BY DBMS_RANDOM.RANDOM`
@@ -87,7 +87,7 @@ const getShowByGenre = async (req, res, next) => {
  }
 
  const search = async (req, res, next) => {
-    const {kw, param, ss} = req.query; //keyword, search parameter and search space
+    let {kw, param, ss} = req.query; //keyword, search parameter and search space
     if (!kw) kw = ' ';
     if(!param) param = 'all';
     if (!ss) ss = 'all';
@@ -135,7 +135,7 @@ const getShowByGenre = async (req, res, next) => {
     //If search space is show
 
     if (space === 'show') {
-        select = `SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL `;
+        select = `SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE `;
         from = `FROM SHOW S `;
         order = `ORDER BY S.RATING DESC`
 
@@ -192,19 +192,19 @@ const getShowByGenre = async (req, res, next) => {
 
         showQuery = `
         (
-            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
             FROM SHOW S
             WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)
         )
         UNION
         (
-            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
             FROM SHOW S, SHOW_CELEB SC, CELEB C
             WHERE (S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw))
         )
         UNION
         (
-            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
             FROM SHOW S, SHOW_GENRE SG, GENRE G
             WHERE (S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw))
         )
