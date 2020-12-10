@@ -73,7 +73,7 @@ export function BrowseContainer({ slides }) {
     }
 
     async function getSuggestions(event){
-      const response = await fetch('http://localhost:5000/api/browse/suggestions');
+      const response = await fetch(`http://localhost:5000/api/browse/suggestions/?email=${auth.email}&profile_id=${auth.profile}`);
       const responseData = await response.json();
       console.log('Getting response data. . .');
       setSlideRows(responseData);
@@ -161,15 +161,12 @@ export function BrowseContainer({ slides }) {
                 Suggestions
               </Header.TextLink>
 
+              <Header.TextLink active={category === 'new' ? 'true' : 'false'}> New and Popular</Header.TextLink>
+
             </Header.Group>
             
             
             <Header.Group>
-
-            {/* <Header.Select className = "mt-4 col-md-8 col-offset-4" width = '100px' options = {options} styles = {customStyles}> </Header.Select> */}
-
-            
-
 
               <Header.Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
               <Header.Profile>

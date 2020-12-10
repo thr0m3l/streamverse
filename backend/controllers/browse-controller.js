@@ -283,8 +283,114 @@ const getEpisodes = async(req, res, next) => {
 }
 
 const getSuggestions = async(req, res, next) => {
+    const {email, profile_id} = req.query;
+    
     try{
         let suggestions;
+
+        const favoriteGenre = await database.simpleExecute(`
+        SELECT NAME
+        FROM (SELECT G.NAME
+        FROM MOVIE M, MOVIE_GENRE MG, GENRE G, MOVIE_WATCH MW
+        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID 
+                    AND MW.MOVIE_ID = M.MOVIE_ID AND MW.RATING = 10 AND MW.EMAIL = :email AND MW.PROFILE_ID = :profile_id
+        GROUP BY G.NAME
+        ORDER BY COUNT(*) DESC)
+        WHERE ROWNUM = 1
+        `, {
+            profile_id : profile_id,
+            email : email
+        });
+
+        const lastWatchedMovie = await database.simpleExecute(
+            `
+            SELECT *
+			FROM (
+				SELECT M.TITLE
+				FROM MOVIE_WATCH MW, MOVIE M
+				WHERE M.MOVIE_ID = MW.MOVIE_ID AND MW.PROFILE_ID = :profile_id AND MW.EMAIL = :email
+				ORDER BY TIME DESC
+			)
+			WHERE ROWNUM = 1`, {
+                email : email, 
+                profile_id : profile_id
+            }
+        );
+
+        const lastWatchedRecommendation = await database.simpleExecute(
+            `SELECT *
+            FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
+            FROM MOVIE M1, MOVIE M2, MOVIE_SIMILARITY MS
+            WHERE M1.MOVIE_ID = MS.MOVIE_ID1 AND M2.MOVIE_ID = MS.MOVIE_ID2 
+                        AND MS.SCORE < 1 AND MS.SCORE > 0.05 AND M1.MOVIE_ID = (SELECT *
+                        FROM (
+                            SELECT MOVIE_ID
+                            FROM MOVIE_WATCH
+                            WHERE PROFILE_ID = :profile_id AND EMAIL = :email
+                            ORDER BY TIME DESC
+                        )
+                        WHERE ROWNUM = 1)
+            ORDER BY MS.SCORE DESC)
+            WHERE ROWNUM <= 5`, {
+                profile_id : profile_id,
+                email : email
+            }
+        );
+
+        const similarityRecommendation = await database.simpleExecute(`
+        SELECT *
+        FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
+            FROM MOVIE M1, MOVIE M2, MOVIE_SIMILARITY MS
+            WHERE M1.MOVIE_ID = MS.MOVIE_ID1 AND M2.MOVIE_ID = MS.MOVIE_ID2 
+			AND MS.SCORE < 1 AND MS.SCORE > 0.05 AND M1.MOVIE_ID IN (SELECT *
+			    FROM (
+				    SELECT MOVIE_ID
+                    FROM MOVIE_WATCH
+                    WHERE PROFILE_ID = :profile_id AND EMAIL = :email
+				    ORDER BY TIME DESC
+			    )
+			WHERE ROWNUM <= 10)
+            ORDER BY MS.SCORE DESC)
+        WHERE ROWNUM <= 20`, {
+            profile_id : profile_id,
+            email : email
+        });
+
+
+        const genreRecommendation = await database.simpleExecute(`
+        SELECT *
+        FROM (SELECT *
+        FROM (SELECT M.MOVIE_ID, M.TITLE, M.IMAGE_URL, M.DESCRIPTION, ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                    FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING", EXTRACT (YEAR FROM M.RELEASE_DATE) as RELEASE_DATE
+        FROM MOVIE M, MOVIE_GENRE MG
+        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = (SELECT GENRE_ID
+        FROM (SELECT G.GENRE_ID
+        FROM MOVIE M, MOVIE_GENRE MG, GENRE G, MOVIE_WATCH MW
+        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID 
+                    AND MW.MOVIE_ID = M.MOVIE_ID AND MW.RATING = 10 AND MW.EMAIL = :email AND MW.PROFILE_ID = :profile_id
+        GROUP BY G.GENRE_ID
+        ORDER BY COUNT(*) DESC)
+        WHERE ROWNUM = 1 )
+        
+        MINUS
+        
+        SELECT M.MOVIE_ID, M.TITLE, M.IMAGE_URL, M.DESCRIPTION, ROUND((M.TOTAL_VOTES*M.RATING/(M.TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                    FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING", EXTRACT (YEAR FROM M.RELEASE_DATE) as RELEASE_DATE
+        FROM MOVIE M, MOVIE_GENRE MG, MOVIE_WATCH MW
+        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MW.MOVIE_ID = M.MOVIE_ID AND MW.PROFILE_ID = :profile_id AND MW.EMAIL = :email AND MG.GENRE_ID = (SELECT GENRE_ID
+        FROM (SELECT G.GENRE_ID
+        FROM MOVIE M, MOVIE_GENRE MG, GENRE G, MOVIE_WATCH MW
+        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID 
+                    AND MW.MOVIE_ID = M.MOVIE_ID AND MW.RATING = 10
+        GROUP BY G.GENRE_ID
+        ORDER BY COUNT(*) DESC)
+        WHERE ROWNUM = 1 ))
+        ORDER BY RATING DESC)
+        WHERE ROWNUM <= 10
+        `, {
+            profile_id : profile_id,
+            email : email
+        });
         
         const mostWatched = await database.simpleExecute(`
             SELECT W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION
@@ -338,6 +444,21 @@ const getSuggestions = async(req, res, next) => {
         );
 
         suggestions = [
+            {
+                title: 'Recommended for you',
+                data : similarityRecommendation.rows
+            },
+
+            {
+                title : 'Because you like ' + favoriteGenre.rows[0].NAME + ' movies',
+                data : genreRecommendation.rows
+            },
+
+            {
+                title : 'Because you watched ' + lastWatchedMovie.rows[0].TITLE,
+                data : lastWatchedRecommendation.rows
+            },
+
             {
                 title : 'Top Rated Movies',
                 data : topRated.rows
