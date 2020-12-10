@@ -111,7 +111,7 @@ export function AddSubscriptionContainer({ Email }) {
         }catch(err){
             console.log(err);
             console.log("Sending data to backend failed while subscribing");
-            setError(err.message);
+            setError("Invalid Expire Date");
         }
     }
   

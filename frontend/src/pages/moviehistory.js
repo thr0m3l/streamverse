@@ -2,7 +2,7 @@ import React, {useState, useEffect,useContext}from 'react';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
 import {AuthContext} from '../context/auth-context';
-import { Header, Profiles,Header2 } from '../components';
+import { Header, Profiles,Header2} from '../components';
 import logo from '../logo.svg';
 import {FooterContainer} from '../containers/footer';
 
@@ -48,7 +48,6 @@ export default function MovieHistory() {
                 return (
                     <>
                     <Header2.Text >{name.TITLE}</Header2.Text>
-                   
                     <Header.Frame2>
                             <Header.Text>Rating</Header.Text>
                             <Header2.Text>{name.RATING}</Header2.Text>
@@ -62,8 +61,8 @@ export default function MovieHistory() {
                     <Header.Frame2>
                             <Header.Text>Date-Time</Header.Text>
                             <Header2.Text>{name.TIME}</Header2.Text>
-                            
-                    </Header.Frame2><hr></hr>
+                    </Header.Frame2>
+                    <hr></hr>
                     </>
                 )
                 })}

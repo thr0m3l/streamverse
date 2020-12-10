@@ -3,7 +3,6 @@ import { Header, Profiles,Header2 } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 import {AuthContext} from './../context/auth-context';
-
 export function SubscriptionHistoryContainer({ email}) {
     const auth = useContext(AuthContext);
     const [subs, setSubs] = useState([]);
@@ -33,14 +32,13 @@ export function SubscriptionHistoryContainer({ email}) {
     <>
       <Header bg={false}>
         <Header.Frame>
-          <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
+          <Header.Logo to={ROUTES.BROWSE} src={logo} alt="Netflix" />
           <Header.ButtonLink onClick = {() => auth.logout()}>
                 Sign Out
         </Header.ButtonLink>
         </Header.Frame>
       </Header>
       
-
       <Profiles.Title>Payment History</Profiles.Title>
       
       <Header.Frame >
@@ -93,41 +91,3 @@ export function SubscriptionHistoryContainer({ email}) {
     </>
   );
 }
-/*<Header.Frame>
-          <Header.Group>
-              <Header.Text>Start Date</Header.Text>
-              <Header.Text>End Date</Header.Text>
-              <Header.Text>Bill</Header.Text>
-              <Header.Text>Plan Type</Header.Text>
-          </Header.Group>
-      </Header.Frame>
- */
-
- /*
- <Header2.Text >Subscription {index+1}</Header2.Text>
-                <Header.Frame>
-                        <Header.Group>
-                            <Header.Text>Start Date</Header.Text>
-                            <Header.Text>{name.S_DATE}</Header.Text>
-                        </Header.Group>
-                </Header.Frame>
-                <Header.Frame>
-                        <Header.Group>
-                        <Header.Text>End Date</Header.Text>
-                        <Header.Text>{name.T_DATE}</Header.Text>
-                        </Header.Group>
-                </Header.Frame>
-                <Header.Frame>
-                     <Header.Group>
-                        <Header.Text>Total Payment</Header.Text>
-                        <Header.Text>{name.TOTAL_BILL} $</Header.Text>
-                        </Header.Group>
-                        
-                </Header.Frame>
-                <Header.Frame>
-                        <Header.Group>
-                        <Header.Text>Plan Type</Header.Text>
-                        <Header.Text>{name.SUB_TYPE}</Header.Text>
-                        </Header.Group>
-                </Header.Frame>
-                */
