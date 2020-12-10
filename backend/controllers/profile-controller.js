@@ -388,50 +388,95 @@ const findRating = async(req, res, next) => {
 }
 
 const getTime = async (req, res, next) => {
-    const {movie_id, profile_id, email} = req.query;
+    const {movie_id, profile_id, email, show_id, episode_no, season_no} = req.query;
 
-    try {
-        const result = await database.simpleExecute(`
-            BEGIN
-                GET_MOVIE_TIMESTAMP(:movie_id, :profile_id, :email, :tm);
-            END;
-        `, {
-            movie_id : movie_id,
-            profile_id, profile_id,
-            email :email,
-            tm : {dir : oracledb.BIND_OUT, type : oracledb.NUMBER}
-        });
-
-        res.status(200).json({WATCHED_UPTO : result.outBinds.tm});
-    } catch(err){
-        console.log(err);
-    }
+    if (movie_id){
+        try {
+            const result = await database.simpleExecute(`
+                BEGIN
+                    GET_MOVIE_TIMESTAMP(:movie_id, :profile_id, :email, :tm);
+                END;
+            `, {
+                movie_id : movie_id,
+                profile_id, profile_id,
+                email :email,
+                tm : {dir : oracledb.BIND_OUT, type : oracledb.NUMBER}
+            });
+    
+            res.status(200).json({WATCHED_UPTO : result.outBinds.tm});
+        } catch(err){
+            console.log(err);
+        }
+    } else if (show_id){
+        try {
+            const result = await database.simpleExecute(`
+                BEGIN
+                    GET_EPISODE_TIMESTAMP(:show_id, :season_no, :episode_no, :profile_id, :email, :tm);
+                END;
+            `, {
+                show_id : show_id,
+                season_no : season_no,
+                episode_no : episode_no,
+                profile_id, profile_id,
+                email :email,
+                tm : {dir : oracledb.BIND_OUT, type : oracledb.NUMBER}
+            });
+    
+            res.status(200).json({WATCHED_UPTO : result.outBinds.tm});
+        } catch(err){
+            console.log(err);
+        }
+    }   
+    
 
 }
 
 const setTime = async (req, res, next) => {
-    const {movie_id, profile_id, email, watched_upto} = req.body;
+    const {movie_id, show_id, season_no, episode_no, profile_id, email, watched_upto} = req.body;
 
-    try {
-        const result = await database.simpleExecute(`
-            BEGIN
-                SET_MOVIE_TIMESTAMP(:movie_id, :profile_id, :email, :tm);
-            END;
-        `, {
-            movie_id : movie_id,
-            profile_id, profile_id,
-            email :email,
-            tm : watched_upto
-        });
-
-
-        res.status(200).json({message: 'Time saved'});
-    } catch(err){
-        console.log(err);
+    if (movie_id){
+        try {
+            const result = await database.simpleExecute(`
+                BEGIN
+                    SET_MOVIE_TIMESTAMP(:movie_id, :profile_id, :email, :tm);
+                END;
+            `, {
+                movie_id : movie_id,
+                profile_id, profile_id,
+                email :email,
+                tm : watched_upto
+            });
+    
+    
+            res.status(200).json({message: 'Time saved for movie'});
+        } catch(err){
+            console.log(err);
+        }
+    } else if (show_id && episode_no && season_no){
+        try {
+            const result = await database.simpleExecute(`
+                BEGIN
+                    SET_EPISODE_TIMESTAMP(:show_id, :season_no, :episode_no, :profile_id, :email, :tm);
+                END;
+            `, {
+                show_id : show_id,
+                season_no : season_no,
+                episode_no : episode_no,
+                profile_id, profile_id,
+                email :email,
+                tm : watched_upto
+            });
+    
+    
+            res.status(200).json({message: 'Time saved for the episode'});
+        } catch(err){
+            console.log(err);
+        }
     }
+    
 }
 
-const continueWatching = async (req, res, next) => {
+const movieContinueWatching = async (req, res, next) => {
     const query = `
     SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.IMAGE_URL, 
     M.RATING, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE, W.TIME
@@ -462,6 +507,35 @@ const continueWatching = async (req, res, next) => {
 
 }
 
+const showContinueWatching = async (req, res, next) => {
+    const query = `
+    SELECT S.SHOW_ID, S.TITLE, S.IMAGE_URL, S.DESCRIPTION, ROUND(S.RATING, 2) as RATING, EXTRACT (YEAR FROM S.START_DATE) as RELEASE_DATE
+    FROM SHOW S, EPISODE_WATCH EW
+    WHERE S.SHOW_ID = EW.SHOW_ID AND EW.EMAIL = :email AND EW.PROFILE_ID = :profile_id
+    GROUP BY S.SHOW_ID, S.TITLE, S.IMAGE_URL, S.DESCRIPTION, ROUND(S.RATING, 2), EXTRACT (YEAR FROM S.START_DATE)
+    ORDER BY MAX(EW.TIME) DESC
+     `
+    const {profile_id, email, season_no, episode_no} = req.query;
+
+    console.log('Continue Watching ', profile_id, email);
+    
+    try {
+        const result = await database.simpleExecute(query, {
+            profile_id : profile_id,
+            email : email
+        });
+
+        res.status(200).json({
+            title: 'Continue Watching',
+            data : result.rows
+        });
+
+    } catch(err){
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
+
 
 exports.getProfile = getProfile;
 exports.addProfile = addProfile;
@@ -475,4 +549,5 @@ exports.getWatchList = getWatchList;
 exports.findRating = findRating;
 exports.getTime = getTime;
 exports.setTime = setTime;
-exports.continueWatching = continueWatching;
+exports.movieContinueWatching = movieContinueWatching;
+exports.showContinueWatching = showContinueWatching;

@@ -23,10 +23,10 @@ router.post('/watchlist/get/', profileController.getWatchList);
 router.post('/rating/add', profileController.addRating);
 router.post('/rating/find', profileController.findRating);
 
-router.get('/movie/time/get', profileController.getTime);
-router.post('/movie/time/set', profileController.setTime);
+router.get('/time/get', profileController.getTime);
+router.post('/time/set', profileController.setTime);
 
-router.get('/movie/continue', profileController.continueWatching);
-
+router.get('/movie/continue', profileController.movieContinueWatching);
+router.get('/show/continue', profileController.showContinueWatching);
 
 module.exports = router;

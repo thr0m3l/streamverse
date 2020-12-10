@@ -251,8 +251,9 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
                       {'Season ' + itemFeature.SEASON_NO + ' Episode ' + itemFeature.EPISODE_NO}
                       </Card.SubTitle>}
         <FeatureTitle>{itemFeature.TITLE}</FeatureTitle>
+       {itemFeature.RELEASE_DATE && <FeatureTitle> {itemFeature.RELEASE_DATE} </FeatureTitle>}
         <FeatureText>{itemFeature.DESCRIPTION}</FeatureText>
-        <FeatureText> {'Rating: ' + itemFeature.RATING}</FeatureText>
+        {itemFeature.RATING && <FeatureText> {'Rating: ' + itemFeature.RATING}</FeatureText>}
         <FeatureClose onClick={() => {setShowFeature(false); setIsRated(false); setRating(-1)}}>
           <img src="/images/icons/close.png" alt="Close" />
         </FeatureClose>

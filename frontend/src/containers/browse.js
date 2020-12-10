@@ -25,7 +25,6 @@ export function BrowseContainer({ slides }) {
     
     async function searchHandler (keyword){
         const searchKey = keyword.split(':');
-        console.log(searchKey);
         let key, param, ss;
         if (searchKey.length === 1){
           key = searchKey[0];
@@ -39,7 +38,7 @@ export function BrowseContainer({ slides }) {
           param = searchKey[1];
           key = searchKey[2];
         }
-
+        console.log(ss, param, key);
         const url = `http://localhost:5000/api/browse/search/?kw=${key}&param=${param}&ss=${ss}`;
         const response = await fetch(url);
         const data = await response.json();
@@ -96,6 +95,12 @@ export function BrowseContainer({ slides }) {
         console.log(responseData);
         if (slides[category][0].title !== 'Continue Watching') slides[category].unshift(responseData);
         slides[category][0] = responseData;
+      } else if (category === 'series'){
+        const response = await fetch(`http://localhost:5000/api/profiles/show/continue/?profile_id=${profile.PROFILE_ID}&email=${auth.email}`);
+        const responseData = await response.json();
+        console.log(responseData);
+        if (slides[category][0].title !== 'Continue Watching') slides[category].unshift(responseData);
+        slides[category][0] = responseData;
       }
     }
 
@@ -107,6 +112,8 @@ export function BrowseContainer({ slides }) {
         setSlideRows(slides[category]);
       }
       
+      getLastWatched();
+
       if (category === 'watchlist'){
         getWatchList();
       }
