@@ -26,7 +26,11 @@ router.patch('/updatepassword', usersController.updatePassword);
 
 router.get('/getmoviehistory/:email/:prof_id', usersController.getMovieWatchHistory);
 
+router.get('/getmoviehistory/:email', usersController.getMovieWatchHistory2);
+
 router.get('/getshowhistory/:email/:prof_id', usersController.getShowWatchHistory);
+
+router.get('/getshowhistory/:email', usersController.getShowWatchHistory2);
 
 router.use(checkAuth);
 

@@ -243,6 +243,24 @@ const getMovieWatchHistory = async (req, res, next) => {
     }
 }
 
+const getMovieWatchHistory2 = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT MW.RATING,MW.WATCHED_UPTO,M.TITLE,MW.TIME,M.IMAGE_URL,MW.PROFILE_ID PID
+        FROM MOVIE_WATCH MW
+        JOIN MOVIE M ON M.MOVIE_ID=MW.MOVIE_ID
+        WHERE MW.EMAIL = :email 
+        ORDER BY MW.TIME DESC`,{
+             email : EMAIL
+         });
+        
+        res.status(200).json({history: result.rows});
+    } catch (err){
+        console.log(err);
+    }
+}
+
 const getShowWatchHistory = async (req, res, next) => {
     const EMAIL = req.params.email;
     const PROF_ID = req.params.prof_id;
@@ -254,6 +272,23 @@ const getShowWatchHistory = async (req, res, next) => {
         WHERE E.EMAIL =  :email AND E.PROFILE_ID = :prof_id`,{
              email : EMAIL,
              prof_id : PROF_ID
+         });
+        
+        res.status(200).json({history: result.rows});
+    } catch (err){
+        console.log(err);
+    }
+}
+
+const getShowWatchHistory2 = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT S.TITLE,S.RATING,E.SEASON_NO,E.EPISODE_NO,E.WATCHED_UPTO,E.PROFILE_ID PID
+        FROM EPISODE_WATCH E
+        JOIN SHOW S ON S.SHOW_ID = E.SHOW_ID 
+        WHERE E.EMAIL =  :email`,{
+             email : EMAIL
          });
         
         res.status(200).json({history: result.rows});
@@ -286,5 +321,7 @@ exports.updatePhone = updatePhone;
 exports.getPhone = getPhone;
 exports.updatePassword = updatePassword;
 exports.getMovieWatchHistory = getMovieWatchHistory;
+exports.getMovieWatchHistory2 = getMovieWatchHistory2;
 exports.getShowWatchHistory = getShowWatchHistory;
+exports.getShowWatchHistory2 = getShowWatchHistory2;
 exports.getNumProfiles = getNumProfiles;

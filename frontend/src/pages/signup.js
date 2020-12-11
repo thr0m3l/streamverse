@@ -23,6 +23,9 @@ export default function Signup(){
     
     const isInvalid = name ==='' || email ==='' || dob==="" || password===''|| creditcard==='' || phone==='';   
     const handleSignup = async event =>{
+        if(password.length<8){
+            setError('Password should be at least 8 characters long');
+        }
         event.preventDefault();
         //send data to the backend
         try{
@@ -86,7 +89,7 @@ export default function Signup(){
 
                     <Form.Input placeholder="Email" value={email} onChange={({target})=> setEmail(target.value) } />
 
-                    <Form.Input type="password" autoComplete="off" placeholder="Password" value={password} onChange={({target})=> setPassword(target.value) } />
+                    <Form.Input type="password" min="8" autoComplete="off" placeholder="Password" value={password} onChange={({target})=> setPassword(target.value) } />
                     
                     <form onSelect={({target})=> {
                     var date = new Date(target.value);

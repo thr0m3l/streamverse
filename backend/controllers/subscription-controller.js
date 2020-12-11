@@ -39,26 +39,26 @@ const addSubscription = async (req, res, next) => {
 }
 
 const getSubId = async (req, res, next) =>{
-    const email = req.params.email;
+    const Email = req.params.email;
+    const query = `
+        BEGIN
+            CHECK_VALIDATION( :email );
+        END;
+        `
     try {
-        const result = await database.simpleExecute(
-            `UPDATE SUBSCRIPTION 
-            SET RUNNING=0 , TOTAL_BILL = ROUND( ( MONTHS_BETWEEN(SYSDATE,START_DATE)) *BILL  ,2)
-            WHERE EMAIL = :email AND END_DATE < SYSDATE`, {
-                email : email
-            } 
-        );
-        
+        const result = await database.simpleExecute(query, {
+            email : Email
+        });
     } catch (err){
         console.log(err);
-        console.log('error in updating');
     }
+
     try {
         const result = await database.simpleExecute(
             `SELECT SUB_ID
             FROM SUBSCRIPTION
             WHERE EMAIL = :email AND RUNNING=1`, {
-                email : email
+                email : Email
             } 
         );
         

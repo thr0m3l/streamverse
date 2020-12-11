@@ -1,10 +1,10 @@
 import React, {useState, useEffect,useContext}from 'react';
-import {Form } from '../components';
+import {Form,Header } from '../components';
 import * as ROUTES from '../constants/routes';
-import {HeaderContainer} from './header';
 import {useHistory} from 'react-router-dom';
 import {FooterContainer} from './footer';
 import {AuthContext} from './../context/auth-context';
+import logo from '../logo.svg';
 
 export function AddSubscriptionContainer({ Email }) {
     const history = useHistory();
@@ -122,7 +122,14 @@ export function AddSubscriptionContainer({ Email }) {
   
     return ( 
       <>
-        <HeaderContainer/>
+        <Header >
+         <Header.Frame  >
+            <Header.Logo  to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.ButtonLink onClick = {() => auth.logout()}>
+                Sign Out
+            </Header.ButtonLink>
+        </Header.Frame>
+      </Header>
         <Form>
                 <Form.Title>Add Subscription</Form.Title>
                 {error && <Form.Error data-testid="error">{error}</Form.Error>}
