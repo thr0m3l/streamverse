@@ -262,6 +262,22 @@ const getShowWatchHistory = async (req, res, next) => {
     }
 }
 
+const getNumProfiles = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+        SELECT COUNT(*) C 
+         FROM PROFILE
+         WHERE EMAIL = :email`,{
+             email : EMAIL
+         });
+        
+        res.status(200).json({C: result.rows[0]});
+    } catch (err){
+        console.log(err);
+    }
+}
+
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
@@ -271,3 +287,4 @@ exports.getPhone = getPhone;
 exports.updatePassword = updatePassword;
 exports.getMovieWatchHistory = getMovieWatchHistory;
 exports.getShowWatchHistory = getShowWatchHistory;
+exports.getNumProfiles = getNumProfiles;

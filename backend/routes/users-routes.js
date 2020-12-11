@@ -16,6 +16,8 @@ router.post('/login', usersController.login);
 
 router.get('/maxprofiles/:email', usersController.getMaxProfiles);
 
+router.get('/numprofiles/:email', usersController.getNumProfiles);
+
 router.patch('/updatephone',usersController.updatePhone);
 
 router.get('/getphone/:email', usersController.getPhone);

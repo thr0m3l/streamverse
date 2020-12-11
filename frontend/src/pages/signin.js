@@ -50,6 +50,14 @@ export default function SignIn() {
                   console.log("Maximum profiles ",d);
                   auth.set_max_profiles(d);
 
+                  const u2 = `http://localhost:5000/api/users/numprofiles/${emailAddress}`;
+                  const r2 = await fetch(u2);
+                  var d2 = await r2.json();
+                  var np=d2["C"].C;
+                  auth.set_num_profiles(np);
+                  console.log("Number of profiles profiles ",auth.num_profiles);
+                  
+
                   //getting the sub id of the user
                   const url = `http://localhost:5000/api/subscription/subid/${emailAddress}`;
                   const response = await fetch(url);
@@ -60,12 +68,7 @@ export default function SignIn() {
                     subid = data["sub_id"]["SUB_ID"];
                     console.log(subid);
                     if(subid){
-                      auth.set_sub_id(subid);//adding sub id to auth context
-                      const url2= `http://localhost:5000/api/subscription/isvalid/${subid}`;
-                      const response2 = await fetch(url2);
-                      valid_sub = await response2.json();
-                      valid_sub= valid_sub["VALID"];
-                      if(valid_sub){
+                        auth.set_sub_id(subid);//adding sub id to auth context
 
                         const url3 = `http://localhost:5000/api/subscription/bill/${subid}`;
                         const response3 = await fetch(url3);         
@@ -74,9 +77,7 @@ export default function SignIn() {
                         auth.set_bill(Bill);
                         
                         history.push( ROUTES.BROWSE);
-                      }else{
-                        history.push( ROUTES.ADD_SUBSCRIPTION );      
-                      }
+                      
                     }else{
                       history.push( ROUTES.ADD_SUBSCRIPTION );
                     }
@@ -157,3 +158,42 @@ export default function SignIn() {
   }
 
 */
+
+/*
+if(data["sub_id"]){
+        
+                    subid = data["sub_id"]["SUB_ID"];
+                    console.log(subid);
+                    if(subid){
+                      auth.set_sub_id(subid);//adding sub id to auth context
+                      const url2= `http://localhost:5000/api/subscription/isvalid/${subid}`;
+                      const response2 = await fetch(url2);
+                      valid_sub = await response2.json();
+                      valid_sub= valid_sub["VALID"];
+                      if(valid_sub){
+
+                        const url3 = `http://localhost:5000/api/subscription/bill/${subid}`;
+                        const response3 = await fetch(url3);         
+                        Bill = await response3.json(); 
+                        Bill = Bill["bill"]["BILL"];
+                        auth.set_bill(Bill);
+                        
+                        history.push( ROUTES.BROWSE);
+                      }else{
+                        history.push( ROUTES.ADD_SUBSCRIPTION );      
+                      }
+                    }else{
+                      history.push( ROUTES.ADD_SUBSCRIPTION );
+                    }
+                  }else{
+                    history.push( ROUTES.ADD_SUBSCRIPTION );
+                  }
+                  
+                //history.push( ROUTES.ADD_SUBSCRIPTION ); //Successful login, moves to netflix profiles page
+            } else if (response.status === 422){
+                setError('User does not exist. Please sign up instead');
+            } else if (response.status === 423){
+                setError('Incorrect Password');
+            }
+
+            */

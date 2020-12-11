@@ -21,6 +21,8 @@ router.post('/add', subscriptionController.addSubscription);
 
 router.get('/history/:email', subscriptionController.getHistory);
 
+router.get('/getenddate/:email', subscriptionController.getEndDate);
+
 router.post('/update', subscriptionController.addSubscription);
 
 router.patch('/delete', subscriptionController.deleteSubscription);

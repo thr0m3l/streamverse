@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext, useState,useEffect} from 'react';
 import {Form, Form2,Header} from '../components';
 import * as ROUTES from '../constants/routes';
 import {AuthContext} from './../context/auth-context';
@@ -7,6 +7,19 @@ import logo from '../logo.svg';
 
 
 export default function AccountSettings() {
+
+    const [endate,setenddate] = useState('');
+    async function fetchFromAPI (){   
+        const url = `http://localhost:5000/api/subscription/getenddate/${email}`;
+        const response = await fetch(url);
+        var data = await response.json();
+        setenddate(data["ed"].ED);
+    }
+    useEffect ( () => {
+        fetchFromAPI();
+    }, []);
+
+
     const auth = useContext(AuthContext);
     const email = auth.email;
     var bill = auth.bill;
@@ -43,7 +56,7 @@ export default function AccountSettings() {
         
 
             <Form2.Text>Plan Details</Form2.Text>
-            <Form2.TextSmall>{type}</Form2.TextSmall>
+            <Form2.TextSmall>{type+". Your account is subscribed till "+endate}</Form2.TextSmall>
             <Form2.TextSmall>{bill}</Form2.TextSmall>
             <Form2.Link to="/updatesubscription">Change Your Plan</Form2.Link>
             <Form2.Link to="/subscriptionhistory">Subscription History</Form2.Link>

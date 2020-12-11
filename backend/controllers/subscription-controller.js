@@ -197,6 +197,23 @@ const getplans = async (req, res, next) => {
     
 }
 
+const getEndDate = async (req, res, next) => {
+    const EMAIL = req.params.email;
+    try {
+        const result = await database.simpleExecute(`
+            SELECT TO_CHAR(END_DATE,'MONTH DD, YYYY') ED
+            FROM SUBSCRIPTION
+            WHERE RUNNING = 1 AND EMAIL = :email 
+            `,{
+                email : EMAIL
+            });
+        
+        res.status(200).json({ed : result.rows[0]});
+    } catch (err){
+        console.log(err);
+    }
+}
+
 exports.getSubscriptions = getSubscriptions;
 exports.addSubscription = addSubscription;
 exports.updateSubscription = updateSubscription;
@@ -206,3 +223,4 @@ exports.isValidSubscription = isValidSubscription;
 exports.getBill = getBill;
 exports.getHistory = getHistory;
 exports.getplans=getplans;
+exports.getEndDate = getEndDate;

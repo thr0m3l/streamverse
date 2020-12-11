@@ -18,7 +18,7 @@ export function AddSubscriptionContainer({ Email }) {
     
     const isInvalid =   expire_date==="" || sub_type==="" ;
     
-    
+    var mp;
     async function fetchFromAPI (){
         console.log('Hello!');
         
@@ -80,15 +80,14 @@ export function AddSubscriptionContainer({ Email }) {
             console.log(expire_date);
             if(sub_type=="BAS"){
                 auth.set_max_profiles(2);
-                auth.set_bill(5);
+                auth.set_bill(5);mp=2;
             }else if(sub_type=="STA"){
                 auth.set_max_profiles(4);
-                auth.set_bill(8);
+                auth.set_bill(8);mp=4;
             }else{
                 auth.set_max_profiles(6);
-                auth.set_bill(10);
+                auth.set_bill(10);mp=6;
             }
-            
             const responseData = await response.json();
             
             console.log("after submit data in subscribe",responseData);
@@ -100,8 +99,14 @@ export function AddSubscriptionContainer({ Email }) {
                 data = data["sub_id"]["SUB_ID"];
                 //adding sub_id to auth context
                 auth.set_sub_id(data);
-                history.push(ROUTES.BROWSE); //Successful subscription, moves to netflix browse page
 
+                const np = auth.num_profiles; 
+                if(np>mp){
+                    auth.set_ptbd(np-mp);
+                    history.push(ROUTES.DELETE_PROFILE);
+                }else{
+                    history.push(ROUTES.BROWSE); //Successful subscription, moves to netflix browse page
+                }
             } else if (response.status === 422){
                 setError('Invalid user info');
             } else if (response.status === 423){
