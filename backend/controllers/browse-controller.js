@@ -10,7 +10,7 @@ const getMovieByGenre = async (req, res, next) => {
    let query;
    
    if (genre === 'all'){
-       query = `SELECT M.MOVIE_ID, M.TITLE, M.IMAGE_URL, M.DESCRIPTION, EXTRACT (YEAR FROM M.RELEASE_DATE) as RELEASE_DATE, M.RATING, G.NAME
+       query = `SELECT M.MOVIE_ID, M.TITLE, M.IMAGE_URL, M.DESCRIPTION, M.VIDEO_URL, EXTRACT (YEAR FROM M.RELEASE_DATE) as RELEASE_DATE, M.RATING, G.NAME
        FROM MOVIE M, MOVIE_GENRE MG, GENRE G
        WHERE M.MOVIE_ID = MG.MOVIE_ID AND MG.GENRE_ID = G.GENRE_ID AND ROWNUM <= 1000
        ORDER BY DBMS_RANDOM.RANDOM`
@@ -99,7 +99,7 @@ const getShowByGenre = async (req, res, next) => {
     //Dynamic Query
     //If search space is movie
     if (space === 'movie') {
-        select = `SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE `;
+        select = `SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, M.VIDEO_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE `;
         from = `FROM MOVIE M `;
         order = `ORDER BY M.RATING DESC `;
         if (param === 'celeb'){
@@ -173,26 +173,26 @@ const getShowByGenre = async (req, res, next) => {
     if(param === 'all' && ss === 'all') {
         movieQuery = `
         (
-            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, M.VIDEO_URL,  EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
             FROM MOVIE M
             WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)
         )
         UNION
         (
-            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, M.VIDEO_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
             FROM MOVIE M, MOVIE_CELEB MC, CELEB C
             WHERE (M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw))
         )
         UNION 
         (
-            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
+            SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, M.VIDEO_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
             FROM MOVIE M, MOVIE_GENRE MG, GENRE G
             WHERE (M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw))
         )`
 
         showQuery = `
         (
-            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
+            SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL,  (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
             FROM SHOW S
             WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw)
         )
@@ -342,7 +342,7 @@ const getSuggestions = async(req, res, next) => {
 
         const lastWatchedRecommendation = await database.simpleExecute(
             `SELECT *
-            FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
+            FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.VIDEO_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
             FROM MOVIE M1, MOVIE M2, MOVIE_SIMILARITY MS
             WHERE M1.MOVIE_ID = MS.MOVIE_ID1 AND M2.MOVIE_ID = MS.MOVIE_ID2 
                         AND MS.SCORE < 1 AND MS.SCORE > 0.05 AND M1.MOVIE_ID = (SELECT *
@@ -362,7 +362,7 @@ const getSuggestions = async(req, res, next) => {
 
         const similarityRecommendation = await database.simpleExecute(`
         SELECT *
-        FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
+        FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.VIDEO_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
             FROM MOVIE M1, MOVIE M2, MOVIE_SIMILARITY MS
             WHERE M1.MOVIE_ID = MS.MOVIE_ID1 AND M2.MOVIE_ID = MS.MOVIE_ID2 
 			AND MS.SCORE < 1 AND MS.SCORE > 0.05 AND M1.MOVIE_ID IN (SELECT *
@@ -470,12 +470,45 @@ const getSuggestions = async(req, res, next) => {
             email : email,
             profile_id : profile_id
         });
+
+        const lastWatchedShow = await database.simpleExecute(`
+            SELECT TITLE
+            FROM (SELECT S.SHOW_ID, S.TITLE
+                FROM SHOW S, EPISODE_WATCH EW
+                WHERE S.SHOW_ID = EW.SHOW_ID AND EW.EMAIL = :email AND EW.PROFILE_ID = :profile_id
+                GROUP BY S.SHOW_ID, S.TITLE
+                ORDER BY MAX(EW.TIME) DESC)
+            WHERE ROWNUM = 1
+        `, {
+            email : email,
+            profile_id : profile_id
+        });
+
+
+        const lastWatchedShowRecommendation = await database.simpleExecute(`
+            SELECT *
+            FROM (SELECT S2.SHOW_ID, SS.SCORE, S2.TITLE, S2.IMAGE_URL, S2.DESCRIPTION, ROUND((S2.TOTAL_VOTES*S2.RATING/(S2.TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                                        FROM SHOW)/(S2.TOTAL_VOTES+10000)), 2) as "RATING"
+            FROM SHOW S1, SHOW S2, SHOW_SIMILARITY SS
+            WHERE SS.SHOW_ID1 = S1.SHOW_ID AND SS.SHOW_ID2 = S2.SHOW_ID AND SS.SCORE < 1 AND SS.SCORE > 0.05 AND S1.SHOW_ID = (SELECT SHOW_ID
+            FROM (SELECT S.SHOW_ID, S.TITLE, S.IMAGE_URL, S.DESCRIPTION, ROUND(S.RATING, 2) as RATING, EXTRACT (YEAR FROM S.START_DATE) as RELEASE_DATE
+                FROM SHOW S, EPISODE_WATCH EW
+                WHERE S.SHOW_ID = EW.SHOW_ID AND EW.EMAIL = :email AND EW.PROFILE_ID = :profile_id
+                GROUP BY S.SHOW_ID, S.TITLE, S.IMAGE_URL, S.DESCRIPTION, ROUND(S.RATING, 2), EXTRACT (YEAR FROM S.START_DATE)
+                ORDER BY MAX(EW.TIME) DESC )
+                WHERE ROWNUM = 1)
+            ORDER BY SS.SCORE DESC )
+            WHERE ROWNUM <= 5
+        `, {
+            email : email,
+            profile_id : profile_id
+        });
         
         const mostWatched = await database.simpleExecute(`
-            SELECT W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION
+            SELECT W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, M.VIDEO_URL
             FROM MOVIE_WATCH W, MOVIE M
             WHERE W.MOVIE_ID = M.MOVIE_ID AND ROWNUM <= 50
-            GROUP BY W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION
+            GROUP BY W.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, M.VIDEO_URL
             ORDER BY COUNT(*) DESC`);
 
         const topRated = await database.simpleExecute(`
@@ -504,23 +537,7 @@ const getSuggestions = async(req, res, next) => {
             ORDER BY COUNT(*) DESC`
         );
         
-        const newMovies = await database.simpleExecute(
-            `SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_YEAR, 
-            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
-            FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
-            FROM MOVIE
-            WHERE ROWNUM <= 50
-            ORDER BY RELEASE_DATE DESC`
-        );
-
-        const newShows = await database.simpleExecute(
-            `SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM START_DATE) as START_YEAR, 
-            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
-                      FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
-                       FROM SHOW
-                       WHERE ROWNUM <= 50
-                       ORDER BY START_DATE DESC`
-        );
+        
 
         suggestions = [
             {
@@ -544,6 +561,10 @@ const getSuggestions = async(req, res, next) => {
             {
                 title: 'Because you like ' + favoriteShowGenre.rows[0].NAME + ' shows',
                 data : showGenreRecommendation.rows
+            },
+            {
+                title: 'Because you watched ' + lastWatchedShow.rows[0].TITLE,
+                data : lastWatchedShowRecommendation.rows
             }
             ,
             {
@@ -564,16 +585,6 @@ const getSuggestions = async(req, res, next) => {
                 title : 'Most Watched Shows',
                 data : mostWatchedShows.rows
             }
-            ,
-            {
-                title : 'New Movies',
-                data: newMovies.rows
-            }
-            ,
-            {
-                title : 'New Shows',
-                data : newShows.rows
-            }
         ];
 
         res.status(200).json(suggestions);
@@ -581,6 +592,99 @@ const getSuggestions = async(req, res, next) => {
         console.log(err);
         res.status(400).json(err);
     }
+}
+
+const newAndPopular = async (req, res, next) => {
+    const {email} = req.query;
+    
+    const newMovies = await database.simpleExecute(
+        `SELECT MOVIE_ID, TITLE, DESCRIPTION, VIDEO_URL, IMAGE_URL, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
+        ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+        FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
+        FROM MOVIE
+        WHERE ROWNUM <= 50 AND RELEASE_DATE <= SYSDATE
+        ORDER BY RELEASE_DATE DESC`
+    );
+
+    const newShows = await database.simpleExecute(
+        `SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, VIDEO_URL, EXTRACT (YEAR FROM START_DATE) as START_YEAR, 
+        ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                  FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
+                   FROM SHOW
+                   WHERE ROWNUM <= 50 AND START_DATE <= SYSDATE
+                   ORDER BY START_DATE DESC`
+    );
+
+
+    const upcomingMovies = await database.simpleExecute(`
+        SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL,  EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
+        ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+        FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
+        FROM MOVIE
+        WHERE ROWNUM <= 50 AND RELEASE_DATE > SYSDATE
+        ORDER BY RELEASE_DATE DESC
+    `);
+
+    const upcomingShows = await database.simpleExecute(`
+    SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM START_DATE) as RELEASE_DATE, 
+    ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+              FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
+               FROM SHOW
+               WHERE ROWNUM <= 50 AND START_DATE > SYSDATE
+               ORDER BY START_DATE DESC
+    `);
+
+    const userCountry = await database.simpleExecute(`
+        SELECT U.COUNTRY
+        FROM USER_NETFLIX U
+        WHERE EMAIL = :email
+    `, {
+        email : email
+    });
+
+    const regionMovie = await database.simpleExecute(`
+        SELECT *
+        FROM (SELECT M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE
+            FROM MOVIE M, MOVIE_WATCH MW, USER_NETFLIX U
+            WHERE M.MOVIE_ID = MW.MOVIE_ID AND MW.EMAIL = U.EMAIL AND U.COUNTRY = (SELECT U.COUNTRY
+                FROM USER_NETFLIX U
+                WHERE EMAIL = :email)
+            GROUP BY M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE)
+            ORDER BY COUNT(*) DESC)
+        WHERE ROWNUM <= 10
+    `, {
+        email : email
+    })
+
+    const response = [
+        {
+            title: 'Top 10 Movies in ' + userCountry.rows[0].COUNTRY,
+            data: regionMovie.rows
+        }
+        ,
+        {
+            title : 'New Movies',
+            data: newMovies.rows
+        }
+        ,
+        {
+            title : 'New Shows',
+            data : newShows.rows
+        }
+        ,
+        {
+            title : 'Upcoming Movies',
+            data : upcomingMovies.rows
+        }
+        ,
+        {
+            title : 'Upcoming Shows',
+            data : upcomingShows.rows
+        }   
+    ];
+
+    res.status(200).json(response);
+
 }
 
 const similarity = async(req, res, next) => {
@@ -627,3 +731,4 @@ exports.search = search;
 exports.getEpisodes = getEpisodes;
 exports.getSuggestions = getSuggestions;
 exports.similarity = similarity;
+exports.newAndPopular = newAndPopular;

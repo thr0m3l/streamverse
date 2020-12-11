@@ -15,4 +15,5 @@ router.get('/show/episodes', browseController.getEpisodes);
 router.get('/suggestions', browseController.getSuggestions);
 
 router.get('/similarity', browseController.similarity);
+router.get('/new',browseController.newAndPopular);
 module.exports = router;

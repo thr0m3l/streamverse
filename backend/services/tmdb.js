@@ -3,25 +3,29 @@ const database = require('./database');
 const api_key = 'e7bafd491af23dcc2cc134b14174e118';
 const axios = require('axios');
 // const fetch = require('node-fetch');
+const url1 = `https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}&language=en-US&page=1`;
+const url3 = `https://api.themoviedb.org/3/movie/upcoming?api_key=e7bafd491af23dcc2cc134b14174e118&language=en-US&page=1`;
 
 async function fetchMovieData (startPage, totalPages){
     for(pi =  1; pi <= totalPages; ++pi){
         let page = pi.toString();
-        const req = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=${page}`)
+        
+        const url2 = `https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=${page}`;
+
+        const req = await axios.get(url3)
         .then(function (response){
+            console.log(response);
+
             for(i = 0 ; i < response.data.results.length; ++i){
                 // console.log(response.data.results[i]);
                 
                 let {release_date, adult, id, overview, original_language, 
                     title, vote_average, vote_count, poster_path} = response.data.results[i];
 
-                if (adult) adult = 'R';
+                if (adult === true) adult = 'R';
                 else adult = 'PG13';
-            
-                // console.log(adult);
-                // console.log(title);
-                // console.log(typeof id);
-            // console.log(release_date + ' ' + id + ' ' + title + ' ' + vote_average );
+
+            console.log(release_date + ' ' + id + ' ' + title + ' ' + vote_average );
 
             try {
                 database.simpleExecute(`
@@ -57,6 +61,8 @@ async function fetchMovieData (startPage, totalPages){
                     VALUES (:movie_id, :genre_id);
                 EXCEPTION
                     WHEN DUP_VAL_ON_INDEX THEN
+                        NULL;
+                    WHEN OTHERS THEN
                         NULL;
                 END; `, {
                         movie_id : id,
@@ -189,6 +195,8 @@ async function fetchShowData(totalPages){
                     EXCEPTION
                         WHEN DUP_VAL_ON_INDEX THEN
                             NULL;
+                        WHEN OTHERS THEN
+                            NULL;
                     END; `, {
                         show_id : id,
                         genre_id : genre_id
@@ -238,7 +246,9 @@ async function fetchGenreData(){
 async function movieCredits (totalPages){
     for(pi =  1; pi <= totalPages; ++pi){
         let page = pi.toString();
-        await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=${page}`)
+        const url2 = `https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=${pi}`;
+
+        await axios.get(url2)
         .then(async (response) => {
             for(i = 0 ; i < response.data.results.length; ++i){
                 // console.log(response.data.results[i]);
@@ -277,6 +287,8 @@ async function movieCredits (totalPages){
                                     EXCEPTION
                                         WHEN DUP_VAL_ON_INDEX THEN
                                         NULL;
+                                        WHEN OTHERS THEN
+                                        NULL;
                                     END; `,{
                                         celeb_id : response.data.cast[i].id,
                                         movie_id : id,
@@ -313,6 +325,8 @@ async function movieCredits (totalPages){
                                     VALUES (:celeb_id, :movie_id, :role);
                                     EXCEPTION
                                         WHEN DUP_VAL_ON_INDEX THEN
+                                        NULL;
+                                        WHEN OTHERS THEN
                                         NULL;
                                     END; `,{
                                         celeb_id : response.data.crew[i].id,
@@ -508,7 +522,7 @@ async function fetchEpisode(id){
 }
 
 // fetchGenreData();
-// fetchMovieData(20);
+// fetchMovieData(1, 1);
 // fetchShowData(20);
 // movieCredits(20);
 // showCredits(20);

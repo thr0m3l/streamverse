@@ -202,7 +202,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
 
     setRating(responseData.rating);
     if (rating === -1) setIsRated(false);
-
+    else setIsRated(true);
+    
     } catch (err){
       console.log(err);
     }

@@ -104,6 +104,12 @@ export function BrowseContainer({ slides }) {
       }
     }
 
+    async function getNew (event){
+      const response = await fetch(`http://localhost:5000/api/browse/new/?email=${auth.email}`);
+      const responseData = await response.json();
+      setSlideRows(responseData);
+    }
+
     useEffect(() => {
       console.log(slides);
       
@@ -161,7 +167,10 @@ export function BrowseContainer({ slides }) {
                 Suggestions
               </Header.TextLink>
 
-              <Header.TextLink active={category === 'new' ? 'true' : 'false'}> New and Popular</Header.TextLink>
+              <Header.TextLink active={category === 'new' ? 'true' : 'false'} onClick = {event => {
+                setCategory('new');
+                getNew(event);
+              }}> New and Popular</Header.TextLink>
 
             </Header.Group>
             

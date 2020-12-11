@@ -96,7 +96,7 @@ export const Meta = styled.div`
 export const Image = styled.img`
   border: 0;
   width: 100%;
-  max-width: 200px;
+  max-width: 150px;
   min-width: 150px;
   cursor: pointer;
   height: 100%;

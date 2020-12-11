@@ -280,7 +280,7 @@ const addRating = async(req, res, next) => {
     } else {
         query = `
         BEGIN
-            SET_MOVIE_RATING(:show_id, :email, :profile_id, :rating);
+            SET_SHOW_RATING(:show_id, :email, :profile_id, :rating);
         END;
         `
         

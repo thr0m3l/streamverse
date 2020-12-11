@@ -61,6 +61,7 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
     
     
   }
+
   return showPlayer
     ? ReactDOM.createPortal(
         <Overlay onClick={() => setShowPlayer(false)} data-testid="player">
@@ -68,7 +69,7 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
             <ReactPlayer
             ref = {ref} 
             controls
-            url = 'http://srv2.cinehub24.com/11%2F6814-29162-Batman-The-Dark-Knight-Rises.mkv' 
+            url = {itemFeature.VIDEO_URL}
             onPause = {event => saveTime(event)}
             onPlay = {event => getTime(event)}/>
             <Close />
