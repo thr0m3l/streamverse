@@ -16,7 +16,7 @@ export default function MovieHistory() {
     
     async function fetchFromAPI (){
         
-        const url = `http://localhost:5000/api/users/getmoviehistory/${email}/${prof_id}`;
+        const url = `http://localhost:5000/api/users/getmoviehistory/${email}`;
         const response = await fetch(url);
         const data = await response.json();
         //console.log(data.history);
@@ -48,6 +48,11 @@ export default function MovieHistory() {
                 return (
                     <>
                     <Header2.Text >{name.TITLE}</Header2.Text>
+                    <Header.Frame2>
+                            <Header.Text>Watched By</Header.Text>
+                            <Header2.Text>{name.PID}</Header2.Text>
+                            
+                    </Header.Frame2>
                     <Header.Frame2>
                             <Header.Text>Rating</Header.Text>
                             <Header2.Text>{name.RATING}</Header2.Text>

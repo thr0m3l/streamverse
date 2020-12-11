@@ -1,11 +1,11 @@
 import React, {useState, useContext} from 'react';
-import {Card, Form} from '../components';
+import {Header, Form} from '../components';
 import { JumbotronContainer } from '../containers/jumbotron';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
 import {AuthContext} from './../context/auth-context';
 import { FooterContainer } from '../containers/footer';
-import { HeaderContainer } from '../containers/header';
+import logo from '../logo.svg';
 
 
 
@@ -101,7 +101,14 @@ export default function UpdateSubscription() {
     }
     return (
     <>
-    <HeaderContainer/>
+    <Header >
+         <Header.Frame  >
+            <Header.Logo  to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.ButtonLink onClick = {() => auth.logout()}>
+                Sign Out
+            </Header.ButtonLink>
+        </Header.Frame>
+      </Header>
             <Form>
                 <Form.Title>Update Subscription</Form.Title>
                 {error && <Form.Error data-testid="error">{error}</Form.Error>}

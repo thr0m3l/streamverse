@@ -1,11 +1,10 @@
 import React, {useState, useContext} from 'react';
-import {HeaderContainer} from '../containers/header';
 import {FooterContainer} from '../containers/footer';
-import {Form} from '../components';
+import {Form,Header} from '../components';
 import * as ROUTES from '../constants/routes';
 import {useHistory} from 'react-router-dom';
-import { CountryDropdown, CountryRegionData} from 'react-country-region-selector';
 import {AuthContext} from './../context/auth-context';
+import logo from '../logo.svg';
 
 export default function CancelSubscription(){
     const history = useHistory();
@@ -55,7 +54,14 @@ export default function CancelSubscription(){
 
     return (
         <>
-        <HeaderContainer>
+        <Header >
+         <Header.Frame  >
+            <Header.Logo  to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.ButtonLink onClick = {() => auth.logout()}>
+                Sign Out
+            </Header.ButtonLink>
+        </Header.Frame>
+      </Header>
             <Form>
                 <Form.Title>Cancel Membership?</Form.Title>
                 {error && <Form.Error data-testid="error">{error}</Form.Error>}
@@ -68,7 +74,7 @@ export default function CancelSubscription(){
                 <Form.Link to="/accountsettings">Go back</Form.Link>
 
             </Form>
-        </HeaderContainer>  
+        
         <FooterContainer/>
         </>
     );

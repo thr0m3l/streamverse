@@ -16,7 +16,7 @@ export default function ShowHistory() {
     
     async function fetchFromAPI (){
         
-        const url = `http://localhost:5000/api/users/getshowhistory/${email}/${prof_id}`;
+        const url = `http://localhost:5000/api/users/getshowhistory/${email}`;
         const response = await fetch(url);
         const data = await response.json();
         //console.log(data.history);
@@ -48,7 +48,10 @@ export default function ShowHistory() {
                 return (
                     <>
                     <Header2.Text >{name.TITLE}</Header2.Text>
-                   
+                    <Header.Frame2>
+                            <Header.Text>Watched By</Header.Text>
+                            <Header2.Text>{name.PID}</Header2.Text>        
+                    </Header.Frame2>
                     <Header.Frame2>
                             <Header.Text>Season</Header.Text>
                             <Header2.Text>{name.SEASON_NO}</Header2.Text>        
