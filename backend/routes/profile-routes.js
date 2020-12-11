@@ -28,5 +28,5 @@ router.post('/time/set', profileController.setTime);
 
 router.get('/movie/continue', profileController.movieContinueWatching);
 router.get('/show/continue', profileController.showContinueWatching);
-
+router.get('/episode/continue', profileController.episodeContinueWatching);
 module.exports = router;

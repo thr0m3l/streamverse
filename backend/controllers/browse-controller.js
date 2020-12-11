@@ -238,7 +238,29 @@ const getShowByGenre = async (req, res, next) => {
 }
 
 const getEpisodes = async(req, res, next) => {
-    const show_id = req.params.show_id;
+    const {show_id, email, profile_id} = req.query;
+    let response = [];
+    console.log('Hello', req.query);
+    const lastWatched = await database.simpleExecute(`
+        SELECT *
+        FROM EPISODE_WATCH EW, EPISODE E
+        WHERE EW.SHOW_ID = E.SHOW_ID AND E.SEASON_NO = EW.SEASON_NO AND 
+        E.EPISODE_NO = EW.EPISODE_NO AND E.SHOW_ID = :show_id AND EW.PROFILE_ID = :profile_id AND EW.EMAIL = :email
+        ORDER BY EW.TIME DESC
+        `, {
+            profile_id : profile_id,
+            show_id : show_id,
+            email : email
+        }
+    );
+    
+    if (lastWatched.rows.length > 0){
+        response.push({
+            title : 'Continue Watching', 
+            data : lastWatched.rows
+        });
+    }
+        
 
     const result = await database.simpleExecute(`
         SELECT SEASONS
@@ -259,7 +281,7 @@ const getEpisodes = async(req, res, next) => {
 
     // res.status(200).json(result1.rows);
 
-    const response = [];
+    
 
     for(s = 1; s <= seasons; ++s){
         const title = 'Season ' + s;

@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/movies/:genre', browseController.getMovieByGenre);
 router.get('/shows/:genre', browseController.getShowByGenre);
 router.get('/search', browseController.search);
-router.get('/shows/episodes/:show_id', browseController.getEpisodes);
+router.get('/show/episodes', browseController.getEpisodes);
 router.get('/suggestions', browseController.getSuggestions);
 
 router.get('/similarity', browseController.similarity);

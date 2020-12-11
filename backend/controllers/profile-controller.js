@@ -495,6 +495,10 @@ const showContinueWatching = async (req, res, next) => {
     }
 }
 
+const episodeContinueWatching = async (req, res, next) => {
+
+}
+
 
 exports.getProfile = getProfile;
 exports.addProfile = addProfile;
@@ -510,3 +514,4 @@ exports.getTime = getTime;
 exports.setTime = setTime;
 exports.movieContinueWatching = movieContinueWatching;
 exports.showContinueWatching = showContinueWatching;
+exports.episodeContinueWatching = episodeContinueWatching;

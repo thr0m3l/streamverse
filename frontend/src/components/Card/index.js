@@ -230,7 +230,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
   async function getEpisodes(){
     try{
       console.log(itemFeature.SHOW_ID);
-      const response = await fetch(`http://localhost:5000/api/browse/shows/episodes/${itemFeature.SHOW_ID}`);
+      const response = await fetch(`http://localhost:5000/api/browse/show/episodes/?show_id=${itemFeature.SHOW_ID}&profile_id=${auth.profile}&email=${auth.email}`);
       const responseData = await response.json();
       console.log(responseData);
       setSlideRows(responseData);
