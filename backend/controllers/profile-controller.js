@@ -255,16 +255,13 @@ const getWatchList = async(req, res, next) => {
 
 const addRating = async(req, res, next) => {
     const {EMAIL, PROFILE_ID, MOVIE_ID, SHOW_ID, RATING} = req.body;
-
     let query;
-
-    
-
     if (MOVIE_ID){
-        query = `INSERT INTO MOVIE_WATCH 
-        (MOVIE_ID, EMAIL, PROFILE_ID, RATING) 
-        VALUES (:movie_id, :email, :profile_id, :rating)`
-        
+        query = `
+        BEGIN
+            SET_MOVIE_RATING(:movie_id, :email, :profile_id, :rating);
+        END;
+        `
         try {
             const result = await database.simpleExecute(query, {
                 movie_id : MOVIE_ID,
@@ -279,31 +276,13 @@ const addRating = async(req, res, next) => {
 
         } catch (err){
             console.log(err);
-
-            query = `UPDATE MOVIE_WATCH
-            SET RATING = :rating
-            WHERE MOVIE_ID = :movie_id AND PROFILE_ID = :profile_id AND EMAIL = :email`
-
-            try {
-                const result = await database.simpleExecute(query, {
-                    movie_id : MOVIE_ID,
-                    email : EMAIL,
-                    profile_id : PROFILE_ID,
-                    rating : RATING
-                });
-
-                res.status(200).json({
-                    message : 'Updated rating'
-                });
-            } catch (err1){  
-                console.log(err1)
-                res.status(400).json({message: 'couldnt add rating'});
-            }
         }
     } else {
-        query = `INSERT INTO SHOW_WATCH 
-        (SHOW_ID, EMAIL, PROFILE_ID, RATING) 
-        VALUES (:show_id, :email, :profile_id, :rating)`
+        query = `
+        BEGIN
+            SET_MOVIE_RATING(:show_id, :email, :profile_id, :rating);
+        END;
+        `
         
         try {
             const result = await database.simpleExecute(query, {
@@ -319,26 +298,6 @@ const addRating = async(req, res, next) => {
 
         } catch (err){
             console.log(err);
-
-            query = `UPDATE SHOW_WATCH
-            SET RATING = :rating
-            WHERE SHOW_ID = :show_id AND PROFILE_ID = :profile_id AND EMAIL = :email`
-
-            try {
-                const result = await database.simpleExecute(query, {
-                    show_id : SHOW_ID,
-                    email : EMAIL,
-                    profile_id : PROFILE_ID,
-                    rating : RATING
-                });
-
-                res.status(200).json({
-                    message : 'Updated rating'
-                });
-            } catch (err1){  
-                console.log(err1)
-                res.status(400).json({message: 'couldnt add rating'});
-            }
         }
 
     }

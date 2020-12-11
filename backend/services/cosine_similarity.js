@@ -150,7 +150,7 @@ function query_vectorize(query, vocab, model_num_docs, model_word_counts) {
     return tfidf_vec;
 }
 
-async function main(documents) {
+async function main(documents, type) {
     docs_overview = documents.map( x => {
         return x.DESCRIPTION;
     });
@@ -170,8 +170,8 @@ async function main(documents) {
             ranked.push(
                 {
                     score : cosine_similarity(query_vec, tfidf_vecs[i]), 
-                    id1: text.MOVIE_ID, 
-                    id2: documents[i].MOVIE_ID
+                    id1: text.MOVIE_ID ? text.MOVIE_ID : text.SHOW_ID, 
+                    id2: documents[i].MOVIE_ID ? documents[i].MOVIE_ID : documents[i].SHOW_ID
                 }
             );
             // console.log([cosine_similarity(query_vec, tfidf_vecs[i]), documents[i]]);
@@ -183,33 +183,66 @@ async function main(documents) {
     const s3 = 'Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.';
     const s1 = 'Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Saurons forces. Meanwhile, Frodo and Sam take the ring closer to the heart of Mordor, the dark lords realm.';
     
-    for(i = 0; i < documents.length; ++i){
-        let arr = query({MOVIE_ID: documents[i].MOVIE_ID, DESCRIPTION: documents[i].DESCRIPTION})
-
-        for(j = 0; j < arr.length; ++j){
-            const {id1, id2, score} = arr[j];
-            
-            try {
-                const result = await database.simpleExecute(`
-                BEGIN
-                    INSERT INTO MOVIE_SIMILARITY(MOVIE_ID1, MOVIE_ID2, SCORE)
-                    VALUES(:id1, :id2, :score);
-                EXCEPTION
-                    WHEN DUP_VAL_ON_INDEX THEN
-                        NULL;
-                END;
-                `, {
-                    id1 : id1,
-                    id2 : id2,
-                    score : score
-                })
-            } catch (err) {
-                console.log(err);
+    if (type === 'movie'){
+        for(i = 0; i < documents.length; ++i){
+            let arr = query({MOVIE_ID: documents[i].MOVIE_ID, DESCRIPTION: documents[i].DESCRIPTION})
+    
+            for(j = 0; j < arr.length; ++j){
+                const {id1, id2, score} = arr[j];
+                
+                try {
+                    const result = await database.simpleExecute(`
+                    BEGIN
+                        INSERT INTO MOVIE_SIMILARITY(MOVIE_ID1, MOVIE_ID2, SCORE)
+                        VALUES(:id1, :id2, :score);
+                    EXCEPTION
+                        WHEN DUP_VAL_ON_INDEX THEN
+                            NULL;
+                    END;
+                    `, {
+                        id1 : id1,
+                        id2 : id2,
+                        score : score
+                    })
+                } catch (err) {
+                    console.log(err);
+                }
             }
+            
+    
         }
-        
-
+    } else if (type === 'show'){
+        for(i = 0; i < documents.length; ++i){
+            let arr = query({MOVIE_ID: documents[i].SHOW_ID, DESCRIPTION: documents[i].DESCRIPTION})
+    
+            for(j = 0; j < arr.length; ++j){
+                const {id1, id2, score} = arr[j];
+                
+                try {
+                    const result = await database.simpleExecute(`
+                    BEGIN
+                        INSERT INTO SHOW_SIMILARITY(SHOW_ID1, SHOW_ID2, SCORE)
+                        VALUES(:id1, :id2, :score);
+                    EXCEPTION
+                        WHEN DUP_VAL_ON_INDEX THEN
+                            NULL;
+                    END;
+                    `, {
+                        id1 : id1,
+                        id2 : id2,
+                        score : score
+                    })
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            
+    
+        }
     }
+
+    
+    
 
 
 

@@ -240,7 +240,8 @@ const getShowByGenre = async (req, res, next) => {
 const getEpisodes = async(req, res, next) => {
     const show_id = req.params.show_id;
 
-    const result = await database.simpleExecute(`SELECT SEASONS
+    const result = await database.simpleExecute(`
+        SELECT SEASONS
         FROM SHOW
         WHERE SHOW_ID = :show_id`, {
             show_id : show_id
@@ -356,6 +357,26 @@ const getSuggestions = async(req, res, next) => {
             email : email
         });
 
+        const showSimilarityRecommendation = await database.simpleExecute(`
+        SELECT *
+        FROM (SELECT S2.SHOW_ID, SS.SCORE, S2.TITLE, S2.DESCRIPTION, S2.IMAGE_URL, S2.RATING, 
+				(EXTRACT(YEAR FROM S2.START_DATE) || ' - ' || EXTRACT(YEAR FROM S2.END_DATE)) as RELEASE_DATE
+            FROM SHOW S1, SHOW S2, SHOW_SIMILARITY SS
+            WHERE S1.SHOW_ID = SS.SHOW_ID1 AND S2.SHOW_ID = SS.SHOW_ID2 
+			AND SS.SCORE < 1 AND SS.SCORE > 0.05 AND S1.SHOW_ID IN (SELECT *
+			    FROM (
+				    SELECT SHOW_ID
+            FROM EPISODE_WATCH
+            WHERE PROFILE_ID = :profile_id AND EMAIL = :email
+						GROUP BY SHOW_ID
+			    )
+			WHERE ROWNUM <= 10)
+            ORDER BY SS.SCORE DESC)
+        WHERE ROWNUM <= 20
+        `, {
+            email : email,
+            profile_id : profile_id
+        });
 
         const genreRecommendation = await database.simpleExecute(`
         SELECT *
@@ -390,6 +411,42 @@ const getSuggestions = async(req, res, next) => {
         `, {
             profile_id : profile_id,
             email : email
+        });
+
+        const favoriteShowGenre = await database.simpleExecute(`
+        SELECT GENRE_ID, NAME
+        FROM (SELECT SG.GENRE_ID, G.NAME
+                FROM EPISODE_WATCH EW, SHOW_GENRE SG, SHOW S, GENRE G
+                WHERE EW.SHOW_ID = S.SHOW_ID AND SG.SHOW_ID = S.SHOW_ID AND 
+                SG.GENRE_ID = G.GENRE_ID AND EW.PROFILE_ID = :profile_id AND EW.EMAIL = :email
+                GROUP BY SG.GENRE_ID, G.NAME
+                ORDER BY COUNT(*) DESC)
+        WHERE ROWNUM = 1
+        `, {
+            profile_id : profile_id,
+            email : email
+        });
+
+        const showGenreRecommendation = await database.simpleExecute(`
+        SELECT *
+        FROM (SELECT *
+        FROM (SELECT S.SHOW_ID, S.TITLE, S.IMAGE_URL, S.DESCRIPTION, ROUND((S.TOTAL_VOTES*S.RATING/(S.TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                            FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING", (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) as RELEASE_DATE
+        FROM SHOW S, SHOW_GENRE SG
+        WHERE S.SHOW_ID = SG.SHOW_ID AND SG.GENRE_ID = (SELECT GENRE_ID
+        FROM (SELECT SG.GENRE_ID, G.NAME
+                    FROM EPISODE_WATCH EW, SHOW_GENRE SG, SHOW S, GENRE G
+                    WHERE EW.SHOW_ID = S.SHOW_ID AND SG.SHOW_ID = S.SHOW_ID AND 
+                        SG.GENRE_ID = G.GENRE_ID AND EW.PROFILE_ID = :profile_id AND EW.EMAIL = :email
+                    GROUP BY SG.GENRE_ID, G.NAME
+                    ORDER BY COUNT(*) DESC)
+        WHERE ROWNUM = 1)
+        )
+        ORDER BY RATING DESC)
+        WHERE ROWNUM <=10
+        `, {
+            email : email,
+            profile_id : profile_id
         });
         
         const mostWatched = await database.simpleExecute(`
@@ -445,8 +502,12 @@ const getSuggestions = async(req, res, next) => {
 
         suggestions = [
             {
-                title: 'Recommended for you',
+                title: 'Recommended Movies for you',
                 data : similarityRecommendation.rows
+            },
+            {
+                title : 'Recommended Shows for you',
+                data : showSimilarityRecommendation.rows
             },
 
             {
@@ -458,7 +519,11 @@ const getSuggestions = async(req, res, next) => {
                 title : 'Because you watched ' + lastWatchedMovie.rows[0].TITLE,
                 data : lastWatchedRecommendation.rows
             },
-
+            {
+                title: 'Because you like ' + favoriteShowGenre.rows[0].NAME + ' shows',
+                data : showGenreRecommendation.rows
+            }
+            ,
             {
                 title : 'Top Rated Movies',
                 data : topRated.rows
@@ -466,19 +531,23 @@ const getSuggestions = async(req, res, next) => {
             {
                 title: 'Most Watched Movies',
                 data : mostWatched.rows
-            },
+            }
+            ,
             {
                 title : 'Top Rated Shows',
                 data : topRatedShows.rows
-            },
+            }
+            ,
             {
                 title : 'Most Watched Shows',
                 data : mostWatchedShows.rows
-            },
+            }
+            ,
             {
                 title : 'New Movies',
                 data: newMovies.rows
-            },
+            }
+            ,
             {
                 title : 'New Shows',
                 data : newShows.rows
@@ -493,20 +562,39 @@ const getSuggestions = async(req, res, next) => {
 }
 
 const similarity = async(req, res, next) => {
-    try {
-        const result = await database.simpleExecute(`
-            SELECT MOVIE_ID, DESCRIPTION
-            FROM MOVIE
-            WHERE DESCRIPTION IS NOT NULL
-        `);
-
-        // main(arr);
-        cosine_similarity.main(result.rows);
-        res.status(200).json({message : 'Similarity Calculation successful'});
-    } catch(err){
-        console.log(err);
-        res.status(401).json({message: 'Similarity error'});
+    const {type} = req.query;
+    if (type === 'movie'){
+        try {
+            const result = await database.simpleExecute(`
+                SELECT MOVIE_ID, DESCRIPTION
+                FROM MOVIE
+                WHERE DESCRIPTION IS NOT NULL
+            `);
+    
+            // main(arr);
+            cosine_similarity.main(result.rows, type);
+            res.status(200).json({message : 'Similarity Calculation successful for movies'});
+        } catch(err){
+            console.log(err);
+            res.status(401).json({message: 'Similarity error'});
+        }
+    } else if (type === 'show'){
+        try {
+            const result = await database.simpleExecute(`
+                SELECT SHOW_ID, DESCRIPTION
+                FROM SHOW
+                WHERE DESCRIPTION IS NOT NULL
+            `);
+    
+            // main(arr);
+            cosine_similarity.main(result.rows, type);
+            res.status(200).json({message : 'Similarity Calculation successful for shows'});
+        } catch(err){
+            console.log(err);
+            res.status(401).json({message: 'Similarity error'});
+        }
     }
+    
 }
 
 
