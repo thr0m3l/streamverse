@@ -97,12 +97,14 @@ Card.Episodes = function CardEpisodes ({children, ...restProps}){
 }
 
 
-Card.Feature = function CardFeature({ children, category, setCategory, setSlideRows, ...restProps }) {
+Card.Feature = function CardFeature({ children, category, setCategory, setSlideRows, setSearchTerm,  ...restProps }) {
   const { showFeature, itemFeature, setShowFeature } = useContext(FeatureContext);
   const auth = useContext(AuthContext);
   const [inWatchList, setInWatchList] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [rating, setRating] = useState(-1);
+  const [genres, setGenres] = useState([]);
+  const [celebs, setCelebs] = useState([]);
 
   async function fetchWatchInfo(event){
     const body = JSON.stringify({
@@ -134,9 +136,10 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
   }
 
   useEffect(() => {
+    getGenre();
     fetchWatchInfo();
     getRating();
-    
+    getCeleb();
   }, [itemFeature, showFeature])
 
   
@@ -230,10 +233,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
 
   async function getEpisodes(){
     try{
-      console.log(itemFeature.SHOW_ID);
       const response = await fetch(`http://localhost:5000/api/browse/show/episodes/?show_id=${itemFeature.SHOW_ID}&profile_id=${auth.profile}&email=${auth.email}`);
       const responseData = await response.json();
-      console.log(responseData);
       setSlideRows(responseData);
     } catch(err){
       console.log(err);
@@ -242,28 +243,78 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
     
   }
 
+  async function getGenre(){
+    try {
+      let response;
+      if (itemFeature.MOVIE_ID ) response = await fetch(`http://localhost:5000/api/browse/genre/?movie_id=${itemFeature.MOVIE_ID}`);
+      else if (itemFeature.SHOW_ID) response = await fetch(`http://localhost:5000/api/browse/genre/?show_id=${itemFeature.SHOW_ID}`);
+      const responseData = await response.json();
+     if (response.status === 200) setGenres(responseData);
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  async function getCeleb (){
+    try {
+      let response;
+      if (itemFeature.MOVIE_ID ) response = await fetch(`http://localhost:5000/api/browse/celeb/?movie_id=${itemFeature.MOVIE_ID}`);
+      else if (itemFeature.SHOW_ID) response = await fetch(`http://localhost:5000/api/browse/celeb/?show_id=${itemFeature.SHOW_ID}`);
+      const responseData = await response.json();
+     if (response.status === 200) setCelebs(responseData);
+     console.log(celebs)
+    } catch(err){
+      console.log(err);
+    }
+  }
+
   
 
 
   return showFeature ? (
     <Feature {...restProps} src={`https://image.tmdb.org/t/p/w1280${itemFeature.IMAGE_URL}`}>
       <Content>
+      
       {itemFeature.SHOW_ID && itemFeature.SEASON_NO && <Card.SubTitle> 
                       {'Season ' + itemFeature.SEASON_NO + ' Episode ' + itemFeature.EPISODE_NO}
                       </Card.SubTitle>}
+       
         <FeatureTitle>{itemFeature.TITLE}</FeatureTitle>
+       
        {itemFeature.RELEASE_DATE && <FeatureTitle> {itemFeature.RELEASE_DATE} </FeatureTitle>}
+        
         <FeatureText>{itemFeature.DESCRIPTION}</FeatureText>
-        {itemFeature.RATING && <FeatureText style = {{color: 'green'}}> {'Rating: ' + 10*itemFeature.RATING + '%'}</FeatureText>}
+        
+        
+        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '15px'}}> {'Rating: ' + 10*itemFeature.RATING + '%'}</FeatureText>}
         <FeatureClose onClick={() => {setShowFeature(false); setIsRated(false); setRating(-1)}}>
           <img src="/images/icons/close.png" alt="Close" />
         </FeatureClose>
+        
+        <FeatureText style= {{color : 'blue', marginTop : '15px'}}> {'Genre: '}</FeatureText>
+        {genres && <Group flexDirection = "row"> 
+          {genres.map((item) => (
+            <FeatureText style = {{marginRight : '20px'}} onClick = {event => {setSearchTerm(`all:genre:${item.NAME}`)}} >
+              {item.NAME}
+            </FeatureText>
+          ))}
+        </Group>}
+
+        {celebs && celebs.length > 0 && <FeatureText style= {{color : 'blue', marginTop : '15px'}} > {'Cast: '}</FeatureText>}
+        
+        { celebs && <Group flexDirection = "row"> 
+            {
+              celebs.map((item) => (
+                <FeatureText style = {{marginRight : '10px'}} onClick = {event => {setSearchTerm(`all:celeb:${item.NAME}`)}} >
+              {item.NAME}
+            </FeatureText>
+              ))
+            }
+        </Group>
+        }
 
         <Group margin="30px 0" flexDirection="row" alignItems="center">
         <Maturity rating={itemFeature.MATURITY_RATING}>{itemFeature.MATURITY_RATING}</Maturity>
-          <FeatureText fontWeight="bold">
-            {itemFeature.NAME}
-          </FeatureText>
           {!inWatchList && (!itemFeature.SEASON_NO) && <WatchList onClick = {e => postWatchInfo(e)}> 
               <AddIcon/>
           </WatchList>}
@@ -278,9 +329,6 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
             <ThumbUpIcon/>
           </Rating>
           }
-
-            
-
 
 
           {(!isRated || rating === 10) && (!itemFeature.SEASON_NO) && <Rating style= {{

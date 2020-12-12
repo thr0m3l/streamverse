@@ -239,7 +239,7 @@ export function BrowseContainer({ slides }) {
                 </Card.Item>
               ))}
             </Card.Entities>
-            <Card.Feature category = {category} setCategory = {setCategory} setSlideRows = {setSlideRows}>
+            <Card.Feature category = {category} setCategory = {setCategory} setSlideRows = {setSlideRows} setSearchTerm = {setSearchTerm}>
                 
                 
             </Card.Feature>

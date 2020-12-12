@@ -153,6 +153,9 @@ export const FeatureText = styled.p`
   @media (max-width: 600px) {
     line-height: 22px;
   }
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 export const Feature = styled.div`
@@ -161,7 +164,8 @@ export const Feature = styled.div`
   background: url(${({ src }) => src});
   background-size: contain;
   position: relative;
-  height: 360px;
+  height: 560px;
+  max-height: 900px;
   background-position-x: right;
   background-repeat: no-repeat;
   background-color: black;
@@ -292,4 +296,5 @@ padding-left: 0;
   background-color: #ff0a16;
 }
 `;
+
 

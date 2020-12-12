@@ -123,7 +123,7 @@ const getShowByGenre = async (req, res, next) => {
             } else if (param === 'lang'){
                 where = `WHERE LOWER(M.LANGUAGE) LIKE LOWER('%${kw}%') `
             }
-            movieQuery = select + from + where + order;
+            movieQuery = select + from + where;
             movieQueries.push(movieQuery);
         }
 
@@ -168,7 +168,7 @@ const getShowByGenre = async (req, res, next) => {
             order = `ORDER BY S.RATING DESC`
 
             if (param === 'celeb'){
-                from += `, SHOW_CELEB MC, CELEB C `;
+                from += `, SHOW_CELEB SC, CELEB C `;
                 where = `WHERE (S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER('%${kw}%')) `;
             } else if (param === 'genre'){
                 from += `, SHOW_GENRE SG, GENRE G `;
@@ -765,6 +765,88 @@ const similarity = async(req, res, next) => {
     
 }
 
+const getGenres = async (req, res, next) => {
+    const {movie_id, show_id} = req.query;
+    let query, result;
+    
+    try {
+        if (movie_id) {
+            query = `
+            SELECT G.NAME
+            FROM MOVIE M, MOVIE_GENRE MG, GENRE G
+            WHERE M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID AND M.MOVIE_ID = :movie_id
+            `
+            const movies = await database.simpleExecute(query, {
+                movie_id : movie_id
+            });
+            result = movies.rows;
+    
+        } else {
+            query = `
+            SELECT G.NAME
+            FROM SHOW S, SHOW_GENRE SG, GENRE G
+            WHERE S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID AND S.SHOW_ID = :show_id
+            `
+    
+            const shows = await database.simpleExecute(query, {
+                show_id : show_id
+            });
+            result = shows.rows;
+        }
+
+        res.status(200).json(result);
+        console.log(result);
+    } catch (err){
+        console.log(err);
+        res.status(400).json({message: 'Getting genre failed'});
+    }
+
+}
+
+const getCelebs = async (req, res, next) => {
+    let query;
+    const {movie_id, show_id} = req.query;
+
+    if (movie_id){
+        query = `
+        SELECT M.TITLE, C.NAME
+        FROM MOVIE M, MOVIE_CELEB MC, CELEB C
+        WHERE M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID AND M.MOVIE_ID = :movie_id AND ROWNUM <= 5
+        `
+
+        try {
+            const celebs = await database.simpleExecute(query, {
+                movie_id : movie_id
+            });
+            console.log(celebs.rows);
+            res.status(200).json(celebs.rows);
+        } catch(err){
+            console.log(err);
+            res.status(400).json({message : 'Celeb error'});
+        }
+
+
+    } else {
+        query = `
+        SELECT S.TITLE, C.NAME
+        FROM MOVIE S, SHOW_CELEB SC, CELEB C
+        WHERE S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID AND S.SHOW_ID = :show_id AND ROWNUM <= 5
+        `
+
+        try {
+            const celebs = await database.simpleExecute(query, {
+                show_id : show_id
+            });
+            console.log(celebs.rows);
+            res.status(200).json(celebs.rows);
+        } catch(err){
+            console.log(err);
+            res.status(400).json({message : 'Celeb error'});
+        }
+    }
+
+}
+
 
 
 exports.getMovieByGenre = getMovieByGenre;
@@ -774,3 +856,5 @@ exports.getEpisodes = getEpisodes;
 exports.getSuggestions = getSuggestions;
 exports.similarity = similarity;
 exports.newAndPopular = newAndPopular;
+exports.getGenres = getGenres;
+exports.getCelebs = getCelebs;

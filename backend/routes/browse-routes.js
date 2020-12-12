@@ -16,4 +16,6 @@ router.get('/suggestions', browseController.getSuggestions);
 
 router.get('/similarity', browseController.similarity);
 router.get('/new',browseController.newAndPopular);
+router.get('/genre', browseController.getGenres);
+router.get('/celeb', browseController.getCelebs);
 module.exports = router;
