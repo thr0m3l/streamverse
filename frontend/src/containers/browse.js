@@ -25,26 +25,23 @@ export function BrowseContainer({ slides }) {
     
     async function searchHandler (keyword){
         const searchKey = keyword.split(':');
-        let key, param, ss;
-        if (searchKey.length === 1){
-          key = searchKey[0];
-          param = ss = 'all';
-        } else if (searchKey.length === 2){
-          key = searchKey[1];
-          ss = 'all';
-          param = searchKey[0];
-        } else {
-          ss = searchKey[0];
-          param = searchKey[1];
-          key = searchKey[2];
+        let response;
+        if ((searchKey.length - 1) % 2 === 0 ){
+            response = await fetch('http://localhost:5000/api/browse/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({
+              ss : searchKey.length === 1 ? 'static' : searchKey[0],
+              key : searchKey.length === 1 ? searchKey[0] : searchKey.splice(1)
+            })
+          });
+
+          const data = await response.json();
+          if (response.status === 200) setSlideRows(data);
         }
-        console.log(ss, param, key);
-        const url = `http://localhost:5000/api/browse/search/?kw=${key}&param=${param}&ss=${ss}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('searching');
-        console.log(data);
-        if (response.status === 200) setSlideRows(data);
+                
     }
 
     async function getWatchList(){

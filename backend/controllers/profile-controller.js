@@ -437,7 +437,7 @@ const setTime = async (req, res, next) => {
 
 const movieContinueWatching = async (req, res, next) => {
     const query = `
-    SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.IMAGE_URL, 
+    SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.IMAGE_URL, M.VIDEO_URL,  
     M.RATING, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE, W.TIME
     FROM MOVIE_WATCH W, MOVIE M
     WHERE M.MOVIE_ID = W.MOVIE_ID AND W.EMAIL = :email 

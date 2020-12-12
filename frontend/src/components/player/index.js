@@ -69,7 +69,7 @@ Player.Video = function PlayerVideo({ src, itemFeature, ...restProps }) {
             <ReactPlayer
             ref = {ref} 
             controls
-            url = {itemFeature.VIDEO_URL}
+            url = {itemFeature.VIDEO_URL ? itemFeature.VIDEO_URL : 'http://srv2.cinehub24.com/07%2F27618-38899-IMDB-Top-250-%231-The-Shawshank-Redemption-%5B1994%5D-%5B9.3-rating%5D.MP4'}
             onPause = {event => saveTime(event)}
             onPlay = {event => getTime(event)}/>
             <Close />

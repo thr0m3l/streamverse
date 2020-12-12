@@ -87,90 +87,132 @@ const getShowByGenre = async (req, res, next) => {
  }
 
  const search = async (req, res, next) => {
-    let {kw, param, ss} = req.query; //keyword, search parameter and search space
-    if (!kw) kw = ' ';
-    if(!param) param = 'all';
-    if (!ss) ss = 'all';
+    let {ss, key} = req.body; //keyword, search parameter and search space
+    if (!key) kw = ' ';
+
     let movieQuery, showQuery, select, from, where, order, space = ss;
     let result = [];
-    
+    let movieQueries = [], showQueries = [];
 
-    if (ss === 'all' & param !== 'all') space = 'movie';
+    if (ss === 'all') space = 'movie';
     //Dynamic Query
     //If search space is movie
+
+    
     if (space === 'movie') {
-        select = `SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, M.VIDEO_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE `;
-        from = `FROM MOVIE M `;
-        order = `ORDER BY M.RATING DESC `;
-        if (param === 'celeb'){
-            from += `, MOVIE_CELEB MC, CELEB C `;
-            where = `WHERE (M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw)) `;
-        } else if (param === 'genre'){
-            from += `, MOVIE_GENRE MG, GENRE G `;
-            where = `WHERE (M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw)) `;
-        } else if (param === 'title'){
-            where = `WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw) `;
-        } else if (param === 'year'){
-            where = `WHERE EXTRACT(YEAR FROM M.RELEASE_DATE) = :kw `
+        
+        for(i = 0; i < key.length; i = i + 2){
+            param = key[i];
+            kw = key[i+1];
+
+            if (key === '') key = ' ';
+            
+            select = `SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.VIDEO_URL, M.IMAGE_URL, M.VIDEO_URL, EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE `;
+            from = `FROM MOVIE M `;
+            order = `ORDER BY M.RATING DESC `;
+            if (param === 'celeb'){
+                from += `, MOVIE_CELEB MC, CELEB C `;
+                where = `WHERE (M.MOVIE_ID = MC.MOVIE_ID AND C.CELEB_ID = MC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER('%${kw}%')) `;
+            } else if (param === 'genre'){
+                from += `, MOVIE_GENRE MG, GENRE G `;
+                where = `WHERE (M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER('%${kw}%')) `;
+            } else if (param === 'title'){
+                where = `WHERE LOWER(M.TITLE) LIKE LOWER('%${kw}%') OR LOWER(M.DESCRIPTION) LIKE LOWER('%${kw}%') `;
+            } else if (param === 'year'){
+                where = `WHERE EXTRACT(YEAR FROM M.RELEASE_DATE) = ${kw} `
+            } else if (param === 'lang'){
+                where = `WHERE LOWER(M.LANGUAGE) LIKE LOWER('%${kw}%') `
+            }
+            movieQuery = select + from + where + order;
+            movieQueries.push(movieQuery);
         }
-        movieQuery = select + from + where + order;
 
+        if (movieQueries.length > 1) movieQuery = `(` + movieQueries[0] + `)`;
+        else movieQuery = movieQueries[0];
+
+        for(i = 1; i < movieQueries.length; ++i){
+            movieQuery += ` INTERSECT ` + `(` + movieQueries[i] + `)`;
+        }
+
+        console.log(movieQuery);
+        
         try {
-            const movies = await database.simpleExecute(movieQuery, {
-                kw : (param !== 'year' ? '%' + kw + '%' : kw)
-            });
+            const movies = await database.simpleExecute(movieQuery);
 
-            result.push({
-                title: 'Search Result from Movies',
-                data: movies.rows
-            });
+        result.push({
+            title: 'Search Result from Movies',
+            data: movies.rows
+        });
 
         } catch(err){
             console.log(err);
-            res.status(400).json({message: 'Query failed'});
+            res.status(400).json({message: 'Dynamic Query 1 failed'});
         }
+        
+        
+        
     }
 
-    if (ss === 'all' & param != 'all') space = 'show';
+    if (ss === 'all') space = 'show';
     //If search space is show
 
     if (space === 'show') {
-        select = `SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE `;
-        from = `FROM SHOW S `;
-        order = `ORDER BY S.RATING DESC`
+        
+        for(i = 0; i < key.length; i = i + 2){
 
-        if (param === 'celeb'){
-            from += `, SHOW_CELEB MC, CELEB C `;
-            where = `WHERE (S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER(:kw)) `;
-        } else if (param === 'genre'){
-            from += `, SHOW_GENRE SG, GENRE G `;
-            where = `WHERE (S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER(:kw)) `;
-        } else if (param === 'title'){
-            where = `WHERE LOWER(TITLE) LIKE LOWER(:kw) OR LOWER(DESCRIPTION) LIKE (:kw) `;
-        } else if (param === 'year'){
-            where = `WHERE EXTRACT(YEAR FROM S.START_DATE) = :kw `
-        }
-        showQuery = select + from + where + order;
-        try {
-            const shows = await database.simpleExecute(showQuery, {
-                kw : (param !== 'year' ? '%' + kw + '%' : kw)
-            });
+            param = key[i];
+            kw = key[i+1];
             
-            result.push({
-                title: 'Search Result from Shows',
-                data: shows.rows
-            });
+            select = `SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) AS RELEASE_DATE `;
+            from = `FROM SHOW S `;
+            order = `ORDER BY S.RATING DESC`
+
+            if (param === 'celeb'){
+                from += `, SHOW_CELEB MC, CELEB C `;
+                where = `WHERE (S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID) AND (LOWER(C.NAME) LIKE LOWER('%${kw}%')) `;
+            } else if (param === 'genre'){
+                from += `, SHOW_GENRE SG, GENRE G `;
+                where = `WHERE (S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID) AND (LOWER(G.NAME) LIKE LOWER('%${kw}%')) `;
+            } else if (param === 'title'){
+                where = `WHERE LOWER(TITLE) LIKE LOWER('%${kw}%') OR LOWER(DESCRIPTION) LIKE ('%${kw}%') `;
+            } else if (param === 'year'){
+                where = `WHERE EXTRACT(YEAR FROM S.START_DATE) = ${kw} `
+            } else if (param === 'lang'){
+                where = `WHERE LOWER(S.LANGUAGE) LIKE LOWER('%${kw}%') `
+            }
+            showQuery = select + from + where;
+            showQueries.push(showQuery);
+        }
+
+        if (showQueries.length > 1) showQuery = `(` + showQueries[0] + `)`;
+        else showQuery = showQueries[0];
+
+        for(i = 1; i < showQueries.length; ++i){
+            showQuery += ` INTERSECT ` + `(` + showQueries[i] + `)`;
+        }
+
+        console.log(showQuery)
+
+        try {
+            const shows = await database.simpleExecute(showQuery);
+        
+        result.push({
+            title: 'Search Result from Shows',
+            data: shows.rows
+        });
         } catch(err){
             console.log(err);
-            res.status(400).json({message: 'Query failed'});
+            res.status(400).json({message: 'Dynamic Query 2 failed'});
         }
+        
+        
     } 
 
 
     //Static Query
     //In case no parameter and search space defined, assume all
 
-    if(param === 'all' && ss === 'all') {
+    if(ss === 'static') {
         movieQuery = `
         (
             SELECT M.MOVIE_ID, M.TITLE, M.DESCRIPTION, M.RATING, M.IMAGE_URL, M.VIDEO_URL,  EXTRACT(YEAR FROM M.RELEASE_DATE) AS RELEASE_DATE
@@ -212,11 +254,11 @@ const getShowByGenre = async (req, res, next) => {
 
         try {
             const movies = await database.simpleExecute(movieQuery, {
-                kw : '%' + kw + '%'
+                kw : '%' + key + '%'
             });
     
             const shows = await database.simpleExecute(showQuery, {
-                kw : '%' + kw + '%'
+                kw : '%' + key + '%'
             });
             
             result = [
@@ -231,7 +273,7 @@ const getShowByGenre = async (req, res, next) => {
             ]
         } catch(err){
             console.log(err);
-            res.status(401).json({message: 'Query failed'});
+            res.status(401).json({message: 'Static Query failed'});
         }
     }
     res.status(200).json(result);

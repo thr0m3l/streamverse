@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/movies/:genre', browseController.getMovieByGenre);
 router.get('/shows/:genre', browseController.getShowByGenre);
-router.get('/search', browseController.search);
+router.post('/search', browseController.search);
 router.get('/show/episodes', browseController.getEpisodes);
 router.get('/suggestions', browseController.getSuggestions);
 
