@@ -105,7 +105,8 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
   const [rating, setRating] = useState(-1);
   const [genres, setGenres] = useState([]);
   const [celebs, setCelebs] = useState([]);
-
+  const [views, setViews] = useState(0);
+  const [votes, setVotes] = useState(0);
   async function fetchWatchInfo(event){
     const body = JSON.stringify({
       EMAIL: auth.email,
@@ -249,7 +250,11 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
       if (itemFeature.MOVIE_ID ) response = await fetch(`http://localhost:5000/api/browse/genre/?movie_id=${itemFeature.MOVIE_ID}`);
       else if (itemFeature.SHOW_ID) response = await fetch(`http://localhost:5000/api/browse/genre/?show_id=${itemFeature.SHOW_ID}`);
       const responseData = await response.json();
-     if (response.status === 200) setGenres(responseData);
+     if (response.status === 200) {
+       setGenres(responseData);
+       setViews(responseData[0].TOTAL_VIEWS);
+       setVotes(responseData[0].TOTAL_VOTES);
+      }
     } catch(err){
       console.log(err);
     }
@@ -261,7 +266,10 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
       if (itemFeature.MOVIE_ID ) response = await fetch(`http://localhost:5000/api/browse/celeb/?movie_id=${itemFeature.MOVIE_ID}`);
       else if (itemFeature.SHOW_ID) response = await fetch(`http://localhost:5000/api/browse/celeb/?show_id=${itemFeature.SHOW_ID}`);
       const responseData = await response.json();
-     if (response.status === 200) setCelebs(responseData);
+     if (response.status === 200) {
+       setCelebs(responseData);
+       
+      }
      console.log(celebs)
     } catch(err){
       console.log(err);
@@ -302,7 +310,10 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
         <FeatureText>{itemFeature.DESCRIPTION}</FeatureText>
         
         
-        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '15px'}}> {'Rating: ' + roundToTwo(10*itemFeature.RATING) + '%'}</FeatureText>}
+        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '10px'}}> {'Rating: ' + roundToTwo(10*itemFeature.RATING) + '%'}</FeatureText>}
+        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '10px'}}> {'Total Votes: ' + votes}</FeatureText>}
+        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '10px'}}> {'Total Views: ' + views}</FeatureText>}
+
         <FeatureClose onClick={() => {setShowFeature(false); setIsRated(false); setRating(-1)}}>
           <img src="/images/icons/close.png" alt="Close" />
         </FeatureClose>
@@ -318,7 +329,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
 
         {celebs && celebs.length > 0 && <FeatureText style= {{color : 'blue', marginTop : '15px'}} > {'Cast: '}</FeatureText>}
         
-        { celebs && <Group flexDirection = "row"> 
+        {celebs && <Group flexDirection = "row"> 
             {
               celebs.map((item) => (
                 <FeatureText style = {{marginRight : '10px'}} onClick = {event => {setSearchTerm(`all:celeb:${item.NAME}`)}} >

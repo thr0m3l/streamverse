@@ -192,7 +192,7 @@ const getShowByGenre = async (req, res, next) => {
 
             if (param !== 'sim') showQuery = select + from + where;
             else showQuery = `SELECT *
-            FROM (SELECT S2.SHOW_ID, SS.SCORE, S2.TITLE, S2.DESCRIPTION, S2.IMAGE_URL, S2.RATING,
+            FROM (SELECT S2.SHOW_ID, SS.SCORE, S2.TITLE, S2.DESCRIPTION, S2.IMAGE_URL, S2.RATING, 
                     (EXTRACT(YEAR FROM S2.START_DATE) || ' - ' || EXTRACT(YEAR FROM S2.END_DATE)) as RELEASE_DATE
                 FROM SHOW S1, SHOW S2, SHOW_SIMILARITY SS
                 WHERE S1.SHOW_ID = SS.SHOW_ID1 AND S2.SHOW_ID = SS.SHOW_ID2 
@@ -201,7 +201,6 @@ const getShowByGenre = async (req, res, next) => {
             WHERE ROWNUM <= 5
             `
             showQueries.push(showQuery);
-
             
         }
 
@@ -793,7 +792,7 @@ const getGenres = async (req, res, next) => {
     try {
         if (movie_id) {
             query = `
-            SELECT G.NAME
+            SELECT G.NAME, M.TOTAL_VIEWS, M.TOTAL_VOTES
             FROM MOVIE M, MOVIE_GENRE MG, GENRE G
             WHERE M.MOVIE_ID = MG.MOVIE_ID AND G.GENRE_ID = MG.GENRE_ID AND M.MOVIE_ID = :movie_id
             `
@@ -804,7 +803,7 @@ const getGenres = async (req, res, next) => {
     
         } else {
             query = `
-            SELECT G.NAME
+            SELECT G.NAME, S.TOTAL_VIEWS, S.TOTAL_VOTES
             FROM SHOW S, SHOW_GENRE SG, GENRE G
             WHERE S.SHOW_ID = SG.SHOW_ID AND G.GENRE_ID = SG.GENRE_ID AND S.SHOW_ID = :show_id
             `
