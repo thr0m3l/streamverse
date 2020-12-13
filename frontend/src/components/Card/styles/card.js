@@ -229,9 +229,9 @@ export const WatchList = styled.button`
   background-color: #000000;
   border-color: #000000;
   position: absolute;
-  right : 300px;
+  right : 390px;
   top: 50px;
-  width: 115px;
+  width: 75px;
   height: 145px;
   text-transform: uppercase;
   font-weight: bold;
@@ -254,9 +254,9 @@ export const Rating = styled.button`
   background-color: #000000;
   border-color: #000000;
   position: absolute;
-  right : 400px;
+  right : 575px;
   top: 50px;
-  width: 100px;
+  width: 75px;
   height: 145px;
   text-transform: uppercase;
   font-weight: bold;

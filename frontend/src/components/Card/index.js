@@ -268,6 +268,22 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
     }
   }
 
+  async function getSimilar(){
+    try {
+      let response;
+      if (itemFeature.MOVIE_ID ) response = await fetch(`http://localhost:5000/api/browse/similar/?movie_id=${itemFeature.MOVIE_ID}`);
+      else if (itemFeature.SHOW_ID) response = await fetch(`http://localhost:5000/api/browse/similar/?show_id=${itemFeature.SHOW_ID}`);
+      const responseData = await response.json();
+     if (response.status === 200) setSlideRows(responseData);
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
   
 
 
@@ -286,7 +302,7 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
         <FeatureText>{itemFeature.DESCRIPTION}</FeatureText>
         
         
-        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '15px'}}> {'Rating: ' + 10*itemFeature.RATING + '%'}</FeatureText>}
+        {itemFeature.RATING && <FeatureText style = {{color: 'green', marginTop : '15px'}}> {'Rating: ' + roundToTwo(10*itemFeature.RATING) + '%'}</FeatureText>}
         <FeatureClose onClick={() => {setShowFeature(false); setIsRated(false); setRating(-1)}}>
           <img src="/images/icons/close.png" alt="Close" />
         </FeatureClose>
@@ -338,6 +354,13 @@ Card.Feature = function CardFeature({ children, category, setCategory, setSlideR
             <ThumbDownIcon/>
           </Rating>
           }
+
+          <WatchList style = {{right: '700px', width: '200px'}} onClick = 
+          {event => setSearchTerm(itemFeature.MOVIE_ID ? `movie:sim:${itemFeature.TITLE}` : `show:sim:${itemFeature.TITLE}`)}>
+             More Like This
+              </WatchList>
+
+
         </Group>
         
         {itemFeature.SHOW_ID && !itemFeature.SEASON_NO && <Card.Episodes onClick = { (event) => {

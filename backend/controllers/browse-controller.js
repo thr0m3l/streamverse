@@ -123,7 +123,16 @@ const getShowByGenre = async (req, res, next) => {
             } else if (param === 'lang'){
                 where = `WHERE LOWER(M.LANGUAGE) LIKE LOWER('%${kw}%') `
             }
-            movieQuery = select + from + where;
+
+            if (param !== 'sim') movieQuery = select + from + where;
+            else movieQuery = `SELECT *
+            FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.VIDEO_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
+                FROM MOVIE M1, MOVIE M2, MOVIE_SIMILARITY MS
+                WHERE M1.MOVIE_ID = MS.MOVIE_ID1 AND M2.MOVIE_ID = MS.MOVIE_ID2 
+                AND MS.SCORE < 1 AND MS.SCORE > 0.05 AND ${typeof kw === 'number' ? ` M1.MOVIE_ID = ${kw}` : `LOWER(M1.TITLE) LIKE LOWER('%${kw}%') `}
+                ORDER BY MS.SCORE DESC)
+            WHERE ROWNUM <= 5
+            `
             movieQueries.push(movieQuery);
         }
 
@@ -180,8 +189,20 @@ const getShowByGenre = async (req, res, next) => {
             } else if (param === 'lang'){
                 where = `WHERE LOWER(S.LANGUAGE) LIKE LOWER('%${kw}%') `
             }
-            showQuery = select + from + where;
+
+            if (param !== 'sim') showQuery = select + from + where;
+            else showQuery = `SELECT *
+            FROM (SELECT S2.SHOW_ID, SS.SCORE, S2.TITLE, S2.DESCRIPTION, S2.IMAGE_URL, S2.RATING,
+                    (EXTRACT(YEAR FROM S2.START_DATE) || ' - ' || EXTRACT(YEAR FROM S2.END_DATE)) as RELEASE_DATE
+                FROM SHOW S1, SHOW S2, SHOW_SIMILARITY SS
+                WHERE S1.SHOW_ID = SS.SHOW_ID1 AND S2.SHOW_ID = SS.SHOW_ID2 
+                AND SS.SCORE < 1 AND SS.SCORE > 0.05 AND ${typeof kw === 'number' ? ` S1.SHOW_ID = ${kw}` : `LOWER(S1.TITLE) LIKE LOWER('%${kw}%') `}
+                ORDER BY SS.SCORE DESC)
+            WHERE ROWNUM <= 5
+            `
             showQueries.push(showQuery);
+
+            
         }
 
         if (showQueries.length > 1) showQuery = `(` + showQueries[0] + `)`;
@@ -847,6 +868,53 @@ const getCelebs = async (req, res, next) => {
 
 }
 
+const getSimilar = async (req, res, next) => {
+    let query;
+    const {movie_id, show_id} = req.query;
+
+    if (movie_id){
+        query = `
+        SELECT *
+        FROM (SELECT M2.MOVIE_ID, MS.SCORE, M2.TITLE, M2.DESCRIPTION, M2.IMAGE_URL, M2.VIDEO_URL, M2.RATING, EXTRACT(YEAR FROM M2.RELEASE_DATE) as RELEASE_DATE
+            FROM MOVIE M1, MOVIE M2, MOVIE_SIMILARITY MS
+            WHERE M1.MOVIE_ID = MS.MOVIE_ID1 AND M2.MOVIE_ID = MS.MOVIE_ID2 
+			AND MS.SCORE < 1 AND MS.SCORE > 0.05 AND M1.MOVIE_ID = :movie_id
+            ORDER BY MS.SCORE DESC)
+        WHERE ROWNUM <= 5
+        `
+
+        try {
+            const movies = await database.simpleExecute(query, {
+                movie_id : movie_id
+            });
+            console.log(movies.rows);
+            res.status(200).json(movies.rows);
+        } catch(err){
+            console.log(err);
+            res.status(400).json({message : 'Couldnt find similar movies'});
+        }
+
+
+    } else {
+        query = `
+        SELECT S.TITLE, C.NAME
+        FROM MOVIE S, SHOW_CELEB SC, CELEB C
+        WHERE S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID AND S.SHOW_ID = :show_id AND ROWNUM <= 5
+        `
+
+        try {
+            const celebs = await database.simpleExecute(query, {
+                show_id : show_id
+            });
+            console.log(celebs.rows);
+            res.status(200).json(celebs.rows);
+        } catch(err){
+            console.log(err);
+            res.status(400).json({message : 'Celeb error'});
+        }
+    }
+}
+
 
 
 exports.getMovieByGenre = getMovieByGenre;
@@ -858,3 +926,4 @@ exports.similarity = similarity;
 exports.newAndPopular = newAndPopular;
 exports.getGenres = getGenres;
 exports.getCelebs = getCelebs;
+exports.getSimilar = getSimilar;
