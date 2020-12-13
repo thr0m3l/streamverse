@@ -2,7 +2,7 @@ const HttpError = require('../models/http-error');
 const database = require('./../services/database');
 const cosine_similarity = require('../services/cosine_similarity');
 const axios = require('axios');
-const { query } = require('express');
+const { query, response } = require('express');
 
 const getMovieByGenre = async (req, res, next) => {
    const genre = req.params.genre;
@@ -659,93 +659,152 @@ const getSuggestions = async(req, res, next) => {
 const newAndPopular = async (req, res, next) => {
     const {email} = req.query;
     
-    const newMovies = await database.simpleExecute(
-        `SELECT MOVIE_ID, TITLE, DESCRIPTION, VIDEO_URL, IMAGE_URL, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
-        ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
-        FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
-        FROM MOVIE
-        WHERE ROWNUM <= 50 AND RELEASE_DATE <= SYSDATE
-        ORDER BY RELEASE_DATE DESC`
-    );
-
-    const newShows = await database.simpleExecute(
-        `SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, VIDEO_URL, EXTRACT (YEAR FROM START_DATE) as START_YEAR, 
+    try {
+        const newMovies = await database.simpleExecute(
+            `SELECT MOVIE_ID, TITLE, DESCRIPTION, VIDEO_URL, IMAGE_URL, EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+            FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
+            FROM MOVIE
+            WHERE ROWNUM <= 50 AND RELEASE_DATE <= SYSDATE
+            ORDER BY RELEASE_DATE DESC`
+        );
+    
+        const newShows = await database.simpleExecute(
+            `SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, VIDEO_URL, EXTRACT (YEAR FROM START_DATE) as START_YEAR, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+                      FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
+                       FROM SHOW
+                       WHERE ROWNUM <= 50 AND START_DATE <= SYSDATE
+                       ORDER BY START_DATE DESC`
+        );
+    
+    
+        const upcomingMovies = await database.simpleExecute(`
+            SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL,  EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
+            ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
+            FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
+            FROM MOVIE
+            WHERE ROWNUM <= 50 AND RELEASE_DATE > SYSDATE
+            ORDER BY RELEASE_DATE DESC
+        `);
+    
+        const upcomingShows = await database.simpleExecute(`
+        SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM START_DATE) as RELEASE_DATE, 
         ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
                   FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
                    FROM SHOW
-                   WHERE ROWNUM <= 50 AND START_DATE <= SYSDATE
-                   ORDER BY START_DATE DESC`
-    );
-
-
-    const upcomingMovies = await database.simpleExecute(`
-        SELECT MOVIE_ID, TITLE, DESCRIPTION, IMAGE_URL,  EXTRACT (YEAR FROM RELEASE_DATE) as RELEASE_DATE, 
-        ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
-        FROM MOVIE)/(TOTAL_VOTES+10000)), 2) as "RATING"
-        FROM MOVIE
-        WHERE ROWNUM <= 50 AND RELEASE_DATE > SYSDATE
-        ORDER BY RELEASE_DATE DESC
-    `);
-
-    const upcomingShows = await database.simpleExecute(`
-    SELECT SHOW_ID, TITLE, DESCRIPTION, IMAGE_URL, EXTRACT (YEAR FROM START_DATE) as RELEASE_DATE, 
-    ROUND((TOTAL_VOTES*RATING/(TOTAL_VOTES+10000)) + (10000*(SELECT AVG(RATING) 
-              FROM SHOW)/(TOTAL_VOTES+10000)), 2) as "RATING"
-               FROM SHOW
-               WHERE ROWNUM <= 50 AND START_DATE > SYSDATE
-               ORDER BY START_DATE DESC
-    `);
-
-    const userCountry = await database.simpleExecute(`
-        SELECT U.COUNTRY
-        FROM USER_NETFLIX U
-        WHERE EMAIL = :email
-    `, {
-        email : email
-    });
-
-    const regionMovie = await database.simpleExecute(`
-        SELECT *
-        FROM (SELECT M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE
-            FROM MOVIE M, MOVIE_WATCH MW, USER_NETFLIX U
-            WHERE M.MOVIE_ID = MW.MOVIE_ID AND MW.EMAIL = U.EMAIL AND U.COUNTRY = (SELECT U.COUNTRY
+                   WHERE ROWNUM <= 50 AND START_DATE > SYSDATE
+                   ORDER BY START_DATE DESC
+        `);
+    
+        const userCountry = await database.simpleExecute(`
+            SELECT U.COUNTRY
+            FROM USER_NETFLIX U
+            WHERE EMAIL = :email
+        `, {
+            email : email
+        });
+    
+        const regionMovie = await database.simpleExecute(`
+            SELECT *
+            FROM (SELECT M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE
+                FROM MOVIE M, MOVIE_WATCH MW, USER_NETFLIX U
+                WHERE M.MOVIE_ID = MW.MOVIE_ID AND MW.EMAIL = U.EMAIL AND (SYSDATE - MW.TIME) < 7 AND U.COUNTRY = (SELECT U.COUNTRY
+                    FROM USER_NETFLIX U
+                    WHERE EMAIL = :email)
+                GROUP BY M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE)
+                ORDER BY COUNT(*) DESC)
+            WHERE ROWNUM <= 10
+        `, {
+            email : email
+        })
+    
+        const regionShow = await database.simpleExecute(`
+        SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
+        FROM SHOW S
+        WHERE SHOW_ID IN (SELECT S.SHOW_ID
+        FROM SHOW S, EPISODE_WATCH EW, USER_NETFLIX U
+        WHERE S.SHOW_ID = EW.SHOW_ID AND  EW.EMAIL = U.EMAIL AND U.COUNTRY = (SELECT U.COUNTRY
                 FROM USER_NETFLIX U
-                WHERE EMAIL = :email)
-            GROUP BY M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE)
-            ORDER BY COUNT(*) DESC)
-        WHERE ROWNUM <= 10
-    `, {
-        email : email
-    })
+                WHERE EMAIL = :email) AND (SYSDATE - EW.TIME) < 7 
+        GROUP BY S.SHOW_ID
+        )
+        
+        `, {
+            email : email
+        });
 
-    const response = [
-        {
-            title: 'Top 10 Movies in ' + userCountry.rows[0].COUNTRY,
-            data: regionMovie.rows
-        }
-        ,
-        {
-            title : 'New Movies',
-            data: newMovies.rows
-        }
-        ,
-        {
-            title : 'New Shows',
-            data : newShows.rows
-        }
-        ,
-        {
-            title : 'Upcoming Movies',
-            data : upcomingMovies.rows
-        }
-        ,
-        {
-            title : 'Upcoming Shows',
-            data : upcomingShows.rows
-        }   
-    ];
+        const globalMovie = await database.simpleExecute(`
+            SELECT *
+            FROM (SELECT M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE) as RELEASE_DATE
+                FROM MOVIE M, MOVIE_WATCH MW, USER_NETFLIX U
+                WHERE M.MOVIE_ID = MW.MOVIE_ID AND MW.EMAIL = U.EMAIL AND (SYSDATE - MW.TIME) < 7
+                GROUP BY M.MOVIE_ID, M.TITLE, M.RATING, M.IMAGE_URL, M.DESCRIPTION, EXTRACT(YEAR FROM M.RELEASE_DATE)
+                ORDER BY COUNT(*) DESC)
+            WHERE ROWNUM <= 10
+        `)
+    
+        const globalShow = await database.simpleExecute(`
+        SELECT S.SHOW_ID, S.TITLE, S.DESCRIPTION, S.RATING, S.IMAGE_URL, (EXTRACT(YEAR FROM S.START_DATE) || ' - ' || EXTRACT(YEAR FROM S.END_DATE)) RELEASE_DATE
+        FROM SHOW S
+        WHERE SHOW_ID IN (SELECT S.SHOW_ID
+        FROM SHOW S, EPISODE_WATCH EW, USER_NETFLIX U
+        WHERE S.SHOW_ID = EW.SHOW_ID AND  EW.EMAIL = U.EMAIL AND (SYSDATE - EW.TIME) < 7 
+        GROUP BY S.SHOW_ID
+        )
+        `);
 
-    res.status(200).json(response);
+        
+
+    
+        const response = [
+            {
+                title: 'Top 10 Movies in ' + userCountry.rows[0].COUNTRY,
+                data: regionMovie.rows
+            }
+            ,
+            {
+                title: 'Top 10 Shows in ' + userCountry.rows[0].COUNTRY,
+                data : regionShow.rows
+            }
+            ,
+            {
+                title : 'Trending Movies ',
+                data : globalMovie.rows
+            }
+            ,
+            {
+                title: 'Trending Shows ',
+                data : globalShow.rows
+            }
+            ,
+            {
+                title : 'New Movies',
+                data: newMovies.rows
+            }
+            ,
+            {
+                title : 'New Shows',
+                data : newShows.rows
+            }
+            ,
+            {
+                title : 'Upcoming Movies',
+                data : upcomingMovies.rows
+            }
+            ,
+            {
+                title : 'Upcoming Shows',
+                data : upcomingShows.rows
+            }   
+        ];
+    
+        res.status(200).json(response);
+    } catch (err){
+        console.log(err);
+        res.status(400).json(err);
+    }
+    
 
 }
 
@@ -849,7 +908,7 @@ const getCelebs = async (req, res, next) => {
     } else {
         query = `
         SELECT S.TITLE, C.NAME
-        FROM MOVIE S, SHOW_CELEB SC, CELEB C
+        FROM SHOW S, SHOW_CELEB SC, CELEB C
         WHERE S.SHOW_ID = SC.SHOW_ID AND C.CELEB_ID = SC.CELEB_ID AND S.SHOW_ID = :show_id AND ROWNUM <= 5
         `
 
