@@ -1,3 +1,374 @@
 {
-  "RECORDS": []
+  "RECORDS": [
+    {
+      "SHOW_ID": "100",
+      "CELEB_ID": "1836",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "100",
+      "CELEB_ID": "39185",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "100",
+      "CELEB_ID": "11108",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "100",
+      "CELEB_ID": "4581",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "100",
+      "CELEB_ID": "93713",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "100",
+      "CELEB_ID": "940",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "2414853",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "1492992",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "2157589",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "2019916",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "1248374",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "1247778",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1324666",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1254672",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1116334",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "216448",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "233590",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "101913",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1972402",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1247956",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "221773",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1325034",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1168909",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1492982",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "936275",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1922640",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1919881",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1251011",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "2318578",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "96316",
+      "CELEB_ID": "1627347",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "72636",
+      "CELEB_ID": "1694241",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "62565",
+      "CELEB_ID": "1248374",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "62565",
+      "CELEB_ID": "1164931",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "62565",
+      "CELEB_ID": "1210634",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1254069",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1241552",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1296667",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1498133",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "144648",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "223687",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "84508",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1408426",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "1784417",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "88040",
+      "CELEB_ID": "2564771",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1296667",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1356221",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1164931",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1498133",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1325033",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "83933",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "1239381",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "83095",
+      "CELEB_ID": "2009995",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1324650",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1248340",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "90135",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1253972",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1483496",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1643475",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "76121",
+      "CELEB_ID": "1922613",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "72636",
+      "CELEB_ID": "1250465",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "72636",
+      "CELEB_ID": "1647636",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "72636",
+      "CELEB_ID": "1819861",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "72636",
+      "CELEB_ID": "230411",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "72636",
+      "CELEB_ID": "16142",
+      "ROLE": "Directing"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1210634",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "90135",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1072776",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "46004",
+      "CELEB_ID": "1316009",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "1780007",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "11855",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "91600",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "1235615",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "119812",
+      "ROLE": "Acting"
+    },
+    {
+      "SHOW_ID": "70785",
+      "CELEB_ID": "1485770",
+      "ROLE": "Acting"
+    }
+  ]
 }

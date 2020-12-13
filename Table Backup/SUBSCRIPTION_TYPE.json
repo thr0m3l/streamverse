@@ -1,0 +1,19 @@
+{
+  "RECORDS": [
+    {
+      "SUB_TYPE": "BASIC",
+      "BILL": "5",
+      "NUM_PROFILES": "2"
+    },
+    {
+      "SUB_TYPE": "STANDARD",
+      "BILL": "8",
+      "NUM_PROFILES": "4"
+    },
+    {
+      "SUB_TYPE": "PREMIUM",
+      "BILL": "10",
+      "NUM_PROFILES": "6"
+    }
+  ]
+}
