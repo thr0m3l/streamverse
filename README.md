@@ -2,6 +2,8 @@
 
 A simple Netflix clone made for the term project of Level-2 Term-2 of CSE 216 (Database Sessional) at Bangladesh University of Engineering and Technology.
 
+## Demo Video: [Google Drive](https://drive.google.com/file/d/1CGdOV_rHBBWYqaAviNdVbvhW7HEs9sXx/view?usp=sharing)
+
 ## Features:
  1. Movie/TV show streaming
  2. Personalized recommendation based on your history
